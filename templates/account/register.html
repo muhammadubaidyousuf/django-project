@@ -1,0 +1,26 @@
+{% extends '../base.html' %}
+{% block body %}
+	<title>Create Account - Bukinow</title>
+<body>
+	<div class="buki-all-form">
+		<form action="" method="post">
+			{% csrf_token %}
+			<div class="log-head">
+				<h3>Create New Account</h3>
+			</div>
+			<div class="error-alert">
+				{% if error %}
+				<p>{{ error }}</p>
+				{% endif %}
+			</div>
+			<input type="text" name="user-name" placeholder="Full name">
+			<input type="email" name="user-email" placeholder="Email">
+			<input type="text" name="user-phone" placeholder="Phone No">
+			<input type="password" name="user-password" placeholder="Password">
+			<button id="buki-on-btn" type="submit">SINGUP</button>
+		</form>
+		<a href="{% url 'login' %}"><button id="buki-off-btn" type="submit">LOGIN</button></a>
+		<span class="forget-pass"><a href="{% url 'password_reset' %}">Forgot Password</a></span>
+	</div>	
+{% endblock %}
+

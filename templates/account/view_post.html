@@ -1,0 +1,69 @@
+{% extends '../base.html' %}
+
+
+{% block body %}
+
+<title>{{ view_post_id.c_title }} - Bukinow </title>
+
+{% include 'include/_navbar.html' %}
+
+{% include 'include/_sidebar.html' %}		
+
+<div class="post_page_main">
+	<div class="post_page_row">
+		<div class="center-col-70">
+
+			<div class="col-70-img">
+				<img src="{{ view_post_id.c_select_image }}" height="400" width="400" title="{{ car_post.c_title | title }}">
+			</div>
+			<div class="col-70-tabel">
+					<table>
+						<tr>
+			    		<td><p>YEAR</p></td>
+			     		<td><p>{{ view_post_id.c_car_model | upper }}</p></td>
+			     		<td><p>DRIVER</p></td>
+					    <td><p>{{ view_post_id.c_self_driver | upper }}</p></td>
+			  			</tr>
+					  <tr>
+					  	<td><p>CAR</p></td>
+					  	<td><p>{{ view_post_id.c_car_name | upper }}</p></td>
+					  	<td><p>LOCATION</p></td>
+					  	<td><p>{{ view_post_id.c_user_city | upper }}</p></td>
+					  </tr>
+					  <tr>
+
+					  </tr>
+					  <tr>
+					  	<td><p>COLOR</p></td>
+			  			<td><p>{{ view_post_id.c_car_color | upper }}</p></td>
+					  </tr>
+					</table>
+					<hr>
+					<div class="col-70-tabel-dec">
+						<h2>Description</h2>
+						<p>{{ view_post_id.c_car_about }}</p>
+					</div>
+			</div>
+		</div>
+		<div class="right-col-30">
+			<div class="right-col-30-2">
+				<h2>Par Day Rent : {{ view_post_id.c_par_day_price }}</h2>
+				<p> {{ view_post_id.c_title }}</p>
+			</div>
+
+			<div class="right-col-30-1">
+				<i title="User" id="profile-icon" class="fa fa-user-circle-o" aria-hidden="true"></i>
+				<h2>{{ request.user | title }}</h2>
+				<p><i class="fa fa-phone" aria-hidden="true"></i> 03111074690</p>
+			</div>
+
+			<div class="right-col-30-1">
+				<i id="profile-icon" class="fa fa-map-marker" aria-hidden="true" title="Address"></i>
+				<p>{{ view_post_id.c_address }}</p>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,575 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+*{ margin: 0; padding: 0; box-sizing: border-box; font-family: 'Muli', sans-serif;}
+
+
+.main-cover{
+	background-image: url("car1.jpg");
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+
+}
+
+.main-under-cover{
+	color: white;
+	background: rgb(0,0,0,0.8);
+	padding: 50px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 10px;
+/*	animation-name: top-to-bottom;
+	animation-duration: 3s;  
+	animation-delay: 0s;
+	 animation-fill-mode: both;*/
+
+}
+
+.main-under-cover input{
+	height: 40px;
+	border-radius: 25px;
+	padding: 10px;
+	border: 1px solid #28A745;
+	background: rgb(0,0,0,0.8);
+	color: white;
+}
+
+.main-under-cover button{
+	border-radius: 25px;
+}
+
+
+/*.main-under-cover hr{
+	color: white;
+}*/
+
+.main-under-cover h2{
+	text-align: center;
+	margin-bottom: 10px;
+	opacity: 0.3;
+	color: white;
+
+}
+
+.main-under-cover img{
+	color: white;
+}
+
+/*@keyframes top-to-bottom{
+  from {top: 10px;}
+  to {top: 300px;}
+}*/
+
+
+.main-cover .logo{
+	border: 2px solid #218838;
+	padding: 3px;
+	border-radius: 8px;
+}
+
+.main-cover .logo:hover{
+	background:  #218838;
+	border: 2px solid white;
+
+}
+
+
+/* Login form start */
+
+.buki-all-form{
+	width: 500px;
+	height: auto;
+	margin: 20px auto;
+	padding: 30px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 10px;
+	border: 1px solid #28A745;
+	text-align: center;
+	box-shadow: 5px 8px 15px #888888;
+}
+
+.buki-all-form input[type = "email"], .buki-all-form input[type = "password"], .buki-all-form input[type = "text"] {
+	margin: 20px auto;
+	height: 50px;
+	display: block;
+	width: calc(100% - 40px);
+	background: none;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	border: 1px solid #c9c9c9;
+	color: black;
+	font-size: 18px;
+	padding: 8px;
+}
+
+.buki-all-form input[type = "email"]:focus, .buki-all-form input[type = "password"]:focus, .buki-all-form input[type = "text"]:focus{
+	border: 1px solid #28A745;
+}
+
+
+.log-head{
+	color: white;
+	padding: 20px;
+	width: 100%;
+	font-family: sans-serif;
+	background: linear-gradient(to right, #00cc66 -19%, #33cccc 100%);
+	top: -50px;
+	position: relative;
+	border-radius: 8px;
+}
+
+#buki-on-btn{
+	margin: 20px auto;
+	height: 50px;
+	display: block;
+	width: calc(100% - 40px);
+	background: linear-gradient(to right, #00cc66 -19%, #33cccc 100%);
+	border-radius: 25px;
+	border: none;
+	outline: none;
+	border: 1px solid #28A745;
+	color: white;
+	font-size: 18px;
+	padding: 8px;
+	
+}
+#buki-on-btn:hover{
+	border: #28A745;
+}
+
+
+#buki-off-btn{
+	margin: 20px auto;
+	height: 50px;
+	display: block;
+	width: calc(100% - 40px);
+	background: none;
+	border-radius: 25px;
+	border: none;
+	outline: none;
+	border: 1px solid #28A745;
+	color: white;
+	font-size: 18px;
+	padding: 8px;
+	color: #28A745;
+}
+
+.buki-all-form a{
+	text-decoration: none;
+}
+
+.buki-all-form #buki-off-btn:hover{
+	background: linear-gradient(to right, #00cc66 -19%, #33cccc 100%);
+	color: white;
+}
+
+
+.forget-pass{
+	padding: 10px;
+	width: calc(100% - 40px);
+	
+}
+
+.forget-pass a{
+	color: #28A745;
+	font-size: 13px;
+}
+
+
+.forget-pass a:hover{
+	color: #006b17;
+
+}
+.buki-all-form ::placeholder{
+	color: #c6c6c6;
+	font-size: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+	.buki-all-form{
+		margin-top: 20px;
+		height: auto;
+		width: 100%;
+		border-radius:0;
+		border:0;
+		border-top: 1px solid #28A745;
+		box-shadow: none;
+	}
+}
+/* Login form end */
+
+
+/* Error Alert All */
+
+.error-alert{
+	color: #ad0000;
+	text-transform: uppercase;
+	display: flex;
+  	justify-content: center;
+
+}
+
+
+/* done mag after password reset and change */
+
+.done-msg{
+	width: 80%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	background:#bfffc8;
+	text-align: center;
+	padding: 20px;
+	border-radius:5px ;
+	border: 1px solid #218838;
+}
+
+.done-msg a{
+	text-decoration: none;
+}
+/* done end */
+
+
+
+/* main nave bar start ---------------------------------------------------------------------*/
+
+
+.nave-bar-main{
+	overflow: hidden;
+	height: 63px;
+	background-color: #333333;
+	top: 0;
+	width: 100%;
+	position: fixed;
+	margin-bottom: 50px;
+	box-shadow: 0 8px 15px 0 rgba(0,0,0,0.5);
+	border-top: 1px solid white;
+}
+
+#bg-btn{
+	font-size: 30px;
+	padding: 10px;
+}
+
+.nave-bar-main a{
+	display: block;
+	color: white;
+	float: left;
+	padding: 20px;
+	text-decoration: none;
+}
+
+.nave-bar-main a:hover{
+	background-color: #2D2D2D;
+}
+
+/* main nave bar end */
+
+/* --------------------------------------------------------------------------------- */
+
+/* sidebar start */
+
+
+.sidenavbar{
+	height: 100%;
+	position: fixed;
+	width: 0;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	background: #333333;
+	overflow-x: hidden;
+	padding-top: 60px;
+	transition: all 0.5s;
+	border-top: 1px solid white;
+}
+
+.sidenavbar a{
+	text-decoration: none;
+	font-size: 15px;
+	display: block;
+	padding: 20px;
+	color: #ffff;
+	margin-left: 30px;
+
+}
+
+.sidenavbar i{
+	font-size: 25px;
+	margin-right: 10px;
+}
+
+.sidenavbar a:hover{
+	background-color: #2d2d2d;
+}
+
+.sidenavbar .badge{
+	padding: 5px 10px;
+	color: white;
+	background-color: red;
+	border-radius: 50%;
+
+}
+
+
+.closebtn{
+	position: absolute;
+	top: 0;
+	word-spacing: 10px;
+}
+/* sidebar end */
+
+/* ---------------------------------------------------------- */
+
+
+
+/* post car add content area css  */
+
+.add-contact{
+	width: 600px;
+	height: auto;
+	margin-top: 20px;
+	top: 0;
+	left: 0;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #b7b7b7;
+	border-radius: 8px;
+	margin-bottom: 20px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+.add-contact input, textarea, select{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 50px;
+	width: calc(100% - 10px);
+	background: none;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	border: 1px solid #c9c9c9;
+	color: black;
+	font-size: 18px;
+	padding: 5px;
+}
+
+
+.add-contact textarea{
+	height: 120px;
+}
+
+.add-contact button{
+	margin: 20px auto;
+	height: 50px;
+	display: block;
+	width: calc(100% - 40px);
+	background: none;
+	border-radius: 15px;
+	outline: none;
+	border: 1px solid #28A745;
+	font-size: 18px;
+	padding: 8px;
+	color: #28A745;
+
+}
+
+.add-contact input:focus, textarea:focus, select:focus{
+	border: 1px solid #28A745;
+}
+
+.add-contact ::placeholder{
+	color: #c6c6c6;
+	font-size: 15px;}
+
+.add-contact label{
+	margin: 0;
+	color: #7f7f7f;
+	float: left;
+}
+
+.showImage{
+	text-align: center;
+	width: calc(100% - 10px);
+}
+
+.showImage img{
+	height: 150px;
+	width: 150px;
+}
+
+@media only screen and (max-width: 600px) {
+	.add-contact{
+		width: 100%;
+		border: 0;
+		margin-top: 20px; 
+		top:0;
+		left: 0;
+		margin: auto;
+		text-align: center;
+	}
+
+	.add-contact label{
+		margin: 8px;
+		color: #7f7f7f;
+		float: left;
+	}
+
+	.add-contact input, textarea{
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}	
+
+}
+
+
+
+
+/* post car add content area css  end*/
+
+
+
+/* account post all users */
+
+.account-contianet{
+	width: 600px;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	margin: auto;
+	margin-top: 30px;
+	margin-top: 100px;
+}
+
+.account_post{
+	height: 180px;
+	width: 100%;
+	border: 1px solid black;
+	margin-bottom: 5px;
+
+}
+
+.account_post_image{
+	float: left;
+	margin: 10px;
+}
+
+.post_detail{
+	margin-top: 10px;
+}
+.post_detail h3{
+	padding: 15px;
+	color: #494949;
+	font-weight: 800;
+}
+.post_detail a{
+	text-decoration: none;
+	color: #494949;
+}
+.post_detail h1{
+	font-weight: 200;
+}
+.post_detail span{
+	font-size: 10px;
+	margin-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+	.account-contianet{
+		width: 100%;
+	}
+	.account_post{
+		width: 100%;
+		border: none;
+		border-bottom: 1px solid #7f7f7f;
+	}
+}
+
+
+/* account post all users end-------------------------------------------------------------- */
+
+
+
+/* View page by id full info -----------------------------------------------------------------*/
+
+.post_page_main{
+	margin: 0 auto;
+	/* background-color: #e2e2e2; */
+	width: 90%;
+	margin-top: 100px;
+}
+.post_page_row{
+	width: 100%;
+	display: flex;
+}
+
+.center-col-70{
+	width: 70%;
+}
+
+.right-col-30{
+	width: 30%;
+}
+
+.col-70-img{
+	border: 1px solid black;
+	margin: 5px;
+	text-align: center;
+}
+.right-col-30-1{
+	text-align: center;
+	margin: 5px;
+	border: 1px solid black;
+}
+.right-col-30-2{
+	text-align: center;
+	margin: 5px;
+	border: 1px solid black;
+	padding: 10px;
+}
+
+.right-col-30-1 #profile-icon{
+	color: #b2b2b2;
+	font-size: 80px;
+	margin-top: 8px;
+}
+
+.col-70-tabel{
+	border: 1px solid black;
+	margin: 5px;
+}
+.col-70-tabel-dec{
+	padding: 12px;
+	margin-top: 8px;
+}
+
+/* .col-70-tabel table, td, th {
+  border: 1px solid black;
+} */
+
+.col-70-tabel table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.col-70-tabel td {
+	padding: 12px;
+}
+
+@media only screen and (max-width: 800px) {
+	.post_page_row{
+		width: 100%;
+		flex-direction: column;
+	}
+	.center-col-70, .right-col-30{
+		width: 100%;
+	}
+}
+/* View page by id full info end*/

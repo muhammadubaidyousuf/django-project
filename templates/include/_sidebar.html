@@ -1,0 +1,19 @@
+
+{% extends '../base.html' %}
+
+{% block body %}
+
+  <div class="sidenavbar" id="sidenavbarid"> <a href="javascritp:void(0)"
+  class="closebtn" onclick="closeNave()"> &#9776;  BUKINOW</a>
+    <hr> 
+    <a href="{% url 'my_account' %}"><i class="fa fa-home" aria-hidden="true"></i>Home</a> 
+    <a href="#"><i class="fa fa-car" aria-hidden="true"></i>Active Car <span class="badge">1
+    </span></a>
+    <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></i>Massages <span class="badge">3</span></a>
+    <a href="#"><i class="fa fa-globe" aria-hidden="true"></i></i>Request <span class="badge">3</span></a>   
+    <a href="#"><i class="fa fa-user" aria-hidden="true"></i></i>Profile</a>   
+    <a href="#"><i class="fa fa-heart" aria-hidden="true"></i></i>Favorite Pst</a>  
+    <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i></i>Setting</a>   
+    <a href="{% url 'logout' %}"><i class="fa fa-power-off" aria-hidden="true"></i></i>Logout</a>     
+</div>
+{% endblock %}
