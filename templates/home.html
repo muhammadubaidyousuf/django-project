@@ -1,5 +1,44 @@
 {% extends 'base.html' %}
 {% block body %}
-<title>Login Your Account - Bukinow</title>
+
+<title>Bukinow add your car earn moneay - Bukinow</title>
+
+{% include 'include/_navbar2.html' %}
+
+{% load static %}
+
+<div class="home-container">
+	
+	<div class="slide-area">
+
+		<div class="text-slide-main">
+			<h1>BOOK YOUR DREAM CAR WITH BUKINOW</h1>
+			<p>All categories car available search your near rant a car</p>
+		</div>
+
+		<div class="slide-area-img">
+			<img src="{% static 'img/nissan.png' %}">
+		</div>
+	</div>
+</div>
+
+<div class="search-box-main-page">
+	<form>
+		<h2>Find A Car Near Your City</h2>
+		<input type="text" name="" placeholder="Location">
+		<input type="text" name="" placeholder="Car">
+		<input type="text" name="" placeholder="Model">
+		<select>
+			<option value="">Select Car</option>
+			{% for car in get_imgs %}
+			<option value="{{ car.name_img }}">{{ car.name_img | title}}</option>
+			{% endfor %}
+		</select>
+		<input type="submit" name="" value="Find">
+	</form>
+</div>
+<div class="home-page-post-view">
+	
+</div>
 
 {% endblock %}

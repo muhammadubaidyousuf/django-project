@@ -1,0 +1,18 @@
+<div class="main-nave-con">
+	<div class="logo-main">
+		<a href="#home">BukiNow</a>
+	</div>
+	<div class="nav-right-side-1">
+		<div class="nav-side-bar-login">
+			{% if user.is_authenticated %}
+				<a href="{% url 'logout' %}">Logout</a>
+			{% else %}
+				<a href="{% url 'login' %}">Login</a>
+			{% endif %}
+		</div>
+		<div class="add-car-btn-2" >
+			<a href="#">Add Car <i class="fa fa-car" aria-hidden="true"></i></a>
+		</div>
+	</div>
+</div>		
+
