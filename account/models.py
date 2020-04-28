@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.timezone import now
+from django.utils import timezone
 import geocoder
 g = geocoder.ip('me')
 # Create your models here.
@@ -9,9 +9,12 @@ g = geocoder.ip('me')
 class UserExtData(models.Model):
     phone_no = models.CharField(max_length=15)
     user_email = models.CharField(max_length=30)
-    user_location = models.CharField(max_length=30)
-    user_join_date = models.CharField(max_length=15)
+    user_location = models.CharField(default=g.city, max_length=100)
+    user_join_date = models.DateTimeField(default=timezone.now)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.user)
 
 
 
@@ -36,10 +39,13 @@ class UserAddCar(models.Model):
     c_let_1 = models.CharField(max_length=150)
     c_log_2 = models.CharField(max_length=150)
     c_select_image = models.URLField()
-    c_date_time = models.DateField(default=now)
-    c_user_state = models.TextField(g.state, default='SOME STRING')
-    c_user_city = models.TextField(g.city, default='SOME STRING')
+    c_date_time = models.DateTimeField(default=timezone.now)
+    c_user_state = models.TextField(default=g.state)
+    c_user_city = models.TextField(default=g.city)
     user = models.ForeignKey(User, on_delete=models.CASCADE,)
+
+    def __str__(self):
+        return str(self.c_title)
 
 
 

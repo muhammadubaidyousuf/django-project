@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<title>Bukinow add your car earn moneay - Bukinow</title>
+
+{% include 'include/_navbar2.html' %}
+{% load static %}
+
+
+<div class="search-page-body">
+		<div class="search-box-main-page">
+			<form action="/search" method="GET">
+				<h2>Find A Car Near Your City</h2>
+				<input type="text" name="search-location" placeholder="Location">
+				<input type="text" name="search-car-name" placeholder="Toyota">
+				<input type="submit" name="" value="Find">
+			</form>
+		</div>
+	</div>
+<h2 style="text-align: center; color: #696969;">Search Result:</h2>
+
+<div class="post-search-body">
+
+	<div class="post-center-1">
+
+	{% for Home_Post in search_home_page %}
+		<div class="search-post-card">
+			<div class="post-content">
+				<a href="http://127.0.0.1:8000/post/view/{{ Home_Post.id }}">
+				<img src="{{ Home_Post.c_select_image  }}" height="100" width="100">
+				<p>{{ Home_Post.c_title | title }}</p>
+				<h4>Rent Par Day {{ Home_Post.c_par_day_price }}</h4></a>
+			</div>
+		<div class="search-post-date">
+			<p>{{ Home_Post.c_user_city | title }} {{ Home_Post.c_date_time }}</p>
+		</div>
+	</div>
+	{% endfor %}
+
+	</div>
+
+</div>
+{% include 'include/_footer.html' %}
+{% endblock %}
+
+

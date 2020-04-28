@@ -2,6 +2,7 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
+
 urlpatterns = [
     path('', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
@@ -9,6 +10,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('add-car/', views.add_car, name='add_car'),
     path('my-account/view-post/<int:post_id>/', views.view_post, name='view_post'),
+
 
 
 

@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Comic+Neue&display=swap');
 
-*{ margin: 0; padding: 0; box-sizing: border-box; font-family: 'Muli', sans-serif;}
-
+*{ margin: 0; padding: 0; box-sizing: border-box; font-family: 'Muli', sans-serif; text-decoration: none;}
 
 /* main page navebar  */
+
+
 
 .main-nave-con{
 	position: fixed;
@@ -15,6 +17,7 @@
 	justify-content: space-between;
 	align-items: center;
 	z-index: 1;
+	top: 0;
 }
 .logo-main{
 	color: #fff;
@@ -39,6 +42,7 @@
 	text-decoration: none;
 	padding: 18px;
 	background-color: #28a745;
+	transition: 0.3s;
 }
 .add-car-btn-2 a:hover{
 	background-color: #00891d;
@@ -49,9 +53,11 @@
 .nav-side-bar-login a{
 	text-decoration: none;
 	color: #28a745;
+	transition: 0.3s;
 }
 .nav-side-bar-login a:hover{
 	color: #00891d;
+	text-decoration: underline;
 }
 
 /* main page navebar  end-----------------------------------------------------------*/
@@ -80,10 +86,74 @@
 .text-slide-main{
 	color: #fff;
 	margin-left: 20px;
+	text-align: center;
 }
 .text-slide-main h1{
-	font-size: 40px;
+	font-size: 50px;
+	font-family: 'Comic Neue', cursive;
 }
+.text-slide-main #slide-how-it-work-btn{
+	width: 200px;
+	border: none;
+	background: none;
+	padding: 20px;
+	border: 2px solid #fff;
+	color: #fff;
+	margin: 10px;
+	font-size: 20px;
+	transition: 0.3s;
+}
+.text-slide-main #slide-how-it-work-btn:hover{
+	background-color: #004f11;
+}
+.text-slide-main #slide-singup-btn{
+	border: none;
+	width: 200px;
+	background: #fff;
+	padding: 20px;
+	border: 2px solid #fff;
+	color:#00891d;
+	margin: 10px;
+	font-size: 20px;
+	transition: 0.3s;
+}
+.text-slide-main #slide-singup-btn:hover{
+	background-color: #e2e2e2;
+}
+
+.add-car-home-page{ 
+	display: flex; 
+	justify-content: space-around; 
+	align-items:center; 
+	height: 150px; 
+	width: 100%; 
+	background-color: #184153;
+} 
+
+.add-car-text{ 
+	text-align: center; 
+	font-size:30px; 
+	color: #e2e2e2; 
+} 
+.add-car-text button{ 
+	background-color: #00891D;
+	color: #fff; 
+	width: 150px; 
+	height: 50px; 
+	border: none; 
+	margin: 8px; 
+	font-size:18px; 
+	border-radius: 5px;
+} 
+
+.add-car-text button:hover{ 
+	background-color: #28a745; 
+}
+
+.add-car-image{
+	
+}
+
 
 @media only screen and (max-width: 600px) {
 	.slide-area{
@@ -101,6 +171,15 @@
 		padding: 20px;
 		margin: 0;
 	}
+	.add-car-image{
+		display: none;
+	}
+	.add-car-text{
+		font-size: 18px;
+	}
+	.text-slide-main h1{
+		font-size: 27px;
+	}
 }
 /* Home Page end -----------------------------------------------------------------------*/
 
@@ -109,7 +188,7 @@
 /* main page search box  ----------------------------------------------------------------*/
 
 .search-box-main-page{
-	height: 400px;
+	height: 250px;
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -119,12 +198,14 @@
 }
 
 .search-box-main-page form{
-	width: 400px;
+	width: 800px;
 	text-align: center;
 	padding: 20px;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	/* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
 	background-color: #fff;
-
+}
+.search-box-main-page h2{
+	color: #696969;
 }
 .search-box-main-page input, select{
 	width: 350px;
@@ -140,6 +221,7 @@
 	width: 350px;
 	color: #fff;
 	font-size: 18px;
+	transition: 0.3s;
 }
 .search-box-main-page input[type = "submit"]:hover{
 	background-color: #00891d;
@@ -150,19 +232,96 @@
 
 
 
+/* search page body start -----------------------------------------------------------------*/
 
-/* home page post view ---------------------------------------------------------------------*/
-
-.home-page-post-view{
-	height: 400px;
+.search-page-body{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin-top: 80px;
+	background-color: #e2e2e2;
+	align-items: center;
+}
+.post-search-body{
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	background-color: #e2e2e2;
+}
+.post-center-1{
+	width: 70%;
+}
+.search-post-card{
+	border-bottom: 4px solid #00891D;
+	margin: 10px;
 
 }
+.search-post-date {
+	display: inline-block;
+	font-size: 10px;
+	margin-left: 20px;
+}
+.post-content{
+	display: inline-block;
+	width: 75%;
+	padding: 20px;
+}
+.post-content a{
+	text-decoration: none;
+	color: #000;
+}
 
+@media only screen and (max-width: 600px) {
+	.post-center-1{
+		width: 100%;
+		text-align: center;
+	}
+}
+/* search page end ----------------------------------------------------------------------*/
+
+
+
+
+/* home page post view ---------------------------------------------------------------------*/
+
+.main-body{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	background-color: #e2e2e2;
+}
+.home-page-post-view{
+	height: 330px;
+	width: 90%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+.home-post-card{
+	margin: 5px;
+	height: 260px;
+	width: 200px;
+	text-align: center;
+	padding: 20px;
+	/* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+	background-color: #fff;
+	border-bottom: 4px solid #00891d;
+}
+.home-post-card a{
+	text-decoration: none;
+	color: #000;
+}
+
+@media only screen and (max-width: 600px) {
+	.home-page-post-view{
+		width: 100%;
+		flex-direction: column;
+		height: auto;
+	}
+	.home-post-card{
+		width: 90%;
+	}
+}
 
 /* home page post views css end --------------------------------------------------------------*/
 
@@ -180,10 +339,8 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	border-radius: 10px;
-	border: 1px solid #28A745;
 	text-align: center;
-	box-shadow: 5px 8px 15px #888888;
+	box-shadow: 0 0px 8px 0 rgba(0,0,0,0.2);
 }
 
 .buki-all-form input[type = "email"], .buki-all-form input[type = "password"], .buki-all-form input[type = "text"] {
@@ -195,7 +352,7 @@
 	border-radius: 5px;
 	border: none;
 	outline: none;
-	border: 1px solid #c9c9c9;
+	border: 1px solid #28a745;
 	color: black;
 	font-size: 18px;
 	padding: 8px;
@@ -207,33 +364,38 @@
 
 
 .log-head{
-	color: white;
+	color: #000;
 	padding: 20px;
 	width: 100%;
-	font-family: sans-serif;
-	background: linear-gradient(to right, #00cc66 -19%, #33cccc 100%);
-	top: -50px;
+	/* background: linear-gradient(to right, #00cc66 -19%, #33cccc 100%); */
 	position: relative;
 	border-radius: 8px;
 }
+/* .login-logo{
+	background-image: url("logo-bukinow.png");
+	background-repeat: no-repeat;
+	background-size: 300px 200px;
+	width: 400px;
+	height: 150px;
+} */
 
 #buki-on-btn{
 	margin: 20px auto;
 	height: 50px;
 	display: block;
 	width: calc(100% - 40px);
-	background: linear-gradient(to right, #00cc66 -19%, #33cccc 100%);
-	border-radius: 25px;
+	background: #28a745;
+	border-radius: 5px;
 	border: none;
 	outline: none;
-	border: 1px solid #28A745;
 	color: white;
 	font-size: 18px;
 	padding: 8px;
+	transition: 0.3s;
 	
 }
 #buki-on-btn:hover{
-	border: #28A745;
+	background: #00891D;
 }
 
 
@@ -243,7 +405,7 @@
 	display: block;
 	width: calc(100% - 40px);
 	background: none;
-	border-radius: 25px;
+	border-radius: 5px;
 	border: none;
 	outline: none;
 	border: 1px solid #28A745;
@@ -251,6 +413,7 @@
 	font-size: 18px;
 	padding: 8px;
 	color: #28A745;
+	transition: 0.3s;
 }
 
 .buki-all-form a{
@@ -258,8 +421,7 @@
 }
 
 .buki-all-form #buki-off-btn:hover{
-	background: linear-gradient(to right, #00cc66 -19%, #33cccc 100%);
-	color: white;
+	background-color: #ededed;
 }
 
 
@@ -277,6 +439,7 @@
 
 .forget-pass a:hover{
 	color: #006b17;
+	text-decoration: underline;
 
 }
 .buki-all-form ::placeholder{
@@ -618,12 +781,18 @@
 	text-align: center;
 }
 .right-col-30-1{
-	text-align: center;
 	margin: 5px;
+	padding: 10px;
 	border: 1px solid black;
+	text-align: center;
+}
+.right-col-30-1 a{
+	color: #000;
+}
+.right-col-30-1 a:hover{
+	text-decoration: underline;
 }
 .right-col-30-2{
-	text-align: center;
 	margin: 5px;
 	border: 1px solid black;
 	padding: 10px;
@@ -631,10 +800,29 @@
 
 .right-col-30-1 #profile-icon{
 	color: #b2b2b2;
-	font-size: 80px;
+	font-size: 40px;
 	margin-top: 8px;
 }
+#user-contact-btn{
+	background-color:#28a745;
+	height: 40px;
+	width: 100%;
+	color: white;
+	border: none;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+#user-contact-btn:hover{
+	background-color: #00891d;
+}
 
+#user-contact-no a {
+	text-decoration: none;
+	color: #000;
+}
+#user-contact-no i{
+	color: #28a745;
+}
 .col-70-tabel{
 	border: 1px solid black;
 	margin: 5px;
@@ -642,6 +830,7 @@
 .col-70-tabel-dec{
 	padding: 12px;
 	margin-top: 8px;
+	width: 100%;
 }
 
 /* .col-70-tabel table, td, th {
@@ -666,3 +855,98 @@
 	}
 }
 /* View page by id full info end*/
+
+
+
+/* footer css  ------------------------------------------*/
+
+.footer-container{
+	height: 100%;
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid #696969;
+	margin-top: 10px;
+}
+
+.footer-container a {
+	text-decoration: none;
+	color: #00891d;
+	margin: 10px;
+}
+.footer-container a:hover {
+	text-decoration: underline;}
+
+.footer-c-text{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+/* Footer css End ----------------------------------------*/
+
+
+
+/* user profile page start------------------------------------------- */
+
+.user_porfile_main_container{
+	height: 400px;
+	width: 100%;
+	margin-top: 100px;
+	background-color: #e2e2e2;
+}
+.profile-info-con{
+	height: 200px;
+	width: 100%;
+	background-color: #00891d;
+	display: flex;
+	justify-content: center;
+	border-bottom: 4px solid #fff;
+}
+.p-name-pic{
+	position: absolute;
+	text-align: -webkit-center;
+	margin-top: 80px;
+}
+#p-image-icon{
+	border: 4px solid #fff;
+	border-radius: 50%;
+	height: 170px;
+	width: 170px;
+	background-color: #000;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.p-name-info h1{
+	padding: 7px;
+}
+.p-name-info i{
+	color: #00891d;
+	padding: 5px;
+}
+.user-profile-post{
+	border-top: 1px solid #000;
+	height: auto;
+	width: 100%;
+	background-color: #e2e2e2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.p-post-card{
+	margin: 20px;
+	height: 260px;
+	width: 200px;
+	text-align: center;
+	padding: 20px;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	background-color: #fff;
+	border-bottom: 4px solid #00891d;
+}
+.p-post-card a{
+	text-decoration: none;
+	color: #000;
+}
+/* user profile page end------------------------------------------- */

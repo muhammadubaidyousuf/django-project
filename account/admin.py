@@ -5,3 +5,5 @@ from . import models
 
 
 admin.site.register(models.CarImages)
+admin.site.register(models.UserExtData)
+admin.site.register(models.UserAddCar)

@@ -98,6 +98,7 @@ def add_car(request):
 def view_post(request, post_id):
     if request.user.is_authenticated:
         user_info = UserExtData.objects.filter(user=request.user)
+        print(request.user)
         view_post = get_object_or_404(UserAddCar, pk=post_id)
         return render(request, 'account/view_post.html', {'info':user_info, 'view_post_id':view_post})
     else:

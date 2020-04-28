@@ -1,11 +1,13 @@
 {% extends '../base.html' %}
 {% block body %}
+{% load static %}
 	<title>Create Account - Bukinow</title>
 <body>
 	<div class="buki-all-form">
 		<form action="" method="post">
 			{% csrf_token %}
 			<div class="log-head">
+				<img src="{% static 'img/logo-bukinow.png' %}" height="40" width="170">
 				<h3>Create New Account</h3>
 			</div>
 			<div class="error-alert">
