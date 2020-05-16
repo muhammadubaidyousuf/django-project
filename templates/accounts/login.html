@@ -1,0 +1,31 @@
+{% extends '../base.html' %}
+
+{% block body %}
+
+{% load static %}
+
+<title>Login Your Account - Bukinow</title>
+
+{% include 'include/_navbar2.html' %}
+
+	<div class="buki-all-form">
+		<form action="" method="post">
+			{% csrf_token %}
+			<div class="log-head">
+				<!-- <div class="login-logo">sas</div> -->
+				<img src="{% static 'img/logo-bukinow.png' %}" height="40" width="170">
+				<h3>LOGIN YOUR ACCOUNT</h3>
+			</div>
+			<div class="error-alert">
+				{% if error %}
+				<p>{{ error }}</p>
+				{% endif %}
+			</div>
+			<input type="text" name="user-name" placeholder="Email">
+			<input type="password" name="user-password" placeholder="Password">
+			<button id="buki-on-btn" type="submit">LOGIN</button>
+		</form>
+		<a href="{% url 'register' %}"><button id="buki-off-btn">SINGUP</button></a>
+		<span class="forget-pass"><a href="{% url 'password_reset' %}">Forgot Password</a></span>
+	</div>
+{% endblock %}

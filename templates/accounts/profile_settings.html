@@ -1,0 +1,52 @@
+{% extends '../base.html' %}
+
+
+{% block body %}
+{% load static %}
+<title>Setup Your Profile - Bukinow </title>
+
+{% include 'include/_navbar.html' %}
+
+{% include 'include/_sidebar.html' %}		
+
+<div class="add-car-main-body">
+	<div class="head-text">
+		<h2>{{ request.user.userinformationext.full_name | title }}</h2>
+	</div>
+<div class="rps-img-div">
+	{% if messages %}
+		{% for message in messages %}
+			{{message}}
+		{% endfor %}
+	{% endif %}
+</div>
+<div class="res-form-card">
+	<form action="" method="POST">
+	{% csrf_token %}
+	<div class="rps-img-div">
+		<img src="{% if Profile_Info.user_profile_image %}{{ Profile_Info.user_profile_image.url }}{% else %}{% static 'img/profile-img.png' %}{% endif %}" height="170" width="170">
+	</div>
+	<div class="rps-label-div">
+		<label class="rps-label" for="full_name"> Full Name</label>
+		<input class="responsiv-input" type="text" name="user_name" value="{{ Profile_Info.full_name }}" placeholder="Full Name">
+	</div>
+	<div class="rps-label-div">
+		<label class="rps-label" for="email"> Email</label>
+		<input class="responsiv-input" type="text" name="email" placeholder="Email" value="{{ Profile_Info.user_email }}" disabled>
+	</div>
+	<div class="rps-label-div">
+		<label class="rps-label" for="phone_number"> Phone Number</label>
+		<input class="responsiv-input" type="text" name="phone_number" placeholder="Phone No" value="{{ Profile_Info.user_phno }}">
+	</div>
+	<div class="rps-label-div">
+		<label class="rps-label" for="address"> Address</label>
+		<input class="responsiv-input" type="text" name="address" placeholder="Address" value="{{ Profile_Info.user_location }}">
+	</div>
+		<div class="rps-label-div">
+		<input class="submit-btn" type="submit" value="Update">
+	</div>
+	</form>
+</div>
+
+{% include 'include/_footer.html' %}
+{% endblock %}

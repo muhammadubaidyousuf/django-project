@@ -6,18 +6,49 @@
 {% include 'include/_navbar2.html' %}
 {% load static %}
 
-
 <div class="search-page-body">
-		<div class="search-box-main-page">
-			<form action="/search" method="GET">
-				<h2>Find A Car Near Your City</h2>
-				<input type="text" name="search-location" placeholder="Location">
-				<input type="text" name="search-car-name" placeholder="Toyota">
-				<input type="submit" name="" value="Find">
-			</form>
-		</div>
-	</div>
-<h2 style="text-align: center; color: #696969;">Search Result:</h2>
+	{% include 'include/_search_bar.html' %}
+</div>
+
+<div class="search-body-post">
+<div class="account-card-body">
+    <h1>Search Result</h1>
+  {% if search_home_page|length < 1 %}
+    <p>No Search Result Found</p>
+  {% endif %}
+
+  {% for post in search_home_page %}
+    <div class="account-post-card">
+      <div class="card-edit-delet">
+        <h3>Par Day Rent: <span>{{post.c_par_day_price}}</span></h3>
+      </div>
+      <a href="http://127.0.0.1:8000/post/view/{{post.c_id}}">
+      <img src="{{post.c_select_image}}" height="200" width="200"></a>
+      <div class="card-edit-delet">
+      </div>
+      <div class="card-title-info">
+        <a href="http://127.0.0.1:8000/post/view/{{post.c_id}}">
+        <h2>{{post.c_title | title}}<h2>
+      </div>
+    </a>
+    <div class="card-date-time">
+          <p>{{post.c_date_time.date}}</p>
+         <p>City: {{post.c_user_city}}</p></div>
+    </div>
+
+  {% endfor %}
+</div>
+
+</div>
+
+{% include 'include/_footer.html' %}
+{% endblock %}
+
+
+<!-- <div class="search-page-body">
+	{% include 'include/_search_bar.html' %}
+</div>
+<h2 style="text-align: center; color: #696969; margin-top: 20px;">Search Result:</h2>
 
 <div class="post-search-body">
 
@@ -26,13 +57,13 @@
 	{% for Home_Post in search_home_page %}
 		<div class="search-post-card">
 			<div class="post-content">
-				<a href="http://127.0.0.1:8000/post/view/{{ Home_Post.id }}">
+				<a href="http://127.0.0.1:8000/post/view/{{ Home_Post.c_id }}">
 				<img src="{{ Home_Post.c_select_image  }}" height="100" width="100">
 				<p>{{ Home_Post.c_title | title }}</p>
 				<h4>Rent Par Day {{ Home_Post.c_par_day_price }}</h4></a>
 			</div>
 		<div class="search-post-date">
-			<p>{{ Home_Post.c_user_city | title }} {{ Home_Post.c_date_time }}</p>
+			<p>{{ Home_Post.c_user_city | title }} {{ Home_Post.c_date_time.date }}</p>
 		</div>
 	</div>
 	{% endfor %}
@@ -40,7 +71,5 @@
 	</div>
 
 </div>
-{% include 'include/_footer.html' %}
-{% endblock %}
 
 

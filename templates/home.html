@@ -22,26 +22,21 @@
 	</div>
 </div>
 
-<div class="search-box-main-page">
-	<form action="/search" method="GET">
-		<h2>Find A Car Near Your City</h2>
-		<input type="text" name="search-location" placeholder="Location">
-		<input type="text" name="search-car-name" placeholder="Toyota">
-		<input type="submit" name="" value="Find">
-	</form>
-</div>
+{% include 'include/_search_bar.html' %}
+
 <h2 style="text-align: center; background-color: #e2e2e2; color: #696969;">Rental Car In Your City</h2>
 <div class="main-body">
 	<div class="home-page-post-view">
 		{% for Home_Post in Home_page_post %}
 		<div class="home-post-card">
-			<a href="post/view/{{ Home_Post.id }}"><p>{{ Home_Post.c_title }}</p>
+			<a href="post/view/{{ Home_Post.c_id }}"><p>{{ Home_Post.c_title }}</p>
 			<img src="{{ Home_Post.c_select_image  }}" height="100" width="100">
 			<h4>Rent Par Day {{ Home_Post.c_par_day_price }}</h4></a>
 		</div>
 		{% endfor %}
 	</div>
 </div>
+
 <div class="add-car-home-page">
 	<div class="add-car-text">
 		<h2>Make Money Add Your Vehicle</h2>
@@ -51,5 +46,7 @@
 		<img src="{% static 'img/houndai.png' %}" height="180" width="250">
 	</div>
 </div>
+
+
 {% include 'include/_footer.html' %}
 {% endblock %}

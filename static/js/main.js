@@ -9,10 +9,10 @@
 
 
 function showImg(h) {
-	var link = "http://127.0.0.1:8000/media_files/account/media_files/corolla.png"; 
-  	var lslice = link.slice(0, 54);
- 	const showImage = document.querySelector('.showImage').innerHTML = "<img src='"+ lslice + h + ".png' />";
- 	document.getElementById('select-image').value = lslice + h + ".png"	
+	var link = "http://127.0.0.1:8000/media_files/cars/img/"; 
+ 	const showImage = document.querySelector('.showImage').innerHTML = "<img src='"+ link + h + ".png' />";
+ 	document.getElementById('select-image').value = link + h + ".png"
+  document.getElementById('showText').innerHTML = 'This image just for showing car category';
 
   
 }
@@ -38,3 +38,5 @@ function showPosition(position) {
 
 
 // for geolocations end
+
+// Add car velidation 

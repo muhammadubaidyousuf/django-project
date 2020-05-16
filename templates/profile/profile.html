@@ -1,36 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
-<title>{{ profile_name | title }} - Bukinow </title>
+<title>{{ profile.full_name | title }} - Bukinow </title>
 {% include 'include/_navbar2.html' %}
 <div class="user_porfile_main_container">
 	<div class="profile-info-con">
 		<div class="p-name-pic">
 			<div id="p-image-icon">
 				<!-- <p>User Image</p> -->
-				<img id="p-image-icon" src="{% static 'img/ubaid.jpg' %}" height="170" width="170">
+				<img id="p-image-icon" src="{{ profile.user_profile_image.url }}" height="170" width="170" />
 			</div>
 			<div class="p-name-info">
-				<h1>{{ profile_name | title }}</h1>
-				<p><i class="fa fa-phone" aria-hidden="true"></i> {{ user_info.phone_no }}</p>
-				<p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ user_info.user_location | title }}</p>
+				<h1>{{ profile.full_name | title }}</h1>
+				<p><i class="fa fa-phone" aria-hidden="true"></i> {{ profile.user_phno }}</p>
+				<p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ profile.user_address | title }}</p>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="user-profile-post">
-	{% for post in User_post %}
-	<div class="p-post-card">
-		<a href="http://127.0.0.1:8000/post/view/{{ post.id }}"><p>{{ post.c_title }}</p>
-		<img src="{{ post.c_select_image }}" height="100" width="100">
-		<h4>Rent Par Day {{ post.c_par_day_price }}</h4></a>
+<div class="profile-posts-con">
+			<h1>Posts</h1>
+	<div class="user-profile-post">
+		{% for post in user_post %}
+			<div class="p-post-card">
+						<div class="date-time">
+					<p>{{post.c_date_time.date}}</p>
+					<p>{{post.c_user_city}}</p>
+				<a href="http://127.0.0.1:8000/post/view/{{ post.c_id }}"><p>{{ post.c_title | title }}</p>
+				<img src="{{ post.c_select_image }}" height="150" width="150">
+				<h4>Rent Par Day {{ post.c_par_day_price }}</h4></a>
+			</div>
+		{% endfor %}
 	</div>
-	{% endfor %}
 </div>
+
 {% include 'include/_footer.html' %}
 {% endblock %}
-<!-- {{ user_info.phone_no }}
-{{ user_info.user_email }}
-
-	
- -->		

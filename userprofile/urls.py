@@ -1,10 +1,9 @@
 
 
 
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('<int:U_id>/', views.profie),
-
+    path('<int:U_id>/', views.profile),
 ]

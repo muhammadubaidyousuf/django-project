@@ -5,76 +5,175 @@
 <title>{{ home_post_by_id.c_title }} - Bukinow </title>
 
 {% include 'include/_navbar2.html' %}
-<div class="post_page_main">
-	<div class="post_page_row">
-		<div class="center-col-70">
+<div class="post-page-main-body">
+	<div class="post_page_main">
+		<div class="post_page_row">
+			<div class="center-col-70">
 
-			<div class="col-70-img">
-				<img src="{{ home_post_by_id.c_select_image }}" height="400" width="400" title="{{ car_post.c_title | title }}">
-			</div>
-			<div class="col-70-tabel">
-					<table>
-						<tr>
-			    		<td><p>YEAR</p></td>
-			     		<td><p>{{ home_post_by_id.c_car_model | upper }}</p></td>
-			     		<td><p>DRIVER</p></td>
-					    <td><p>{{ home_post_by_id.c_self_driver | upper }}</p></td>
-			  			</tr>
-					  <tr>
-					  	<td><p>CAR</p></td>
-					  	<td><p>{{ home_post_by_id.c_car_name | upper }}</p></td>
-					  	<td><p>LOCATION</p></td>
-					  	<td><p>{{ home_post_by_id.c_user_city | upper }}</p></td>
-					  </tr>
-					  <tr>
-
-					  </tr>
-					  <tr>
-					  	<td><p>COLOR</p></td>
-			  			<td><p>{{ home_post_by_id.c_car_color | upper }}</p></td>
-					  </tr>
-					</table>
-					<hr>
-					<div class="col-70-tabel-dec">
-						<h2>Description</h2>
-						<p>{{ home_post_by_id.c_car_about }}</p>
+				<div class="col-70-img">
+					<img src="{{ home_post_by_id.c_select_image }}" title="{{ car_post.c_title | title }}">
+					<a href="#" id="myBtn"><h2 id="book-car-btn">Book Now</h2></a>
+				</div>
+				<div class="col-70-tabel">
+					<div class="col-title-tab">
+						<h1> {{ home_post_by_id.c_title | title }}</h1>
 					</div>
+				</div>
+				<div class="col-70-tabel">
+					<div class="rent-tab">
+						<h3>Par Day Rent : {{ home_post_by_id.c_par_day_price }}</h3>
+					</div>
+						<div class="car-items-tab">
+							<div class="tab-items">
+								<p>YEAR</p>
+								<p>DRIVER</p>
+								<p>CAR</p>
+							</div>
+							<div class="tab-items">
+				     			<p>{{ home_post_by_id.c_car_model | upper }}</p>
+				     			<p>{{ home_post_by_id.c_self_driver | upper }}</p>
+				     			<p>{{ home_post_by_id.c_car_name | upper }}</p>
+				     		</div>
+							<div class="tab-items">
+								<p>LOCATION</p>
+								<p>COLOR</p>
+							</div>
+							<div class="tab-items">
+								<p>{{ home_post_by_id.c_user_city | upper }}</p>
+				     			<p>{{ home_post_by_id.c_car_color | upper }}</p>
+							</div>
+						</div>
+						<hr>
+						<div class="col-70-tabel-dec">
+							<h2>Description</h2>
+							<p>{{ home_post_by_id.c_car_about }}</p>
+						</div>
+				</div>
 			</div>
-		</div>
-		<div class="right-col-30">
-			<div class="right-col-30-2">
-				<h2>Par Day Rent : {{ home_post_by_id.c_par_day_price }}</h2>
-				<p> {{ home_post_by_id.c_title }}</p>
-			</div>
+			<div class="right-col-30">
+				<div class="right-col-30-1">
+					<img id="user-profile-pic" src="{{ home_post_by_id.c_post_by_user_pic}}">
+					<h2><a href="http://127.0.0.1:8000/profile/{{ home_post_by_id.c_post_by_user_id}}"> {{ home_post_by_id.c_post_by_user_name | title }}</a></h2>
+					<p id="user-contact-no"><i class="fa fa-phone" aria-hidden="true"></i><a href="tel:{{ home_post_by_id.c_post_by_user_phone }}"> {{ home_post_by_id.c_post_by_user_phone }}</a></p>
+					
+					<div class="contact-user-by-post" id="view-display">
+						<p>Contact User</p>
+						{% if messages %}
+						{% for message in messages %}
+							{{message}}
+						{% endfor %}
+						{% endif %}
+						<form action="" method="POST">
+							{% csrf_token %}
+							<input type="text" name="msg-name" placeholder="Full Name">
+							<input type="text" name="msg-ph-no" placeholder="Mobile Number">
+							<textarea placeholder="Message" name="msg-msg"></textarea>
+							<button type="submit" id="user-contact-btn">Send</button>
+						</form>
+					</div>
+					<div id="btn-post-heide">
+						<a href="#"><button id="user-contact-btn" onclick="DiplayView();">Contact User</button></a>
+					</div>
+				</div>
 
-			<div class="right-col-30-1">
-				<h3>Profile</h3>
-				<i title="User" id="profile-icon" class="fa fa-user-circle-o" aria-hidden="true"></i>
-				<h2><a href="http://127.0.0.1:8000/profile/{{ home_post_by_id.user.id }}"> {{ home_post_by_id.user.username | title }}</a></h2>
-				<button id="user-contact-btn">Contact User</button>
-				<p id="user-contact-no"><i class="fa fa-phone" aria-hidden="true"></i><a href="tel:03111074690"> 03111074690</a></p>
-			</div>
+				<div class="right-col-30-1">
+					<i id="profile-icon" class="fa fa-map-marker" aria-hidden="true" title="Address"></i>
+					<h4>Address</h4>
+					<p>{{ home_post_by_id.c_address }}</p>
+					<h4>City</h4>
+					<p>{{ home_post_by_id.c_user_city }}</p>
+				</div>
+				
+				<div class="right-col-30-1">
+						<style>
+				      #map {
+				        height: 400px; 
+				        width: 100%;  
+				       }
+				    </style>
+				    <div id="map"></div>
+				    <script>
+				function initMap() {
+				  var uluru = {lat: {{ home_post_by_id.c_log_2  }}, lng: {{ home_post_by_id.c_let_1 }}};
+				  var map = new google.maps.Map(
+				      document.getElementById('map'), {zoom: 15, center: uluru});
+				  var marker = new google.maps.Marker({position: uluru, map: map});}
+				    </script>
+				    <script async defer
+				    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHwZhnDvKF_Mg4YftV7iaCFJXBM8kuQNg&callback=initMap">
+				    </script>
+				</div>
 
-			<div class="right-col-30-1">
-				<i id="profile-icon" class="fa fa-map-marker" aria-hidden="true" title="Address"></i>
-				<p>{{ home_post_by_id.c_address }}</p>
 			</div>
-			
-			<div class="right-col-30-1">
-				<div id="map" style="height: 200px; width: 100%;"></div>
-					<script>
-						mapboxgl.accessToken = 'pk.eyJ1IjoidWJhaWRhaG1lZG1lbyIsImEiOiJjazlqdmhrcjYwMmRkM2Z1aDNrZHU5aTB6In0.MJqbJqeOoolh7JHSPm42Sw';
-					var map = new mapboxgl.Map({
-					container: 'map', // container id
-					style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-					center: [24.8607, 67.0011], // starting position [lng, lat]
-					zoom: 9 // starting zoom
-					});
-					</script>	
-			</div>
-
 		</div>
 	</div>
 </div>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2> {{ home_post_by_id.c_title | title }}</h2>
+	<form class="form-res" action="" method="POST">
+		{% csrf_token %}
+		<div class="rps-label-div-2">
+			<label class="rps-label" for="c-title">Full Name </label>
+			<input class="responsiv-input" type="text" name="full-name" placeholder=" Enter Full Name" required>
+
+			<input type="hidden" value="{{ home_post_by_id.c_title | title }}" name="post-title">
+			<input type="hidden" value="{{ home_post_by_id.c_id}}" name="post-id">
+			<input type="hidden" value="{{ home_post_by_id.c_post_by_user_id}}" name="post-user-id">
+			<input type="hidden" id="c-let" name="let">
+			<input type="hidden" id="c-log" name="long">
+		</div>
+
+		<div class="rps-label-div-2">
+			<label class="rps-label" for="c-title">Phone No</label>
+			<input class="responsiv-input" type="text" name="phone-no" placeholder="Enter Phone No" required>
+		</div>
+
+		<div class="rps-label-div-2">
+			<label class="rps-label" for="c-title">Address</label>
+			<input class="responsiv-input" type="text" name="address" placeholder="Enter Address" required>
+		</div>
+
+		<div class="rps-label-div-2">
+			<label class="rps-label" for="c-title">Start Date</label>
+			<input class="responsiv-input" type="date" name="start-date" required>
+		</div>
+
+		<div class="rps-label-div-2">
+			<label class="rps-label" for="c-title">End Date</label>
+			<input class="responsiv-input" type="date" name="end-date" required>
+		</div>
+
+		<div class="rps-label-div-2 textarea-inp">
+			<label class="rps-label" for="c-dec">Message</label>
+			<textarea class="responsiv-input" name="massage" placeholder="Type Your Message" required="Fill this fild"></textarea>
+		</div>
+
+		<div class="rps-label-div-2">
+			<button class="submit-btn" id="add-car-submit" type="submit" name="add-post">Submit</button>
+		</div>	
+	</form>
+  </div>
+</div>
+
+<script>
+ function DiplayView(){
+ 	document.getElementById('view-display').style.display = "block";
+ 	document.getElementById('btn-post-heide').style.display = "none";
+ }
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+</script>
+
 {% include 'include/_footer.html' %}
 {% endblock %}

@@ -1,0 +1,34 @@
+{% extends '../base.html' %}
+
+
+{% block body %}
+
+<title>My Account - Bukinow </title>
+
+{% include 'include/_navbar.html' %}
+
+{% include 'include/_sidebar.html' %}   
+
+<div class="add-car-main-body">
+{% include 'include/_head-nav-bar.html' %}   
+<div class="account-card-body">
+    <h1>Posts</h1>
+<div class="account-post-card">   
+  {% if error %}
+    <p>{{error}}<a href="{% url 'add_car' %}" class="a-link-tag"> Add Car </a></p>
+  {% endif %}
+</div>
+  {% for post in bookings %}
+    <div class="account-post-card">
+        <h1>{{post.post_title}}</h1>
+        <h3>{{post.full_name}}</h3>
+        <p>Cell Number{{post.phone_no}}</p>
+        <p>Start Date: {{post.start_date}}</p>
+        <p>End Date: {{post.end_date}}</p>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% include 'include/_footer.html' %}
+{% endblock %}

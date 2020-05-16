@@ -1,0 +1,49 @@
+{% extends '../base.html' %}
+
+
+{% block body %}
+
+<title>My Account - Bukinow </title>
+
+{% include 'include/_navbar.html' %}
+
+{% include 'include/_sidebar.html' %}   
+
+<div class="add-car-main-body">
+{% include 'include/_head-nav-bar.html' %}   
+<div class="account-card-body">
+    <h1>Posts</h1>
+<div class="account-post-card">   
+  {% if error %}
+    <p>{{error}}<a href="{% url 'add_car' %}" class="a-link-tag"> Add Car </a></p>
+  {% endif %}
+</div>
+  {% for post in Car_post %}
+    <div class="account-post-card">
+
+      <div class="card-edit-delet">
+        <h3>Par Day Rent: <span>{{post.c_par_day_price}}</span></h3>
+          <div>
+              <a id="c-edit-btn" href="post-edit/{{post.c_id}}">Edit</a> 
+              <a id="c-delete-btn" href="">Delete</a> 
+          </div>
+      </div>
+
+      <a href="http://127.0.0.1:8000/post/view/{{post.c_id}}">
+      <img src="{{post.c_select_image}}" height="200" width="200"></a>
+      
+      <div class="card-title-info">
+        <a href="http://127.0.0.1:8000/post/view/{{post.c_id}}">
+        <h2>{{post.c_title | title}}<h2>
+      </div>
+    </a>
+        <div class="card-date-time">
+          <p>{{post.c_date_time.date}}</p>
+         <p>City: {{post.c_user_city}}</p></div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% include 'include/_footer.html' %}
+{% endblock %}

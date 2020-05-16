@@ -1,0 +1,157 @@
+{% extends '../base.html' %}
+
+<!-- oninvalid="this.setCustomValidity('Please Enter Title Hare')"
+    oninput="this.setCustomValidity('')"/ -->
+{% block body %}
+
+<title>My Account - {{ request.user|title }} - Bukinow </title>
+<!-- http://127.0.0.1:8000/media_files/account/media_files/corolla.png -->
+{% include 'include/_navbar.html' %}
+{% include 'include/_sidebar.html' %}
+		
+		<div class="add-car-main-body">
+			<div class="head-text">
+				<h2>Add Your Car Information</h2>
+				<p>Give some details about yourself and your car</p>
+			</div>
+			<div class="rps-img-div">
+				{% if messages %}
+					{% for message in messages %}
+						{{message}}
+					{% endfor %}
+				{% endif %}
+			</div>
+		<div class="res-form-card">
+		<form action="" method="POST">
+
+			{% csrf_token %}
+			<div class="rps-label-div">
+				<label class="rps-label" for="c-title">Post Title</label>
+				<input class="responsiv-input" type="text" name="c-title" placeholder="Title" required>
+			</div>
+
+			<div class="rps-label-div">
+				<label class="rps-label" for="c-car-name">Chose A Car</label>
+				<select class="responsiv-input" id="showimage" onchange="showImg(this.value);" name="c-car-name" required>
+					<option value="">Select Car</option>
+					{% for car in get_imgs %}
+						<option value="{{ car.name_img }}">{{ car.name_img | title}}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="rps-label-div">
+				<div class="showImage"></div>
+				<span id="showText"></span>
+			</div>
+
+			<div class="rps-label-div">
+				<input type="hidden" id="select-image" name="c-select-image">
+				<input type="hidden" id="c-let" name="c-let-1">
+				<input type="hidden" id="c-log" name="c-log-2">
+			</div>	
+
+			<div class="rps-label-div">
+				<label class="rps-label" for="c-color">Car Color</label>
+				<select class="responsiv-input" name="c-color" required>
+					<option value="">Color</option>
+					<option value="red">Red</option>
+					<option value="blue">Blue</option>
+					<option value="black">Black</option>
+					<option value="gray">Gray</option>
+					<option value="white">White</option>
+				</select>
+			</div>
+<!-- <i style="font-size: 20px" class="fa fa-camera" aria-hidden="true"></i> -->
+				<div class="rps-label-div upload-cars-imgs"> 
+					<label class="rps-label" for="upload-images">Upload Cars Images</label><br>
+				    <input name="upload-images" id="file-input" type="file" multiple>
+				</div>
+
+				    <div class="preview-car-img" id="preview">
+				</div>
+
+			<div class="rps-label-div">
+				<label class="rps-label" for="c-par-day-price">Par Day Rent</label>
+				<input class="responsiv-input" type="text" name="c-par-day-price" placeholder="Price" required>
+			</div>	
+
+			<div class="rps-label-div">
+				<label class="rps-label" for="c-model">Car Model Year</label>
+				<select class="responsiv-input" name="c-model" required>
+					<option value="">Car Year</option>
+					{% for year in years %}
+					<option value="{{ year }}">{{ year }}</option>
+					{% endfor %}
+				</select>
+			</div>	
+
+			<div class="rps-label-div">	
+				<label class="rps-label" for="c-model">Address</label>
+				<input class="responsiv-input" type="text" name="c-address" placeholder="Address" required>
+			</div>
+
+			<div class="rps-label-div">
+				<label class="rps-label" for="c-number-plate">License No Plate</label>
+				<input class="responsiv-input" type="text" name="c-number-plate" placeholder="License Plate" required>
+			</div>	
+
+			<div class="rps-label-div">
+				<label class="rps-label" for="c-self-driver">You Giving Driver</label>
+				<select class="responsiv-input" name="c-self-driver" required>
+					<option value="">Driver</option>
+					<option value="yes">Yes</option>
+					<option value="no">No</option>
+				</select>
+			</div>	
+
+			<div class="rps-label-div textarea-inp">
+				<label class="rps-label" for="c-dec">Type Some Details </label>
+				<textarea class="responsiv-input" name="c-dec" placeholder="Write Some About" required="Fill this fild"></textarea>
+			</div>
+			<div class="rps-label-div">
+				<button class="submit-btn" id="add-car-submit" type="submit" name="add-post">Submit</button>
+			</div>	
+		</form>
+
+	</div>
+</div>
+
+<script>
+	function previewImages() {
+
+	  var preview = document.querySelector('#preview');
+	  
+	  if (this.files) {
+	    [].forEach.call(this.files, readAndPreview);
+	  }
+
+	  function readAndPreview(file) {
+
+	    // Make sure `file.name` matches our extensions criteria
+	    if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+	      return alert(file.name + " is not an image");
+	    } // else...
+	    
+	    var reader = new FileReader();
+	    
+	    reader.addEventListener("load", function() {
+	      var image = new Image();
+	      image.height = 100;
+	      image.width = 100;
+	      image.title  = file.name;
+	      image.src    = this.result;
+	      preview.appendChild(image);
+	    });
+	    
+	    reader.readAsDataURL(file);
+	    
+	  }
+
+	}
+	document.querySelector('#file-input').addEventListener("change", previewImages);
+</script>
+
+
+{% include 'include/_footer.html' %}
+{% endblock %}
