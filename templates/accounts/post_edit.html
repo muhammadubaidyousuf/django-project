@@ -19,7 +19,7 @@
 				{% endif %}
 			</div>
 		<div class="res-form-card">
-		<form action="" method="POST" onsubmit="return validateForm()">
+		<form action="" method="POST" enctype="multipart/form-data">
 
 			{% csrf_token %}
 			<div class="rps-label-div">
@@ -29,7 +29,7 @@
 
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-car-name">Chose A Car</label>
-				<select class="responsiv-input" id="showimage" onchange="showImg(this.value);" name="c-car-name" required>
+				<select class="responsiv-input" id="showimage" name="c-car-name" required>
 					<option value="">Select Car</option>
 					{% for car in edit_img %}
 					<option value="{{ car.name_img }}">{{ car.name_img | title}}</option>
@@ -37,15 +37,14 @@
 				</select>
 			</div>
 
-			<div class="rps-label-div">
-				<div class="showImage">
-					<img src="{{edit_post.c_select_image}}">
-				</div>
-				<span id="showText"></span>
+			<div class="rps-label-div upload-cars-imgs"> 
+				<label class="rps-label" for="c-select-image">Upload Cars Images</label><br>
+			    <input name="c-select-image" id="file-input" type="file">
 			</div>
 
+			<div class="preview-car-img" id="preview"></div>
+
 			<div class="rps-label-div">
-				<input type="hidden" id="select-image" name="c-select-image">
 				<input type="hidden" id="c-let" name="c-let-1">
 				<input type="hidden" id="c-log" name="c-log-2">
 			</div>	
@@ -61,14 +60,6 @@
 					<option value="white">White</option>
 				</select>
 			</div>
-<!-- <i style="font-size: 20px" class="fa fa-camera" aria-hidden="true"></i> -->
-				<div class="rps-label-div upload-cars-imgs"> 
-					<label class="rps-label" for="upload-images">Upload Cars Images</label><br>
-				    <input name="upload-images" id="file-input" type="file" multiple>
-				</div>
-
-				    <div class="preview-car-img" id="preview">
-				</div>
 
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-par-day-price">Par Day Rent</label>

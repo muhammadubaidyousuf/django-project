@@ -30,7 +30,7 @@
 			</div>
 				<hr>
 				<a href="post/view/{{ Home_Post.c_id }}"><p>{{ Home_Post.c_title | title }}</p>
-				<img src="{{ Home_Post.c_select_image  }}" height="100" width="100">
+				<img src="{{Home_Post.c_select_image.url}}" height="100" width="100">
 				<h4>Rent Par Day {{ Home_Post.c_par_day_price }}</h4></a>
 		</div>				
 		{% endfor %}

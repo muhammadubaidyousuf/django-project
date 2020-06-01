@@ -30,8 +30,7 @@ class UserBookCar(models.Model):
 class UserAddCar(models.Model):
     c_id = models.AutoField(primary_key=True, null=False)
     c_title = models.CharField(max_length=100)
-    c_select_image = models.URLField()
-    c_car_image = models.ImageField(upload_to='posts/img', null=True)
+    c_select_image = models.ImageField(upload_to='posts/img', null=True)
     c_car_model = models.CharField(max_length=8)
     c_self_driver = models.CharField(max_length=20)
     c_car_name = models.CharField(max_length=30)
