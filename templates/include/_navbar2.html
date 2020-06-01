@@ -2,6 +2,12 @@
 	<div class="logo-main">
 		<a href="{% url 'home' %}">BukiNow</a>
 	</div>
+	<div class="mob-menu">
+		<a href="#" id="open-nav" onclick="OpenMobNav();">&#9776;</a>
+	</div>
+	<div class="mob-logo">
+		<a href="{% url 'home' %}">BukiNow</a>
+	</div>
 	<div class="nav-right-side-1">
 		<div class="nav-side-bar-login">
 			{% if user.is_authenticated %}
@@ -13,6 +19,11 @@
 		<div class="add-car-btn-2" >
 			<a href="{% url 'add_car' %}">Add Car <i class="fa fa-car" aria-hidden="true"></i></a>
 		</div>
+		<div class="mob-nav">
+			<a href="#" onclick="SearchOpen();"><i class="fa fa-search ser-icon" aria-hidden="true"></i></a>
+		</div>
 	</div>
-</div>		
+</div>
+{% include 'include/popup_search.html' %}
+{% include 'include/_mob-nave.html' %}				
 

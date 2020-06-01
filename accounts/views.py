@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from userprofile.models import UserInformationExt
@@ -37,10 +37,10 @@ def register(request):
         login_name = request.POST['user-name']
         login_pass = request.POST['user-password']
         login_phone = request.POST['user-phone']
-        print(type(login_phone))
         login_email = request.POST['user-email']
-        if len(login_phone) <= 15 and not re.search("[0][3]\d{9}(?!\d)", login_phone):
-
+        if login_name == "" and login_pass == "" and login_phone == "" and login_email == "" :
+            return render(request, 'accounts/register.html', {'error': 'Fill All Field'})
+        elif len(login_phone) <= 15 and not re.search("[0][3]\d{9}(?!\d)", login_phone):
             return render(request, 'accounts/register.html', {'error':'Phone Number Not Valid'})
         else:
             try:
@@ -93,21 +93,15 @@ def add_car(request):
             _c_let = request.POST['c-let-1']
             _c_log = request.POST['c-log-2']
             # add data on database
-            info_user = UserInformationExt.objects.filter(user=request.user)
-            for info in info_user:
-                u_name = info.full_name
-                u_no = info.user_phno
-                u_id = info.id
-                u_img  = info.user_profile_image
-
-                _add_post = UserAddCar(c_post_by_user_name=u_name, c_post_by_user_phone=u_no, user=request.user,
-                                       c_title=_title, c_car_name=_select_car, c_car_color=_c_color,
-                                       c_par_day_price=_par_day_price, c_car_model=_car_model, c_address=_c_address,
-                                       c_car_plate=_c_no_plate, c_self_driver=_c_self_drive, c_car_about=_c_dec,
-                                       c_let_1=_c_let, c_log_2=_c_log, c_select_image=_select_car_image,
-                                       c_post_by_user_id=u_id, c_post_by_user_pic=u_img.url)
-                _add_post.save()
-                messages.success(request, "Car ADD Successfully")
+            info = UserInformationExt.objects.get(user=request.user)
+            _add_post = UserAddCar(c_post_by_user_name=info.full_name, c_post_by_user_phone=info.user_phno, user=request.user,
+                                   c_title=_title, c_car_name=_select_car, c_car_color=_c_color,
+                                   c_par_day_price=_par_day_price, c_car_model=_car_model, c_address=_c_address,
+                                   c_car_plate=_c_no_plate, c_self_driver=_c_self_drive, c_car_about=_c_dec,
+                                   c_let_1=_c_let, c_log_2=_c_log, c_select_image=_select_car_image,
+                                   c_post_by_user_id=info.id, c_post_by_user_pic=info.user_profile_image)
+            _add_post.save()
+            messages.success(request, "Car ADD Successfully")
         return render(request, 'accounts/add_car.html', {"get_imgs":get_imgs, "years":year1})
     else:
         return redirect(login)
@@ -170,27 +164,28 @@ def profile_settings(request):
     if request.user.is_authenticated:
         profile_info = UserInformationExt.objects.get(user=request.user)
         if request.method == 'POST':
-
+            e_image = request.FILES['profile_image']
             e_full_name = request.POST['user_name']
             e_phone_number = request.POST['phone_number']
             e_address = request.POST['address']
-            if e_phone_number.len() >= 14:
-                messages.error(request, "Phone No Not Valid")
-            else:
-                profile_update = UserInformationExt.objects.get(user=request.user)
-                profile_update.full_name = e_full_name
-                profile_update.user_phno = e_phone_number
-                profile_update.user_location = e_address
-                profile_update.save()
-                messages.success(request, "Profile Update Successfully")
+            profile_update = UserInformationExt.objects.get(user=request.user)
+            profile_update.user_profile_image = e_image
+            profile_update.full_name = e_full_name
+            profile_update.user_phno = e_phone_number
+            profile_update.user_location = e_address
+            profile_update.save()
+            messages.success(request, "Profile Update Successfully")
         return render(request, 'accounts/profile_settings.html', {'Profile_Info':profile_info})
     else:
         return redirect(login)
 
 
 def booking(request):
-    user = UserInformationExt.objects.get(user=request.user)
-    bookings = UserBookCar.objects.filter(post_user_id=user.id)
-    return render(request, 'accounts/booking.html', {'bookings':bookings})
+    if request.user.is_authenticated:
+        user = UserInformationExt.objects.get(user=request.user)
+        bookings = UserBookCar.objects.filter(post_user_id=user.id).order_by('-date_time')
+        return render(request, 'accounts/booking.html', {'bookings':bookings})
+    else:
+        return redirect(login)
 
 

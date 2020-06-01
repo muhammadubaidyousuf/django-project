@@ -2,7 +2,7 @@
 
 
 {% block body %}
-
+{% load static %}
 <title>My Account - Bukinow </title>
 
 {% include 'include/_navbar.html' %}
@@ -22,24 +22,24 @@
     <div class="account-post-card">
 
       <div class="card-edit-delet">
-        <h3>Par Day Rent: <span>{{post.c_par_day_price}}</span></h3>
+        <h3>Par Day Rent : <span>{{post.c_par_day_price}}</span></h3>
           <div>
-              <a id="c-edit-btn" href="post-edit/{{post.c_id}}">Edit</a> 
-              <a id="c-delete-btn" href="">Delete</a> 
+              <a id="c-edit-btn" href="post-edit/{{post.c_id}}"><i class="fa fa-pencil" aria-hidden="true" title="Edit this post"></i></a> 
+              <a id="c-delete-btn" href=""><i class="fa fa-trash" aria-hidden="true" title="Delete This post"></i></a> 
           </div>
       </div>
-
+      <hr>
       <a href="http://127.0.0.1:8000/post/view/{{post.c_id}}">
       <img src="{{post.c_select_image}}" height="200" width="200"></a>
       
       <div class="card-title-info">
         <a href="http://127.0.0.1:8000/post/view/{{post.c_id}}">
-        <h2>{{post.c_title | title}}<h2>
+        <h2>{{post.c_title | title}}<h2></a>
       </div>
-    </a>
+        <p>{{post.c_car_about|slice:":100"}}</p>
         <div class="card-date-time">
-          <p>{{post.c_date_time.date}}</p>
-         <p>City: {{post.c_user_city}}</p></div>
+          <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
+         <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p></div>
     </div>
   {% endfor %}
   </div>

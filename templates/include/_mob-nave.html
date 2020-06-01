@@ -1,0 +1,27 @@
+<div id="mob-menu-myModal" class="mob-menu-modal">
+  <div class="mob-menu-modal-content">
+	<span onclick="menuClose();" class="mob-menu-close">&times;</span>
+		<div class="mob-link-menu">
+			<h3>Menu</h3>
+			<hr>
+			<a href="{% url 'home' %}" class="a-link-tag"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+			{% if user.is_authenticated %}
+				<a href="{% url 'logout' %}" class="a-link-tag"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a>
+			{% else %}
+				<a href="{% url 'register' %}" class="a-link-tag"><i class="fa fa-user-plus" aria-hidden="true"></i> SingUp</a>
+				<a href="{% url 'login' %}" class="a-link-tag"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+			{% endif %}	
+			<a href="{% url 'add_car' %}"><button class="submit-btn" type="submit"><i class="fa fa-car" aria-hidden="true"></i> Add Car</button></a>
+		</div>
+	</div>	    
+</div>
+
+<script>
+var menu_modal = document.getElementById("mob-menu-myModal");
+function OpenMobNav(){
+  menu_modal.style.display = "block";
+}
+function menuClose(){
+  menu_modal.style.display = "none";
+}
+</script>	 

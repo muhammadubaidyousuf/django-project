@@ -43,7 +43,7 @@ class UserAddCar(models.Model):
     c_post_by_user_name = models.CharField(max_length=20)
     c_post_by_user_phone = models.CharField(max_length=15)
     c_post_by_user_id = models.IntegerField()
-    c_post_by_user_pic = models.URLField(default='')
+    c_post_by_user_pic = models.ImageField(default='', null=True, blank=True)
     c_address = models.CharField(max_length=50)
     c_log_2 = models.CharField(max_length=30)
     c_let_1 = models.CharField(max_length=30)

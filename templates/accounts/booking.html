@@ -8,27 +8,42 @@
 {% include 'include/_navbar.html' %}
 
 {% include 'include/_sidebar.html' %}   
-
 <div class="add-car-main-body">
-{% include 'include/_head-nav-bar.html' %}   
-<div class="account-card-body">
-    <h1>Posts</h1>
-<div class="account-post-card">   
-  {% if error %}
-    <p>{{error}}<a href="{% url 'add_car' %}" class="a-link-tag"> Add Car </a></p>
-  {% endif %}
-</div>
-  {% for post in bookings %}
-    <div class="account-post-card">
-        <h1>{{post.post_title}}</h1>
-        <h3>{{post.full_name}}</h3>
-        <p>Cell Number{{post.phone_no}}</p>
-        <p>Start Date: {{post.start_date}}</p>
-        <p>End Date: {{post.end_date}}</p>
-    </div>
-  {% endfor %}
-  </div>
-</div>
+	{% include 'include/_head-nav-bar.html' %}   
+	<div class="account-card-body">
+	    <h1>Booking</h1> 
+	  {% for post in bookings %}
+	    <div class="account-post-card">
+	    	<div class="card-edit-delet">
+	    		<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.date_time.date}}</p>
+	    		<p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.city}}</p>
+	    	</div>
+	      <a href="http://127.0.0.1:8000/post/view/{{post.post_id}}/"><h2>{{post.post_title}}</h2></a>
+	      <hr>
+	    	<div class="card-edit-delet">
+		        <h3><i class="fa fa-user" aria-hidden="true"></i> {{post.full_name | title}}</h3>
+	      </div>      
+	    <div class="card-edit-delet">
+	    	<p><i class="fa fa-car i-blue" aria-hidden="true"></i> Star Booking</p>
+	        <p><i class="fa fa-calendar i-blue" aria-hidden="true"></i> {{post.start_date.date}}</p>
+	    </div>
 
+	    <div class="card-edit-delet">
+	    	<p><i class="fa fa-car i-blue" aria-hidden="true"></i> End Booking</p>
+	        <p><i class="fa fa-calendar i-blue" aria-hidden="true"></i> {{post.end_date.date}}</p>
+	    </div>
+	    <hr>
+	    <div class="card-edit-delet">
+		    <h4><i class="fa fa-envelope i-blue" aria-hidden="true"></i> Message</h4>
+		</div>    
+		<p>{{post.message}}</p>
+	    <hr>
+	    <p id="cell-no">{{post.phone_no}}</p>
+	    <a href="tel:{{post.phone_no}}"><p id="cell-now">Call Now</p></a>
+	    </div>
+	  {% endfor %}
+	  </div>
+</div>
+        
 {% include 'include/_footer.html' %}
 {% endblock %}

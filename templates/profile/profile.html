@@ -6,9 +6,8 @@
 <div class="user_porfile_main_container">
 	<div class="profile-info-con">
 		<div class="p-name-pic">
-			<div id="p-image-icon">
-				<!-- <p>User Image</p> -->
-				<img id="p-image-icon" src="{{ profile.user_profile_image.url }}" height="170" width="170" />
+			<div class="p-image-icon">
+				<img src="{% if profile.user_profile_image %}{{ profile.user_profile_image.url }}{% else %}{% static 'img/profile-img.png' %}{% endif %}" height="170" width="170">
 			</div>
 			<div class="p-name-info">
 				<h1>{{ profile.full_name | title }}</h1>
@@ -18,14 +17,16 @@
 		</div>
 	</div>
 </div>
+<hr>
 <div class="profile-posts-con">
-			<h1>Posts</h1>
+	<h1>Posts</h1>
 	<div class="user-profile-post">
 		{% for post in user_post %}
 			<div class="p-post-card">
 						<div class="date-time">
-					<p>{{post.c_date_time.date}}</p>
-					<p>{{post.c_user_city}}</p>
+					<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
+					<p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p>
+				</div>
 				<a href="http://127.0.0.1:8000/post/view/{{ post.c_id }}"><p>{{ post.c_title | title }}</p>
 				<img src="{{ post.c_select_image }}" height="150" width="150">
 				<h4>Rent Par Day {{ post.c_par_day_price }}</h4></a>

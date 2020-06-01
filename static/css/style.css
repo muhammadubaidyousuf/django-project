@@ -5,11 +5,6 @@
 
 /* main page navebar  */
 
-body{
-	background-color: #ededed;
-}
-
-
 .main-nave-con{
 	position: fixed;
 	width: 100%;
@@ -68,6 +63,48 @@ body{
 	color: #00891d;
 	text-decoration: underline;
 }
+/* For mobile --------------------------------------------------------------------------- */
+.mob-logo a{
+	display: none;
+	color:#28a745;
+}
+
+.mob-nav{
+	display: none;
+	font-size: 30px;
+}
+.ser-icon{
+	color: #28a745;
+}
+#open-nav{
+	color: #28a745;
+	padding-left: 30px;
+	font-size: 30px;
+}
+.mob-menu{
+	display: none;
+}
+
+@media only screen and (max-width: 800px) {
+	.mob-nav{
+		display: block;
+	}
+	.add-car-btn-2{
+		display: none;
+	}
+	.logo-main{
+		display: none;
+	}
+	.mob-menu{
+		display: block;
+	}
+	.nav-side-bar-login{
+		display: none;
+	}
+	.mob-logo a{
+		display: block;
+	}
+}
 
 /* main page navebar  end-----------------------------------------------------------*/
 
@@ -78,24 +115,30 @@ body{
 	display: flex;
 }
 /* -------------------------------------------------------------------------------------------- */
+.mob-link-menu a{
+	display: block;
+	padding: 7px;
+
+}
+
+
 .slide-area{
 	width: 100%;
 	height: 400px;
-	background-color: #00891d;
-	margin-top: 100px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.slide-area-img img{
-	height: 400px;
-	width: 500px;
+	margin-top: 70px;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/stac/img/bg-main.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+  	background-position: center;
+  	position: relative;
 }
 .text-slide-main{
-	color: #fff;
-	margin-left: 20px;
 	text-align: center;
+	color: #fff;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+	position: absolute;
 }
 .text-slide-main h1{
 	font-size: 50px;
@@ -132,15 +175,24 @@ body{
 	display: flex; 
 	justify-content: space-around; 
 	align-items:center; 
-	height: 150px; 
+	height: 200px; 
 	width: 100%; 
 	background-color: #184153;
+	background-image: url('/static/img/houndai.png');
+	background-repeat: no-repeat;
+	background-size: 360px 250px;
+  	background-position: right;
+  	position: relative;	
 } 
 
 .add-car-text{ 
 	text-align: center; 
 	font-size:30px; 
-	color: #e2e2e2; 
+	color: #e2e2e2;
+	position: absolute;
+	margin-left: 20px; 
+	margin: 8px; 
+	left: 0;
 } 
 .add-car-text button{ 
 	background-color: #00891D;
@@ -148,44 +200,35 @@ body{
 	width: 150px; 
 	height: 50px; 
 	border: none; 
-	margin: 8px; 
 	font-size:18px; 
 	border-radius: 5px;
-} 
+} 	
 
 .add-car-text button:hover{ 
 	background-color: #28a745; 
 }
 
-.add-car-image{
-	
-}
-
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
 	.slide-area{
 		justify-content: center;
 		height: 300px;
 	}
-	.slide-area-img img{
-		height: 250px;
-		width: 350px;
-	}
-	.text-slide-main{
-		text-align: center;
-		position: absolute;
-		background: rgba(0, 0, 0, 0.6);
-		padding: 20px;
-		margin: 0;
-	}
-	.add-car-image{
-		display: none;
-	}
 	.add-car-text{
 		font-size: 18px;
+
 	}
 	.text-slide-main h1{
 		font-size: 27px;
+	}
+	.add-car-home-page{
+		flex-direction: column;
+	}
+	.add-car-home-page{
+		background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+		background-position: center;
+		align-items: center;
+		background-size: auto;
+		text-align: center;
 	}
 }
 /* Home Page end -----------------------------------------------------------------------*/
@@ -232,6 +275,17 @@ body{
 }
 .search-box-main-page input[type = "submit"]:hover{
 	background-color: #00891d;
+}
+/* popup search menu------------------------------------------------------------------ */
+.pop-up-search{
+
+}
+
+
+@media only screen and (max-width: 800px) {
+	.search-heide{
+		display: none;
+	}
 }
 
 /* main page search box end ----------------------------------------------------------------*/
@@ -292,24 +346,23 @@ body{
 
 .main-body{
 	width: 100%;
-	display: flex;
-	justify-content: center;
+	height: auto;
 	background-color: #e2e2e2;
+	text-align: -webkit-center;
 }
-.home-page-post-view{
-	height: 330px;
+.home-page-card-body{
+	display: flex;
+  	flex-direction: row;
+  	flex-wrap: wrap;
 	width: 90%;
 	display: flex;
 	justify-content: center;
-	align-items: center;
 
 }
 .home-post-card{
 	margin: 5px;
 	height: 260px;
 	width: 200px;
-	text-align: center;
-	padding: 20px;
 	/* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
 	background-color: #fff;
 	border-bottom: 4px solid #00891d;
@@ -318,16 +371,14 @@ body{
 	text-decoration: none;
 	color: #000;
 }
+.home-card-1{
+	display: flex;
+	justify-content: space-between;
+	font-size: 12px;
+	padding: 5px;
+}
 
 @media only screen and (max-width: 600px) {
-	.home-page-post-view{
-		width: 100%;
-		flex-direction: column;
-		height: auto;
-	}
-	.home-post-card{
-		width: 90%;
-	}
 }
 
 /* home page post views css end --------------------------------------------------------------*/
@@ -463,7 +514,6 @@ body{
 		border-radius:0;
 		border:0;
 		box-shadow: none;
-		background: none;
 	}
 }
 /* Login form end */
@@ -515,6 +565,7 @@ body{
 	margin-bottom: 50px;
 	box-shadow: 0 8px 15px 0 rgba(0,0,0,0.5);
 	border-top: 1px solid white;
+	z-index: 1;
 }
 
 #bg-btn{
@@ -603,13 +654,22 @@ body{
 }
 
 .head-text{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
 	text-align: center;
 	padding: 30px;
 	background-color: #28a745;
 	color: #fff;
 }
-
+.head-text-img img{
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	border: 1px solid #fff;
+	margin-right: 5px;
+}
 .upload-cars-imgs input::-webkit-file-upload-button{ 
 	background: none;  
 	border:none; 
@@ -742,10 +802,7 @@ body{
 	justify-content: space-between;
 		margin: 10px;
 }
-.card-edit-delet a{
-	text-decoration: none;
-	color: #00891D;
-}
+
 .card-date-time{
 	clear: both;
 	display: flex;
@@ -754,24 +811,32 @@ body{
 }
 .card-edit-delet #c-delete-btn{
 	padding: 5px;
-	background-color: #d10000;
-	color: #fff;
+	font-size: 20px;
 }
 .card-edit-delet #c-edit-btn{
 	padding: 5px;
-	background-color: #2b59ff;
-	color: #fff;
+	font-size: 20px;
 }
 .card-edit-delet #c-edit-btn:hover{
-	background-color: #0038f2;
+	color: #0038f2;
 }
 .card-edit-delet #c-delete-btn:hover{
-	background-color: #c40000;
+	color: #c40000;
+}
+.i-blue{
+	color: #2b59ff;
 }
 
 @media only screen and (max-width: 800px) {
 	.account-post-card{
-		width: 100%;
+		width: 90%;
+		text-align: center;
+	}
+	.account-post-card img{
+		float: none;
+	}
+	.card-title-info{
+		margin-top: 0;
 	}
 }
 /* account post all users end-------------------------------------------------------------- */
@@ -886,9 +951,9 @@ body{
 }
 .rent-tab{
 	margin: 12px;
+	margin-bottom: 5px;
 }
 .col-70-tabel-dec{
-	padding: 12px;
 	margin-top: 8px;
 	width: 100%;
 }
@@ -1006,9 +1071,9 @@ body{
 /* user profile page start------------------------------------------- */
 
 .user_porfile_main_container{
-	height: 350px;
+	height: 380px;
 	width: 100%;
-	margin-top: 85px;
+	margin-top: 70px;
 	/* background-color: #e2e2e2; */
 	text-align: -webkit-center;
 
@@ -1027,17 +1092,13 @@ body{
 	text-align: -webkit-center;
 	margin-top: 80px;
 }
-#p-image-icon{
+.p-image-icon img{
 	position: relative;
-	border: 4px solid #fff;
 	border-radius: 50%;
 	height: 170px;
 	width: 170px;
-	background-color: #000;
 	color: #fff;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	border: 4px solid #fff;
 }
 .p-name-info h1{
 	padding: 7px;
@@ -1053,8 +1114,7 @@ body{
 
 .user-profile-post{
 	height: auto;
-	width: 100%;
-	border-top: 1px solid #00891d;
+	width: 100%;	
 	display: flex;
 	justify-content: center;
 }
@@ -1098,6 +1158,133 @@ body{
 
 
 
+/* For Mobile Menu popup box css ------------------------------------------------*/
+
+.mob-menu-modal {
+	display: flex;
+	align-items: center;
+	display: none; 
+	position: fixed; 
+	z-index: 1; 
+	left: 0;
+	top: 0;
+	width: 100%; 
+	height: 100%; 
+	overflow: auto; 
+	background-color: rgb(0,0,0); 
+	background-color: rgba(0,0,0,0.4); 
+}
+
+.mob-menu-modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+	border-radius: 8px;
+	text-align: -webkit-center;
+	margin-top: 50%;
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.mob-menu-close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.mob-menu-close:hover,
+.mob-menu-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+@media only screen and (max-width: 800px) {
+	.mob-menu-modal-content {
+		width: 80%;
+	}
+}
+/* For Mobile Menu popup box css end ------------------------------------------------*/
+
+
+/* For search popup box css ------------------------------------------------*/
+
+.search-modal {
+	display: flex;
+	align-items: center;
+	display: none; 
+	position: fixed; 
+	z-index: 1; 
+	left: 0;
+	top: 0;
+	width: 100%; 
+	height: 100%; 
+	overflow: auto; 
+	background-color: rgb(0,0,0); 
+	background-color: rgba(0,0,0,0.4); 
+}
+
+.search-modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+	border-radius: 8px;
+	text-align: -webkit-center;
+	margin-top: 50%;
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.search-close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.search-close:hover,
+.search-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+@media only screen and (max-width: 800px) {
+	.search-modal-content {
+		width: 80%;
+	}
+}
+/* For search popup box css end ------------------------------------------------*/
+
+
+
 
 /* For popup box css ------------------------------------------------*/
 
@@ -1105,7 +1292,7 @@ body{
   display: none; 
   position: fixed; 
   z-index: 1; 
-  padding-top: 100px; 
+  padding-top: 20px; 
   left: 0;
   top: 0;
   width: 100%; 
@@ -1113,6 +1300,7 @@ body{
   overflow: auto; 
   background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.4); 
+  transition: 0.3s;
 }
 
 
@@ -1122,11 +1310,10 @@ body{
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
   border-radius: 8px;
-  text-align: center;
+  text-align: -webkit-center;
 }
-
 
 .close {
   color: #aaaaaa;
@@ -1141,7 +1328,11 @@ body{
   text-decoration: none;
   cursor: pointer;
 }
-
+@media only screen and (max-width: 800px) {
+	.modal-content {
+		width: 80%;
+	}
+}
 /* For popup box css end ------------------------------------------------*/
 
 
@@ -1218,12 +1409,64 @@ body{
 	border-radius: 50%;
 	border: 1px solid #b7b7b7;
 }
+.rps-img-div{
+	position: relative;
+}
 
+#myInput{
+	visibility:hidden; 
+	display: block;
+	position: absolute;	
+}
+
+.upload-icon i{
+	position: absolute;
+    font-size: 30px;
+    margin-left: -84px;
+    top: 89px;
+    padding: 0px 0px 50px 50px;
+    padding-bottom: 50px;
+    border-radius: 0px 0px 81px 81px;
+    padding-left: 68px;
+    padding-right: 68px;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.2); 
+}
+
+.upload-icon i:hover{
+	background-color: rgb(0,0,1); 
+    background-color: rgba(0,0,0,0.8); 
+    color: #fff;
+}
+
+
+#cell-no{
+	padding: 12px;
+	color: blue;
+	border: 1px solid blue;
+	width: 200px;
+	margin:5px;
+}
+
+#cell-now{
+	display: none;
+	padding: 12px;
+	color: blue;
+	border: 1px solid blue;
+	width: 70%;
+	margin:5px;	
+}
 
 @media only screen and (max-width: 800px) {
 	.res-form-card{
 		width: 100%;
 		box-shadow: none;
+	}
+	#cell-no{
+		display: none;
+	}
+	#cell-now{
+		display: block;
 	}
 }
 /* for inputs and label ----------------------------------------------------*/

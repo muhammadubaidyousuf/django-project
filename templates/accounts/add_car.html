@@ -8,19 +8,16 @@
 <!-- http://127.0.0.1:8000/media_files/account/media_files/corolla.png -->
 {% include 'include/_navbar.html' %}
 {% include 'include/_sidebar.html' %}
-		
-		<div class="add-car-main-body">
-			<div class="head-text">
-				<h2>Add Your Car Information</h2>
-				<p>Give some details about yourself and your car</p>
-			</div>
-			<div class="rps-img-div">
-				{% if messages %}
-					{% for message in messages %}
-						{{message}}
-					{% endfor %}
-				{% endif %}
-			</div>
+{% load static %}
+<div class="add-car-main-body">
+{% include 'include/_head-nav-bar.html' %}   
+<div class="rps-img-div">
+	{% if messages %}
+		{% for message in messages %}
+			{{message}}
+		{% endfor %}
+	{% endif %}
+</div>
 		<div class="res-form-card">
 		<form action="" method="POST">
 

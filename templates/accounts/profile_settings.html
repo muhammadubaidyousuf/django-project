@@ -10,9 +10,7 @@
 {% include 'include/_sidebar.html' %}		
 
 <div class="add-car-main-body">
-	<div class="head-text">
-		<h2>{{ request.user.userinformationext.full_name | title }}</h2>
-	</div>
+{% include 'include/_head-nav-bar.html' %}   
 <div class="rps-img-div">
 	{% if messages %}
 		{% for message in messages %}
@@ -21,10 +19,16 @@
 	{% endif %}
 </div>
 <div class="res-form-card">
-	<form action="" method="POST">
+	<form action="" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
 	<div class="rps-img-div">
-		<img src="{% if Profile_Info.user_profile_image %}{{ Profile_Info.user_profile_image.url }}{% else %}{% static 'img/profile-img.png' %}{% endif %}" height="170" width="170">
+		<img src="{% if request.user.userinformationext.user_profile_image %}{{request.user.userinformationext.user_profile_image.url}}{% else %}{% static 'img/profile-img.png' %}{% endif %}" height="170" width="170">
+		<div class="upload-icon">
+			<input id="myInput" type="file" name="profile_image">
+	        <i class="fa fa-camera" aria-hidden="true" title="Upload Profile Photo"
+	        title="attach file" class="attachFileSpan" onclick="document.getElementById('myInput').click()">
+	        </i>
+		</div>
 	</div>
 	<div class="rps-label-div">
 		<label class="rps-label" for="full_name"> Full Name</label>

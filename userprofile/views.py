@@ -8,7 +8,7 @@ from userprofile.models import UserInformationExt
 
 
 def profile(request, U_id):
-    user_info = get_object_or_404(UserInformationExt, id=U_id)
+    user_info = UserInformationExt.objects.get(id=U_id)
     user_post = UserAddCar.objects.filter(c_post_by_user_id=U_id)
 
     return render(request, 'profile/profile.html', {'profile':user_info, 'user_post':user_post})
