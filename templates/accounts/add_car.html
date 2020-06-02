@@ -1,11 +1,7 @@
 {% extends '../base.html' %}
-
-<!-- oninvalid="this.setCustomValidity('Please Enter Title Hare')"
-    oninput="this.setCustomValidity('')"/ -->
 {% block body %}
 
 <title>My Account - {{ request.user|title }} - Bukinow </title>
-<!-- http://127.0.0.1:8000/media_files/account/media_files/corolla.png -->
 {% include 'include/_navbar.html' %}
 {% include 'include/_sidebar.html' %}
 {% load static %}
@@ -65,7 +61,7 @@
 			</div>
 
 			<div class="rps-label-div">
-				<label class="rps-label" for="c-par-day-price">Par Day Rent</label>
+				<label class="rps-label" for="c-par-day-price">Per Day Rent</label>
 				<input class="responsiv-input" type="text" name="c-par-day-price" placeholder="Price" required>
 			</div>	
 
@@ -121,10 +117,9 @@
 
 	  function readAndPreview(file) {
 
-	    // Make sure `file.name` matches our extensions criteria
 	    if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
 	      return alert(file.name + " is not an image");
-	    } // else...
+	    }
 	    
 	    var reader = new FileReader();
 	    

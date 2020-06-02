@@ -81,8 +81,8 @@ def add_car(request):
         year1 = range(2000, year+1)
         if request.method == "POST":
             _title = request.POST['c-title']
-            _select_car = request.FILES['c-car-name']
-            _select_car_image = request.POST['c-select-image']
+            _select_car = request.POST['c-car-name']
+            _select_car_image = request.FILES['c-select-image']
             _c_color = request.POST['c-color']
             _par_day_price = request.POST['c-par-day-price']
             _car_model = request.POST['c-model']

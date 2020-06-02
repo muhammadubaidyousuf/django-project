@@ -10,6 +10,17 @@ class CarImages(models.Model):
     car_img = models.ImageField(upload_to='cars/img', null=True)
 
 
+class ContactUs(models.Model):
+    user_name = models.CharField(max_length=30)
+    user_phone = models.CharField(max_length=15)
+    user_email = models.CharField(max_length=30)
+    message = models.TextField()
+    date_time = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.user_name
+
+
 class UserBookCar(models.Model):
     full_name = models.CharField(max_length=30)
     phone_no = models.CharField(max_length=15)
@@ -24,6 +35,9 @@ class UserBookCar(models.Model):
     let = models.CharField(max_length=30)
     long = models.CharField(max_length=30)
     date_time = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.full_name
 
 
 
@@ -48,3 +62,6 @@ class UserAddCar(models.Model):
     c_let_1 = models.CharField(max_length=30)
     c_date_time = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, models.CASCADE)
+
+    def __str__(self):
+        return self.c_title

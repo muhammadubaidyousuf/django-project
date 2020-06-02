@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<title>Bukinow add your car earn moneay - Bukinow</title>
+<title>{{query_shr|title}} in {{loc_query}} - Bukinow</title>
 
 {% include 'include/_navbar2.html' %}
 {% load static %}
@@ -21,7 +21,7 @@
     <div class="account-post-card">
 
       <div class="card-edit-delet">
-        <h3>Par Day Rent : <span>{{post.c_par_day_price}}</span></h3>
+        <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
         <p><i class="fa fa-user" aria-hidden="true"></i>  {{post.c_post_by_user_name|title}}</p>
       </div>
       <hr>
@@ -46,32 +46,5 @@
 {% include 'include/_footer.html' %}
 {% endblock %}
 
-
-<!-- <div class="search-page-body">
-	{% include 'include/_search_bar.html' %}
-</div>
-<h2 style="text-align: center; color: #696969; margin-top: 20px;">Search Result:</h2>
-
-<div class="post-search-body">
-
-	<div class="post-center-1">
-
-	{% for Home_Post in search_home_page %}
-		<div class="search-post-card">
-			<div class="post-content">
-				<a href="http://127.0.0.1:8000/post/view/{{ Home_Post.c_id }}">
-				<img src="{{ Home_Post.c_select_image  }}" height="100" width="100">
-				<p>{{ Home_Post.c_title | title }}</p>
-				<h4>Rent Par Day {{ Home_Post.c_par_day_price }}</h4></a>
-			</div>
-		<div class="search-post-date">
-			<p>{{ Home_Post.c_user_city | title }} {{ Home_Post.c_date_time.date }}</p>
-		</div>
-	</div>
-	{% endfor %}
-
-	</div>
-
-</div>
 
 

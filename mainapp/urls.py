@@ -27,6 +27,7 @@ urlpatterns = [
     path('profile/', include('userprofile.urls')),
     path('search/', views.home_search, name='search'),
     path('booking_request/', views.bookingRequest, name='booking_request'),
+    path('contact/', views.contact_us, name='contact_us'),
 ]
 
 if settings.DEBUG:

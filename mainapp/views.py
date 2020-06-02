@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse
-from accounts.models import UserAddCar, UserBookCar
+from accounts.models import UserAddCar, UserBookCar, ContactUs
 from django.contrib import messages
 import geocoder
 import re
@@ -23,7 +23,7 @@ def home_search(request):
         search_home_page = []
     else:
         search_home_page = UserAddCar.objects.filter(c_title__icontains=search_car_by_name, c_user_city__icontains=search_location)
-    return render(request, 'home_search.html', {'search_home_page':search_home_page})
+    return render(request, 'home_search.html', {'search_home_page':search_home_page, 'loc_query': search_location, 'query_shr':search_car_by_name})
 
 
 
@@ -50,3 +50,15 @@ def bookingRequest(request):
     except:
         return HttpResponse('false')
 
+
+
+def contact_us(request):
+    if request.method == 'POST':
+        user_name = request.POST['user-name']
+        user_email = request.POST['user-email']
+        user_phone = request.POST['user-phone']
+        user_msg = request.POST['user-msg']
+        contact = ContactUs(user_name=user_name, user_email=user_email, user_phone=user_phone, message=user_msg)
+        contact.save()
+        return render(request, 'contact-us.html', {'error':'Message Send Successfully'})
+    return render(request, 'contact-us.html')

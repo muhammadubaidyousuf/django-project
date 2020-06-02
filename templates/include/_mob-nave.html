@@ -6,6 +6,7 @@
 			<hr>
 			<a href="{% url 'home' %}" class="a-link-tag"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
 			{% if user.is_authenticated %}
+				<a href="{% url 'my_account' %}" class="a-link-tag"><i class="fa fa-user" aria-hidden="true"></i></i> My Account</a>  
 				<a href="{% url 'logout' %}" class="a-link-tag"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a>
 			{% else %}
 				<a href="{% url 'register' %}" class="a-link-tag"><i class="fa fa-user-plus" aria-hidden="true"></i> SingUp</a>
