@@ -1362,6 +1362,18 @@
 	box-shadow: 0 0px 8px 0 rgba(0,0,0,0.2);
 }
 
+
+.start-date1{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.start-date1 input{
+	width: 50%;
+	border: 1px solid green;
+	height: 30px;
+}
+
 .responsiv-input{
 	height: 50px;
 	display: block;

@@ -1,0 +1,43 @@
+<div id="bookingModel" class="modal">
+  <div class="modal-content">
+	    <span onclick="bookCloseBtn();" class="close">&times;</span>
+	    <p id="show-msg" style="color:green;"></p>
+	    <p id="show-msg2" style="color:red;"></p>
+		<div class="form-res">
+			<div class="rps-label-div-2">
+				<label class="rps-label" for="c-title">Full Name </label>
+				<input class="responsiv-input" type="text" id="full-name" placeholder=" Enter Full Name" required>
+
+				<input type="hidden" value="{{ home_post_by_id.c_title | title }}" id="post-title">
+				<input type="hidden" value="{{ home_post_by_id.c_id}}" name="post-id" id="post-id">
+				<input type="hidden" value="{{ home_post_by_id.c_post_by_user_id}}" name="post-user-id" id="post-user-id">
+				<input type="hidden" id="c-let" name="let" class="let">
+				<input type="hidden" id="c-log" name="long" class="long">
+			</div>
+
+			<div class="rps-label-div-2">
+				<label class="rps-label" for="c-title">Phone No</label>
+				<input maxlength="11" class="responsiv-input" type="text" placeholder="Enter Phone No" required id="phone-no">
+			</div>
+
+			<div class="rps-label-div-2">
+				<label class="rps-label" for="c-title">Address</label>
+				<input class="responsiv-input" type="text" placeholder="Your Address" required id="address">
+			</div>
+
+			<div class="start-date1">
+				<input type="date" required id="start-date">
+				<input type="date" required id="end-date">
+			</div>
+
+			<div class="rps-label-div-2 textarea-inp">
+				<label class="rps-label" for="c-dec">Message</label>
+				<textarea class="responsiv-input" id="messages" placeholder="Type Your Message" required="Fill this fild"></textarea>
+			</div>
+
+			<div class="rps-label-div-2">
+				<button class="submit-btn" id="add-car-submit">Submit</button>
+			</div>	
+		</div>
+	  </div>
+</div>

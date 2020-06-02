@@ -33,6 +33,8 @@ def logout(request):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect(login)
     if request.method == 'POST':
         login_name = request.POST['user-name']
         login_pass = request.POST['user-password']
@@ -109,7 +111,6 @@ def add_car(request):
 
 def post_edit(request, p_id):
     if request.user.is_authenticated:
-
         edit_imgs = CarImages.objects.all()
         year = datetime.date.today().year
         edit_year = range(2000, year+1)

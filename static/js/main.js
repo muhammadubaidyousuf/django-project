@@ -52,8 +52,9 @@ function BookBtn(){
 function bookCloseBtn() {
   booking_modal.style.display = "none";
 }
-// post popup box end
 
+
+// post popup box end
 
 window.onload = intAll;
 var subimtBtn
@@ -73,15 +74,6 @@ function dataSubmit(){
    var let_1 = position.coords.latitude;
     var long_1 = position.coords.longitude;
 
-    var post_title = document.getElementById('post-title')
-    var post_id = document.getElementById('post-id')
-    var post_user_id = document.getElementById('post-user-id')
-    var phone_no = document.getElementById('phone-no')
-    var address = document.getElementById('address')
-    var start_date = document.getElementById('start-date')
-    var end_date = document.getElementById('end-date')
-    var messages = document.getElementById('messages')
-
     var full_name = document.getElementById('full-name').value;
     var post_title = document.getElementById('post-title').value;
     var post_id = document.getElementById('post-id').value;
@@ -97,9 +89,8 @@ function dataSubmit(){
     req.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           if(req.responseText == 'true'){
-            
-            alert('Form is true');
-            
+            var msg = "Booking submit, owner will be contact you, in just short time"
+            document.getElementById('show-msg').innerHTML = msg;
             var full_name = document.getElementById('full-name').value = "";
             var post_title = document.getElementById('post-title').value = "";
             var post_id = document.getElementById('post-id').value = "";
@@ -110,7 +101,8 @@ function dataSubmit(){
             var end_date = document.getElementById('end-date').value = "";
             var messages = document.getElementById('messages').value = "";
           }else{
-            alert('Form is False');
+            var msg = "Fill All Field"
+            document.getElementById('show-msg2').innerHTML = msg;
           }
       }
     };
