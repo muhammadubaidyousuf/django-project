@@ -1173,6 +1173,71 @@
 
 
 
+/* For options Menu popup box css ------------------------------------------------*/
+
+.option-modal{
+	display: flex;
+	align-items: center;
+	display: none; 
+	position: fixed; 
+	z-index: 1; 
+	left: 0;
+	top: 0;
+	width: 100%; 
+	height: 100%; 
+	overflow: auto; 
+	background-color: rgb(0,0,0); 
+	background-color: rgba(0,0,0,0.4); 
+}
+
+.option-modal-div{
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+	border-radius: 8px;
+	text-align: -webkit-center;
+	margin-top: 200px;
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+@-webkit-keyframes animatetop{
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop{
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.option-close{
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.option-close:hover,
+.option-close:focus{
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+@media only screen and (max-width: 800px){
+	.option-modal-div{
+		width: 80%;
+	}
+}
+/* For Mobile Menu popup box css end ------------------------------------------------*/
+
+
+
+
 /* For Mobile Menu popup box css ------------------------------------------------*/
 
 .mob-menu-modal {

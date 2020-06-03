@@ -25,7 +25,7 @@
         <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
           <div>
               <a id="c-edit-btn" href="post-edit/{{post.c_id}}"><i class="fa fa-pencil" aria-hidden="true" title="Edit this post"></i></a> 
-              <a id="c-delete-btn" href=""><i class="fa fa-trash" aria-hidden="true" title="Delete This post"></i></a> 
+              <a id="c-delete-btn" href="#"><i class="fa fa-trash" aria-hidden="true" title="Delete This post"></i></a> 
           </div>
       </div>
       <hr>
@@ -41,9 +41,35 @@
           <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
          <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p></div>
     </div>
+
+  <div id="yes-or-no" class="option-modal">
+  <div class="option-modal-div">
+      <span onclick="optionClose();" class="option-close">&times;</span>
+      <hr>
+      <p>Are Sure Delete This Post</p>
+      <a href="post-delete/{{post.c_id}}"><button>Yes</button></a>
+      <button>No</button>
+    </div>
+  </div>
   {% endfor %}
   </div>
 </div>
+
+<script>
+  // open option option model
+var optionModel = document.getElementById("yes-or-no");
+var clickBtn = document.getElementById("c-delete-btn");
+
+
+clickBtn.onclick = function OpenOptionModel(){
+    optionModel.style.display = "block";
+}
+
+function optionClose(){
+  optionModel.style.display = "none";
+ }
+
+</script>
 
 {% include 'include/_footer.html' %}
 {% endblock %}
