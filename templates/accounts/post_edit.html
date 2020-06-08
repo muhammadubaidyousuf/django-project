@@ -30,7 +30,7 @@
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-car-name">Chose A Car</label>
 				<select class="responsiv-input" id="showimage" name="c-car-name" required>
-					<option value="">Select Car</option>
+					<option value="{{edit_post.c_car_name}}">{{edit_post.c_car_name|title}}</option>
 					{% for car in edit_img %}
 					<option value="{{ car.name_img }}">{{ car.name_img | title}}</option>
 					{% endfor %}

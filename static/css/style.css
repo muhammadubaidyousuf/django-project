@@ -24,8 +24,12 @@
 }
 .logo-main a{
 	text-decoration: none;
-	color: #28a745;
+	color: #28a745;}
+
+.logo-main img{
+
 }
+
 /* ------------------------------------------------------------------------ */
 .nav-right-side-1{
 	margin-right: 20px;
@@ -133,6 +137,7 @@
   	position: relative;
 }
 .text-slide-main{
+	width: 100%;
 	text-align: center;
 	color: #fff;
   	top: 50%;
@@ -171,109 +176,156 @@
 	background-color: #e2e2e2;
 }
 
-.add-car-home-page{ 
-	display: flex; 
-	justify-content: space-around; 
-	align-items:center; 
-	height: 200px; 
-	width: 100%; 
-	background-color: #184153;
-	background-image: url('/static/img/houndai.png');
-	background-repeat: no-repeat;
-	background-size: 360px 250px;
-  	background-position: right;
-  	position: relative;	
-} 
+/* add car poster------------------------------------------------------- */
 
-.add-car-text{ 
-	text-align: center; 
-	font-size:30px; 
-	color: #e2e2e2;
-	position: absolute;
-	margin-left: 20px; 
-	margin: 8px; 
-	left: 0;
-} 
-.add-car-text button{ 
-	background-color: #00891D;
-	color: #fff; 
-	width: 150px; 
-	height: 50px; 
-	border: none; 
-	font-size:18px; 
+.add-car-home-page{
+	height: 230px;
+	background: linear-gradient(to left, #00ccff 0%, #003366 100%);
+}
+.add-car-text{
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	color: #fff;
+	font-size: 22px;
+}
+.add-car-text button{
+	margin: 20px auto;
+	width: 200px;
+	height: 50px;
+	display: block;
+	background: #28a745;
 	border-radius: 5px;
-} 	
+	border: none;
+	outline: none;
+	color: white;
+	font-size: 18px;
+	padding: 8px;
+	transition: 0.3s;
+}
 
-.add-car-text button:hover{ 
-	background-color: #28a745; 
+.add-car-text button:hover{
+	background: #00891D;
 }
 
 @media only screen and (max-width: 800px) {
-	.slide-area{
-		justify-content: center;
-		height: 300px;
-	}
 	.add-car-text{
-		font-size: 18px;
-
-	}
-	.text-slide-main h1{
-		font-size: 27px;
-	}
-	.add-car-home-page{
-		flex-direction: column;
-	}
-	.add-car-home-page{
-		background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-		background-position: center;
-		align-items: center;
-		background-size: auto;
+		flex-direction:column;
 		text-align: center;
+		font-size: 18px;
+		height: 230px;
+		position: relative;
+	}
+	.btn-and-text{
+		position: absolute;
+	}
+	.add-car-text img{
+		display: none;
+	}
+
+	.text-slide-main h1{
+		font-size: 50px;
 	}
 }
+
+
 /* Home Page end -----------------------------------------------------------------------*/
+
+
+
+/* header search page search box  ----------------------------------------------------------------*/
+
+
+.header-search form{
+	display: flex;
+	justify-content: space-around;
+	width: 800px;
+	text-align: center;
+	background-color: #fff;
+}
+.header-search input{
+	width: 100%;
+	height: 40px;
+	padding: 8px;
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid #00891d;
+
+}
+.header-search button{
+	border-radius: 5px;
+	border: none;
+	height: 40px;
+	background: none;
+	background-color: #28a745;
+	width: 100px;
+	color: #fff;
+	font-size: 18px;
+	transition: 0.3s;
+	margin: auto;
+}
+.header-search button:hover{
+	background-color: #00891d;
+}
+/* popup search menu------------------------------------------------------------------ */
+.pop-up-search{
+
+}
+
+
+@media only screen and (max-width: 800px) {
+	.search-heide{
+		display: none;
+	}
+}
+
+/* header search page search box end ----------------------------------------------------------------*/
+
 
 
 
 /* main page search box  ----------------------------------------------------------------*/
 
 .search-box-main-page{
-	height: 250px;
+	height: 180px;
 	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	text-align: -webkit-center;
 	background-color: #e2e2e2;
-
 }
 
 .search-box-main-page form{
+	display: flex;
+	justify-content: space-around;
 	width: 800px;
 	text-align: center;
 	padding: 20px;
-	/* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
 	background-color: #fff;
 }
 .search-box-main-page h2{
 	color: #696969;
 }
 .search-box-main-page input{
-	width: 350px;
+	width: 100%;
 	height: 40px;
 	padding: 8px;
 	margin: 5px;
 	border-radius: 5px;
-	border: 1px solid #00891d;	
+	border: 1px solid #00891d;
+
 }
-.search-box-main-page input[type = "submit"]{
+.search-box-main-page button{
+	border-radius: 5px;
+	border: none;
+	height: 40px;
 	background: none;
 	background-color: #28a745;
-	width: 350px;
+	width: 100px;
 	color: #fff;
 	font-size: 18px;
 	transition: 0.3s;
+	margin: auto;
 }
-.search-box-main-page input[type = "submit"]:hover{
+.search-box-main-page button:hover{
 	background-color: #00891d;
 }
 /* popup search menu------------------------------------------------------------------ */
@@ -445,13 +497,14 @@
 	position: relative;
 	border-radius: 8px;
 }
-/* .login-logo{
-	background-image: url("logo-bukinow.png");
+.login-logo{
+	background-image: url("/static/css/icon/logo-bukinow.png");
 	background-repeat: no-repeat;
-	background-size: 300px 200px;
-	width: 400px;
-	height: 150px;
-} */
+	background-size: 120px 70px;
+	height: 70px;
+	display: block;
+	background-position: center;
+}
 
 #buki-on-btn{
 	margin: 20px auto;
@@ -695,8 +748,9 @@
 	margin-top: 20px;
 }
 .preview-car-img img{
-	border: 2px dashed black;
-	margin: 5px;
+	border: 1px solid gray;
+	margin: 10px;
+	padding: 10px;
 }
 .preview-car-img{
 	width: 100%;
@@ -1221,6 +1275,29 @@
   font-size: 28px;
   font-weight: bold;
 }
+.option-modal-div span{
+	display: block;
+}
+.option-modal-div #no-btn{
+	margin-top:10px;
+	padding: 20px;
+	margin: 5px;
+	background-color: #28a745;
+	border: none;
+	border-radius: 5px;
+
+}
+.option-modal-div #yes-btn{
+	margin-top:10px;
+	padding: 20px;
+	margin: 5px;
+	background-color: #a80000;
+	border: none;
+	border-radius: 5px;
+}
+.option-modal-div #yes-btn:hover{background-color:#7a0000;}
+.option-modal-div #no-btn:hover{background-color: #176d29;}
+
 
 .option-close:hover,
 .option-close:focus{
@@ -1436,7 +1513,12 @@
 .start-date1 input{
 	width: 50%;
 	border: 1px solid green;
-	height: 30px;
+	margin: 10px;
+}
+
+.start-date1 i{
+	font-size: 20px;
+	color: #28a745;
 }
 
 .responsiv-input{

@@ -13,11 +13,9 @@
 {% include 'include/_head-nav-bar.html' %}   
 <div class="account-card-body">
     <h1>Posts</h1>
-<div class="account-post-card">   
-  {% if error %}
-    <p>{{error}}<a href="{% url 'add_car' %}" class="a-link-tag"> Add Car </a></p>
-  {% endif %}
-</div>
+    {% if Car_post|length < 1 %}
+    <p>No POSTS Available!</p>
+    {% endif %}
   {% for post in Car_post %}
     <div class="account-post-card">
 
@@ -45,22 +43,19 @@
   <div id="yes-or-no" class="option-modal">
   <div class="option-modal-div">
       <span onclick="optionClose();" class="option-close">&times;</span>
+            <p>Are You Sure, Delete This Post?</p>
       <hr>
-      <p>Are Sure Delete This Post</p>
-      <a href="post-delete/{{post.c_id}}"><button>Yes</button></a>
-      <button>No</button>
+      <a href="post-delete/{{post.c_id}}"><button id="yes-btn">Yes</button></a>
+      <button id="no-btn" onclick="optionClose();">No</button>
     </div>
   </div>
   {% endfor %}
   </div>
 </div>
-
 <script>
   // open option option model
 var optionModel = document.getElementById("yes-or-no");
 var clickBtn = document.getElementById("c-delete-btn");
-
-
 clickBtn.onclick = function OpenOptionModel(){
     optionModel.style.display = "block";
 }
@@ -68,7 +63,6 @@ clickBtn.onclick = function OpenOptionModel(){
 function optionClose(){
   optionModel.style.display = "none";
  }
-
 </script>
 
 {% include 'include/_footer.html' %}

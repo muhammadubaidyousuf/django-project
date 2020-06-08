@@ -11,7 +11,10 @@
 <div class="add-car-main-body">
 	{% include 'include/_head-nav-bar.html' %}   
 	<div class="account-card-body">
-	    <h1>Booking</h1> 
+	    <h1>Booking</h1>
+	    {% if bookings|length < 1 %}
+	    <p>No Booking Available!</p>
+	    {% endif %}
 	  {% for post in bookings %}
 	    <div class="account-post-card">
 	    	<div class="card-edit-delet">
@@ -25,12 +28,12 @@
 	      </div>      
 	    <div class="card-edit-delet">
 	    	<p><i class="fa fa-car i-blue" aria-hidden="true"></i> Star Booking</p>
-	        <p><i class="fa fa-calendar i-blue" aria-hidden="true"></i> {{post.start_date.date}}</p>
+	        <p><i class="fa fa-calendar i-blue" aria-hidden="true"></i> {{post.start_date}}</p>
 	    </div>
 
 	    <div class="card-edit-delet">
 	    	<p><i class="fa fa-car i-blue" aria-hidden="true"></i> End Booking</p>
-	        <p><i class="fa fa-calendar i-blue" aria-hidden="true"></i> {{post.end_date.date}}</p>
+	        <p><i class="fa fa-calendar i-blue" aria-hidden="true"></i> {{post.end_date}}</p>
 	    </div>
 	    <hr>
 	    <div class="card-edit-delet">

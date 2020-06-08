@@ -1,12 +1,14 @@
+{% load static %}
 <div id="bookingModel" class="modal">
   <div class="modal-content">
 	    <span onclick="bookCloseBtn();" class="close">&times;</span>
 	    <p id="show-msg" style="color:green;"></p>
+	    <img id="loding-img" style="display: none;" src="{% static 'img/loding.gif' %}"  alt="Loding...">
 	    <p id="show-msg2" style="color:red;"></p>
 		<div class="form-res">
 			<div class="rps-label-div-2">
 				<label class="rps-label" for="c-title">Full Name </label>
-				<input class="responsiv-input" type="text" id="full-name" placeholder=" Enter Full Name" required>
+				<input class="responsiv-input" type="text" id="full-name" placeholder=" Enter Full Name" required maxlength="30">
 
 				<input type="hidden" value="{{ home_post_by_id.c_title | title }}" id="post-title">
 				<input type="hidden" value="{{ home_post_by_id.c_id}}" name="post-id" id="post-id">
@@ -17,22 +19,25 @@
 
 			<div class="rps-label-div-2">
 				<label class="rps-label" for="c-title">Phone No</label>
-				<input maxlength="11" class="responsiv-input" type="text" placeholder="Enter Phone No" required id="phone-no">
+				<input maxlength="11" pattern="[0-9]" class="responsiv-input" type="text" placeholder="Enter Phone No" required id="phone-no">
 			</div>
 
 			<div class="rps-label-div-2">
 				<label class="rps-label" for="c-title">Address</label>
-				<input class="responsiv-input" type="text" placeholder="Your Address" required id="address">
+				<input class="responsiv-input" type="text" placeholder="Your Address" required id="address" maxlength="95">
 			</div>
 
-			<div class="start-date1">
-				<input type="date" required id="start-date">
-				<input type="date" required id="end-date">
+			<div class="rps-label-div-2">
+				<div class="start-date1">
+					<i class="fa fa-calendar" aria-hidden="true"></i><input type="text" id="start-date" required placeholder="Start Date" class="responsiv-input">
+					
+					<i class="fa fa-calendar" aria-hidden="true"></i><input type="text" id="end-date" required placeholder="End Date" class="responsiv-input">
+				</div>
 			</div>
 
 			<div class="rps-label-div-2 textarea-inp">
 				<label class="rps-label" for="c-dec">Message</label>
-				<textarea class="responsiv-input" id="messages" placeholder="Type Your Message" required="Fill this fild"></textarea>
+				<textarea class="responsiv-input" id="messages" placeholder="Type Your Message" required="Fill this fild" maxlength="300"></textarea>
 			</div>
 
 			<div class="rps-label-div-2">
@@ -41,3 +46,13 @@
 		</div>
 	  </div>
 </div>
+
+<script>
+	$( function() {
+	$( "#start-date" ).datepicker();
+	} );
+
+	$( function() {
+	$( "#end-date" ).datepicker();
+	} );
+</script>

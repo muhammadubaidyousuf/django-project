@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse
 from accounts.models import UserAddCar, UserBookCar, ContactUs
+from userprofile.models import UserInformationExt
+from django.core.mail import send_mail
 from django.contrib import messages
 import geocoder
 import re
@@ -41,14 +43,25 @@ def bookingRequest(request):
     long = request.GET['long_1']
     start_date = request.GET['start_date']
     end_date = request.GET['end_date']
-    post = UserBookCar(post_title=post_title, post_id=post_id, post_user_id=post_user_id,
-                       full_name=full_name, phone_no=phone_no, address=address, message=msg,
-                       let=let, long=long, start_date=start_date, end_date=end_date)
-    try:
-        post.save()
-        return HttpResponse('true')
-    except:
-        return HttpResponse('false')
+    email = UserInformationExt.objects.get(id=post_user_id)
+    send_email = email.user_email
+    if post_title != "" and full_name != "" and phone_no != "" and address != "" and msg != "":
+        post = UserBookCar(post_title=post_title, post_id=post_id, post_user_id=post_user_id,
+                           full_name=full_name, phone_no=phone_no, address=address, message=msg,
+                           let=let, long=long, start_date=start_date, end_date=end_date)
+        try:
+            post.save()
+            send_mail(
+                'New Booking - Bukinow',
+                 msg,
+                'ubaidahmedmeo@gmail.com',
+                ['ubaidahmedmeo@gmail.com'],
+                fail_silently=False,)
+            return HttpResponse('true')
+        except:
+            return HttpResponse('false')
+    else:
+        return HttpResponse('empty')
 
 
 

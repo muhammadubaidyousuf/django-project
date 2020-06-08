@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<title>Bukinow add your car earn moneay - Bukinow</title>
+<title>Find Best Price Of Rant A Cars In All Over Pakistan - Bukinow</title>
 
 {% include 'include/_navbar2.html' %}
 
 {% load static %}
 <div class="home-container">
-	
 	<div class="slide-area">
 		<div class="text-slide-main">
 			<h1>BOOK YOUR DREAM CAR WITH BUKINOW</h1>
@@ -16,10 +15,9 @@
 	</div>
 </div>
 
-{% include 'include/_search_bar.html' %}
-
-<h2 style="text-align: center; background-color: #e2e2e2; color: #696969;">Rental Car In Your City</h2>
 <div class="main-body">
+	<h2 style="padding: 12px;">Cars in your city</h2>
+	<hr>
 	<div class="home-page-card-body">
 		{% for Home_Post in Home_page_post %}
 		<div class="home-post-card">
@@ -38,10 +36,12 @@
 
 <div class="add-car-home-page">
 	<div class="add-car-text">
-		<h2>Make Money Add Your Vehicle</h2>
-		<a href="{% url 'add_car' %}"><button>ADD CAR</button></a>
+		<div class="btn-and-text">
+			<h1>Make money add your vehicle</h1>
+			<a href="{% url 'add_car' %}"><button>ADD CAR</button></a>
+		</div>
+		<img src="{% static 'img/houndai.png' %}">
 	</div>
-	<span class="add-car-image"></span>
 </div>
 {% include 'include/_footer.html' %}
 {% endblock %}

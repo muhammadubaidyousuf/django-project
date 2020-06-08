@@ -1,13 +1,16 @@
+{% load static %}
 <div class="main-nave-con">
 	<div class="logo-main">
-		<a href="{% url 'home' %}">BukiNow</a>
+		<a href="{% url 'home' %}"><img src="{% static 'css/icon/logo-bukinow.png' %}" height="50"></a>
 	</div>
 	<div class="mob-menu">
 		<a href="#" id="open-nav" onclick="OpenMobNav();">&#9776;</a>
 	</div>
 	<div class="mob-logo">
-		<a href="{% url 'home' %}">BukiNow</a>
+		<a href="{% url 'home' %}"><img src="{% static 'css/icon/logo-bukinow.png' %}" height="50"
+			></a>
 	</div>
+	{% include 'include/header-search.html' %}
 	<div class="nav-right-side-1">
 		<div class="nav-side-bar-login">
 			{% if user.is_authenticated %}

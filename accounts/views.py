@@ -64,12 +64,7 @@ def register(request):
 def my_account(request):
     if request.user.is_authenticated:
         Car_post = UserAddCar.objects.filter(user=request.user)
-        for car in Car_post:
-            car_id = car.c_id
-            if car_id != 0:
-                return render(request, 'accounts/my_account.html', {'Car_post':Car_post})
-        else:
-            return render(request, 'accounts/my_account.html', {'error': 'No Post Available'})
+        return render(request, 'accounts/my_account.html', {'Car_post':Car_post})
     else:
         return redirect(login)
 
