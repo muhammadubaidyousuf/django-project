@@ -1,32 +1,24 @@
 {% extends '../base.html' %}
-
-<!-- oninvalid="this.setCustomValidity('Please Enter Title Hare')"
-    oninput="this.setCustomValidity('')"/ -->
+{% block title %}{{edit_post.c_title | title }}{% endblock %}
 {% block body %}
-
-<title>Edit {{edit_post.c_title | title }} - {{ request.user|title }} - Bukinow </title>
-<!-- http://127.0.0.1:8000/media_files/account/media_files/corolla.png -->
-{% include 'include/_navbar.html' %}
-{% include 'include/_sidebar.html' %}
-		
-		<div class="add-car-main-body">
-{% include 'include/_head-nav-bar.html' %}   
-			<div class="rps-img-div">
-				{% if messages %}
-					{% for message in messages %}
-						{{message}}
-					{% endfor %}
-				{% endif %}
-			</div>
-		<div class="res-form-card">
+{% load static %}
+<div class="add-car-main-body">
+	<div class="rps-img-div">
+	</div>
+	<div class="res-form-card">
+		<a href="{% url 'my_account' %}" style="flex: left;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+			<h1 style="padding: 20px;">Edit Post</h1>
+			{% if messages %}
+				{% for message in messages %}
+					{{message}}
+				{% endfor %}
+			{% endif %}
 		<form action="" method="POST" enctype="multipart/form-data">
-
 			{% csrf_token %}
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-title">Post Title</label>
 				<input value="{{edit_post.c_title}}" class="responsiv-input" type="text" name="c-title" placeholder="Title" required>
 			</div>
-
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-car-name">Chose A Car</label>
 				<select class="responsiv-input" id="showimage" name="c-car-name" required>
@@ -36,19 +28,15 @@
 					{% endfor %}
 				</select>
 			</div>
-
 			<div class="rps-label-div upload-cars-imgs"> 
 				<label class="rps-label" for="c-select-image">Upload Cars Images</label><br>
 			    <input name="c-select-image" id="file-input" type="file">
 			</div>
-
 			<div class="preview-car-img" id="preview"></div>
-
 			<div class="rps-label-div">
 				<input type="hidden" id="c-let" name="c-let-1">
 				<input type="hidden" id="c-log" name="c-log-2">
 			</div>	
-
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-color">Car Color</label>
 				<select class="responsiv-input" name="c-color" required>
@@ -60,12 +48,10 @@
 					<option value="white">White</option>
 				</select>
 			</div>
-
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-par-day-price">Per Day Rent</label>
 				<input value="{{edit_post.c_par_day_price}}" class="responsiv-input" type="text" name="c-par-day-price" placeholder="Price" required>
 			</div>	
-
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-model">Car Model Year</label>
 				<select class="responsiv-input" name="c-model" required>
@@ -75,17 +61,14 @@
 					{% endfor %}
 				</select>
 			</div>	
-
 			<div class="rps-label-div">	
 				<label class="rps-label" for="c-model">Address</label>
 				<input value="{{edit_post.c_address}}" class="responsiv-input" type="text" name="c-address" placeholder="Address" required>
 			</div>
-
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-number-plate">License No Plate</label>
 				<input value="{{edit_post.c_car_plate}}" class="responsiv-input" type="text" name="c-number-plate" placeholder="License Plate" required>
 			</div>	
-
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-self-driver">You Giving Driver</label>
 				<select class="responsiv-input" name="c-self-driver" required>
@@ -94,7 +77,6 @@
 					<option value="no">No</option>
 				</select>
 			</div>	
-
 			<div class="rps-label-div textarea-inp">
 				<label class="rps-label" for="c-dec">Type Some Details </label>
 				<textarea class="responsiv-input" name="c-dec" placeholder="Write Some About" required="Fill this fild">{{edit_post.c_car_about}}</textarea>
@@ -103,45 +85,6 @@
 				<button class="submit-btn" id="add-car-submit" type="submit" name="add-post">Submit</button>
 			</div>	
 		</form>
-
 	</div>
 </div>
-
-<script>
-	function previewImages() {
-
-	  var preview = document.querySelector('#preview');
-	  
-	  if (this.files) {
-	    [].forEach.call(this.files, readAndPreview);
-	  }
-
-	  function readAndPreview(file) {
-
-	    // Make sure `file.name` matches our extensions criteria
-	    if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
-	      return alert(file.name + " is not an image");
-	    } // else...
-	    
-	    var reader = new FileReader();
-	    
-	    reader.addEventListener("load", function() {
-	      var image = new Image();
-	      image.height = 100;
-	      image.width = 100;
-	      image.title  = file.name;
-	      image.src    = this.result;
-	      preview.appendChild(image);
-	    });
-	    
-	    reader.readAsDataURL(file);
-	    
-	  }
-
-	}
-	document.querySelector('#file-input').addEventListener("change", previewImages);
-</script>
-
-
-{% include 'include/_footer.html' %}
 {% endblock %}

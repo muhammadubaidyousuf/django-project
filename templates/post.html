@@ -1,28 +1,47 @@
 {% extends 'base.html' %}
-
+{% block title %}{{ home_post_by_id.c_title | title }}{% endblock%}
 {% block body %}
-
-<title>{{ home_post_by_id.c_title }} - Bukinow </title>
 {% load static %}
 {% include 'include/_navbar2.html' %}
 <div class="post-page-main-body">
 	<div class="post_page_main">
 		<div class="post_page_row">
 			<div class="center-col-70">
-
 				<div class="col-70-img">
-					<img src="{{ home_post_by_id.c_select_image.url }}" title="{{ car_post.c_title | title }}">
-					<a href="#" onclick="BookBtn();"><h2 id="book-car-btn">Book Now</h2></a>
+					<div class="owl-carousel perint-box">
+						<div class="item"><img src="{{ home_post_by_id.c_select_image.url }}">
+						</div>
+						{% for img in images %}
+							<div class="item"><img src="{{img.multi_imgs.url}}"></div>
+						{% endfor %}
+					</div>
+					{% if request.user.is_authenticated %}
+						<a href="#" onclick="BookBtn();"><h2 id="book-car-btn">BOOK</h2></a>
+					{% else %}
+						<a href="{% url 'login' %}?return_url={{ request.get_full_path }}"><h2 id="book-car-btn">BOOK</h2></a>
+					{% endif %}
 				</div>
 				<div class="col-70-tabel">
-					<div class="col-title-tab">
-						<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{ home_post_by_id.c_date_time.date }}</p>
+					<div class="col-title-tab change-id">
+						<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{ home_post_by_id.c_date_time.date }}
+							{% csrf_token %}
+							<input type="hidden" name="user_id" id="Post_Id" value="{{ home_post_by_id.c_id }}">
+							{% if likepost %}
+								<i id="UnlikeBtn" class="fa fa-heart like-btn tooltip" onclick="UnlikeMe(this, {{home_post_by_id.c_id}})">
+									<span class="tooltiptext">Liked</span>
+								</i>
+							{% else %}
+								<i id="SaveBtn" class="fa fa-heart-o unlike-btn tooltip"  onclick="LikeMe(this, {{home_post_by_id.c_id}})">
+									<span class="tooltiptext">Like this</span>
+								</i>
+							{% endif %}
+						</p>
 						<h1> {{ home_post_by_id.c_title | title }}</h1>
 					</div>
 				</div>
 				<div class="col-70-tabel">
 					<div class="rent-tab">
-						<h3>Per Day Rent : {{ home_post_by_id.c_par_day_price }}</h3>
+						<h3>Per Day {{ home_post_by_id.c_par_day_price }}</h3>
 						<hr style="margin-top: 8px;">
 						<div class="car-items-tab">
 							<div class="tab-items">
@@ -49,47 +68,38 @@
 							<h2>Description</h2>
 							<p>{{ home_post_by_id.c_car_about }}</p>
 						</div>
-						</div>
+					</div>
 				</div>
 			</div>
 			<div class="right-col-30">
+<!-- 				<div class="right-col-30-1">
+					<div class="right-col-1-sub">
+						<h1>Rs {{ home_post_by_id.c_par_day_price }}
+						</h1> 
+						<p>{{ home_post_by_id.c_address }}, {{ home_post_by_id.c_user_city }}</p>
+					</div>
+				</div> -->
 				<div class="right-col-30-1">
-					<img id="user-profile-pic" src="{% if home_post_by_id.c_post_by_user_pic %}{{ home_post_by_id.c_post_by_user_pic.url}}{% else %}{% static 'img/profile-img.png' %}{% endif %}">
-					<h2><a href="http://127.0.0.1:8000/profile/{{ home_post_by_id.c_post_by_user_id}}"> {{ home_post_by_id.c_post_by_user_name | title }}</a></h2>
-					<p id="user-contact-no"><i class="fa fa-phone" aria-hidden="true"></i><a href="tel:{{ home_post_by_id.c_post_by_user_phone }}"> {{ home_post_by_id.c_post_by_user_phone }}</a></p>
+					<img id="user-profile-pic" src="{% if home_post_by_id.userext.user_profile_image %}{{home_post_by_id.userext.user_profile_image.url}}{% else %}{% static 'img/profile-img.png' %}{% endif %}">
+					<h2><a href="{{HTTP_HOST}}/profile/{{home_post_by_id.userext.id}}"> 
+					{{home_post_by_id.userext.full_name| title}}</a></h2>
+					{{home_post_by_id.userext.user_location}}
+					<p id="user-contact-no"><i class="fa fa-phone" aria-hidden="true"></i><a href="tel:{{ home_post_by_id.c_post_by_user_phone }}"> {{home_post_by_id.userext.user_phno}}</a></p>
 				</div>
-
 				<div class="right-col-30-1">
-					<i id="profile-icon" class="fa fa-map-marker" aria-hidden="true" title="Address"></i>
-					<h4>Address</h4>
-					<p>{{ home_post_by_id.c_address }}</p>
-					<h4>City</h4>
-					<p>{{ home_post_by_id.c_user_city }}</p>
-				</div>
-				
-				<div class="right-col-30-1">
-						<style>
-				      #map {
-				        height: 400px; 
-				        width: 100%;  
-				       }
-				    </style>
-				    <div id="map"></div>
-				    <script>
-				function initMap() {
-				  var uluru = {lat: {{ home_post_by_id.c_let_1  }}, lng: {{ home_post_by_id.c_log_2 }}};
-				  var map = new google.maps.Map(
-				      document.getElementById('map'), {zoom: 15, center: uluru});
-				  var marker = new google.maps.Marker({position: uluru, map: map});}
-				    </script>
-				    <script async defer
-				    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHwZhnDvKF_Mg4YftV7iaCFJXBM8kuQNg&callback=initMap">
-				    </script>
+				{% include 'include/_map.html' %}
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script src="{% static 'owl/js/owl.carousel.js' %}"></script>
+<script>
+	$('.owl-carousel').owlCarousel({
+		items:1,
+		nav:true,
+		loop:true,
+	});
+</script>
 {% include 'include/_booking-form.html' %}
-{% include 'include/_footer.html' %}
 {% endblock %}

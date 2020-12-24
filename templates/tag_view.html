@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}{{slug|title}}{% endblock %}
+{% block body %}
+<div class="search-page-body">
+</div>
+<div class="search-body-post">
+  <div class="account-card-body">
+      {% if tags|length < 1 %}
+      <div class="head-bar">
+        <h4>{{slug|title}} Not Found</h4>
+        <p>No Post Available</p>      
+      </div>
+      {% else %}
+    {% for post in tags %}
+      <div class="account-post-card post-box">
+        <div class="card-edit-delet">
+          <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
+        <div class="like-save">
+          {% if post.c_id in save_post %}
+          <i class="fa fa-heart tooltip" aria-hidden="true" onclick="UnlikeMe(this, {{post.c_id}})">
+            <span class="tooltiptext">liked</span>
+          </i>
+          {% else %} 
+          <i id="unlike-p" class="fa fa-heart-o tooltip" aria-hidden="true" onclick="LikeMe(this, {{post.c_id}})">
+            <span class="tooltiptext">like this</span>
+          </i>
+          {% endif %}
+        </div>
+      </div>
+        <hr>
+        <div class="card-title-info">
+          <input type="hidden" id="h_id" name="posts_id" value="{{post.c_id}}">
+        <a href="{% url 'post' post.c_id post.c_slug %}">        
+        <img src="{{post.c_select_image.url}}">     
+          <h1>{{post.c_title | title}}</h1>      
+          <p>{{post.c_car_about|truncatechars:50}}</p></a>
+        <div class="card-date-time">
+          <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
+          <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p>
+        </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% endif %}
+    {% include 'include/_pagination.html'%}
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+

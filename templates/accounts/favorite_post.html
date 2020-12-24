@@ -1,0 +1,52 @@
+{% extends '../base.html' %}
+{% block title %} My Account {% endblock %}
+{% block body %}
+  <div class="account-body">
+      <div class="account-card-body">
+        <hr>
+      {% if not fav_post %}
+      <div class="head-bar">
+        <h2>Make Your First Car Add</h2>
+        <p>No Post Available</p>      
+      </div>
+      {% else %}
+      {% for post in fav_post %}
+      <div class="account-post-card">
+        <div class="card-edit-delet">
+          <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
+        <div>
+          <p><i class="fa fa-heart tooltip" aria-hidden="true">
+          	<span class="tooltiptext">You Saved</span>
+          </i>
+          	
+          </p> 
+        </div>
+      </div>
+        <hr>
+      <div class="card-title-info">
+      	<a href="{% url 'post' post.c_id post.c_slug %}">
+        <img src="{{post.c_select_image.url}}" height="200" width="200">
+        <h1>{{post.c_title | title}}</h1>
+        <p>{{post.c_car_about|slice:":100"}}</p></a>
+      </div>
+      <div class="card-date-time">
+        <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
+        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p>
+      </div>
+      </div>
+      <div id="yes-or-no" class="option-modal">
+        <div class="option-modal-div">
+          <span onclick="optionClose();" class="option-close">&times;</span>
+          <p>Are You Sure, Delete This Post?</p>
+          <hr>
+          <a href="post-delete/{{post.c_id}}"><button id="yes-btn">Yes</button></a>
+          <button id="no-btn" onclick="optionClose();">No</button>
+         </div>
+      </div>
+      {% endfor %}
+      {% endif%}
+      {% include 'include/_pagination.html'%}
+      </div>
+    </div>
+{% endblock %}
+

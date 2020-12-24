@@ -1,58 +1,58 @@
 {% extends '../base.html' %}
-
-
+{% block title %}Profile {{ Profile_Info.full_name }}{% endblock %}
 {% block body %}
 {% load static %}
-<title>Setup Your Profile - Bukinow </title>
-
-{% include 'include/_navbar.html' %}
-
-{% include 'include/_sidebar.html' %}		
-
 <div class="add-car-main-body">
-{% include 'include/_head-nav-bar.html' %}   
-<div class="rps-img-div">
-	{% if messages %}
-		{% for message in messages %}
-			{{message}}
-		{% endfor %}
-	{% endif %}
-</div>
-<div class="res-form-card">
-	<form action="" method="POST" enctype="multipart/form-data">
-	{% csrf_token %}
 	<div class="rps-img-div">
-		<img src="{% if request.user.userinformationext.user_profile_image %}{{request.user.userinformationext.user_profile_image.url}}{% else %}{% static 'img/profile-img.png' %}{% endif %}" height="170" width="170">
-		<div class="upload-icon">
-			<input id="myInput" type="file" name="profile_image">
-	        <i class="fa fa-camera" aria-hidden="true" title="Upload Profile Photo"
-	        title="attach file" class="attachFileSpan" onclick="document.getElementById('myInput').click()">
-	        </i>
-		</div>
+		{% if messages %}
+			{% for message in messages %}
+				{{message}}
+			{% endfor %}
+		{% endif %}
 	</div>
-	<div class="rps-label-div">
-		<label class="rps-label" for="full_name"> Full Name</label>
-		<input class="responsiv-input" type="text" name="user_name" value="{{ Profile_Info.full_name }}" placeholder="Full Name">
-	</div>
-	<div class="rps-label-div">
-		<label class="rps-label" for="email"> Email</label>
-		<input class="responsiv-input" type="text" name="email" placeholder="Email" value="{{ Profile_Info.user_email }}" disabled>
-		<p class="input-user-text">If you change this email address <a href="#" class="a-link-tag">contact us</a></p>
-	</div>
-	<div class="rps-label-div">
-		<label class="rps-label" for="phone_number"> Phone Number</label>
-		<input class="responsiv-input" type="text" name="phone_number" placeholder="Phone No" value="{{ Profile_Info.user_phno }}">
-	</div>
-	<div class="rps-label-div">
-		<label class="rps-label" for="address"> Address</label>
-		<input class="responsiv-input" type="text" name="address" placeholder="Address" value="{{ Profile_Info.user_location }}">
-		<p class="input-user-text">verify your address to make it easier customers to contact you</p>
-	</div>
+	<div class="res-form-card">
+		<div class="rps-img-div">
+			<img src="{% if Profile_Info.user_profile_image %}
+			{{Profile_Info.user_profile_image.url}}{% else %}{% static 'img/profile-img.png' %}
+			{% endif %}" height="170" width="170" id="previewImg">
+			<div class="upload-icon">
+			<form id="UploadImage">
+				{% csrf_token %}
+				<input id="myInput" type="file" name="ProfileImage" onchange="previewFile();">
+		    </form>
+		    	<i class="fa fa-camera" aria-hidden="true" title="Upload Profile Photo"
+		        title="attach file" class="attachFileSpan" onclick="document.getElementById('myInput').click()">
+		        </i>
+		        <h2>{{ Profile_Info.full_name }}</h2>
+			</div>
+		</div> 
+		<img src="" id="updateMsg">
+		<span id="msgUpdate"></span>
+		<form action="" method="POST">
+			{% csrf_token %}
 		<div class="rps-label-div">
-		<input class="submit-btn" type="submit" value="Update">
+			<label class="rps-label" for="full_name"> Full Name</label>
+			<input class="responsiv-input" type="text" name="user_name" value="{{ Profile_Info.full_name }}" placeholder="Full Name" onchange="BtnOn();">
+		</div>
+		<div class="rps-label-div">
+			<label class="rps-label" for="email"> Email</label>
+			<input class="responsiv-input" type="text" name="email" placeholder="Email" value="{{ Profile_Info.user_email }}" disabled>
+			<p class="input-user-text">If you change this email address <a href="#" class="a-link-tag">contact us</a></p>
+		</div>
+		<div class="rps-label-div">
+			<label class="rps-label" for="phone_number"> Phone Number</label>
+			<input class="responsiv-input" type="text" name="phone_number" placeholder="Phone No" value="{{ Profile_Info.user_phno }}" onchange="BtnOn();">
+		</div>
+		<div class="rps-label-div">
+			<label class="rps-label" for="address"> Address</label>
+			<input class="responsiv-input" type="text" name="address" placeholder="Address" value="{{ Profile_Info.user_location }}" onchange="BtnOn();">
+			<p class="input-user-text">verify your address to make it easier customers to contact you</p>
+		</div>
+			<div class="rps-label-div">
+			<button class="submit-btn" id="ProfileBtn" type="submit" disabled>Update</button>
+		</div>
+		</form>
 	</div>
-	</form>
 </div>
 
-{% include 'include/_footer.html' %}
 {% endblock %}

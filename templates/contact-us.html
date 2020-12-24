@@ -1,27 +1,26 @@
 {% extends 'base.html' %}
+{% block title %}Contact US{% endblock%}
 {% block body %}
-{% load static %}
-	<title>Contact Us - Bukinow</title>
-{% include 'include/_navbar2.html' %}
-	<div class="buki-all-form">
-		<form action="" method="post">
-			{% csrf_token %}
-			<div class="log-head">
-				<h3>Contact Us</h3>
-				<p>Submit Your Message We Will Reply You In A Short Time</p>
-			</div>
-			<div class="error-alert">
-				{% if error %}
-				<p>{{ error }}</p>
-				{% endif %}
-			</div>
-			<input type="text" name="user-name" placeholder="Full name" required>
+<div class="buki-all-form">
+	<form action="" method="post">
+		{% csrf_token %}
+		<div class="log-head">
+			<h3>Contact Us</h3>
+			<p>Submit Your Message We Will Reply You In A Short Time</p>
+		</div>
+		<div class="error-alert">
+			{% if error %}
+			<p>{{ error }}</p>
+			{% endif %}
+		</div>
+		<input type="text" name="user-name" placeholder="Full name" required>
 
-			<input type="email" name="user-email" placeholder="Email" required>
+		<input type="email" name="user-email" placeholder="Email" required>
 
-			<input type="text" maxlength="11" name="user-phone" placeholder="Phone No" required>
+		<input type="text" maxlength="11" name="user-phone" placeholder="Phone No" required>
 
-				<textarea class="text-area-html" name="user-msg" placeholder="Message" required="Fill this fild"></textarea>
-			<button id="buki-on-btn" type="submit">Submit</button>
-		</form>
+			<textarea class="text-area-html" name="user-msg" placeholder="Message" required="Fill this fild"></textarea>
+		<button id="buki-on-btn" type="submit">Submit</button>
+	</form>
+</div>
 {% endblock %}

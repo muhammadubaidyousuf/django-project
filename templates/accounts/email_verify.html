@@ -1,0 +1,24 @@
+{% extends '../base.html' %}
+{% block title %}Email Verification{% endblock %}
+{% block body %}
+<div class="buki-all-form">
+	<div class="login-logo"></div>
+	<form action="" method="post">
+	{% csrf_token %}
+	<div class="log-head">
+		<h3>Emial Verification</h3>
+		<p>Please Check Your Email And Continue Email Verification</p>
+	</div>
+	<div class="error-alert">
+		{% if error %}
+		<p>{{ error }}</p>
+		{% endif %}
+	</div>
+	<input type="text" name="otp" placeholder="OTP" required>
+	<input type="hidden" id="otp_user" name="otp_user" value="{{otp_user.username}}">
+	<button id="buki-on-btn" type="submit">SUBMIT</button>
+	</form>
+	<span class="forget-pass"><a href="#" id="ResendOTP">Resend OTP</a></span>
+	</div>
+</div>
+{% endblock %}

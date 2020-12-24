@@ -1,23 +1,9 @@
-<div id="search-myModal" class="search-modal">
-  <div class="search-modal-content">
-	<span onclick="closeBtn();" class="search-close">&times;</span>
-		<h3>Search</h3>
-		<div class="pop-up-search">
-			<form action="/search" method="GET">
-				<input class="responsiv-input" type="text" name="search-location" placeholder="Location">
-				<input class="responsiv-input" type="text" name="search-car-name" placeholder="Toyota">
-				<button class="submit-btn" type="submit">Find</button>
-			</form>
-		</div>
-	</div>	    
+<div class="top-search-hide" id="search-ox">
+	<div class="pop-up-search-f">
+	<form action="/search" method="GET">
+		<i class="fa fa-long-arrow-left fa-2x" aria-hidden="true" id="closeNavSearch"></i>
+			<input type="text" name="query" placeholder="Search Cars">
+			<button type="submit" title="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
+	</form>	
+	</div>
 </div>
-
-<script>
-function SearchOpen(){
-  search_modal.style.display = "block";
-}
-var search_modal = document.getElementById("search-myModal");
-function closeBtn(){
-  search_modal.style.display = "none";
-}
-</script>	    

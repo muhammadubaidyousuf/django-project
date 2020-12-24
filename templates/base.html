@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	{% load static %}
-	<meta charset="utf-8" />
+	{% load static %} 
+	<meta charset="utf-8"/>
 	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 	<script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
 	<link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
-
 	
+	<link rel="stylesheet" type="text/css" href="{% static 'owl/css/owl.carousel.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'owl/css/owl.theme.green.css' %}">
+
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+	<link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
 
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="/resources/demos/style.css">
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="{% static 'js/jquery-ui.css' %}">
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/jquery-ui.js' %}"></script>/
 </head>
-<body  onload="getLocation();">
+<title>{% block title %} {% endblock %} - BukiNow</title>
+<body>
+	{% include 'include/_navbar2.html' %}
 	{% block body %}
-
 	{% endblock %}
-
+	{% include 'include/_footer.html' %}
+	{% if not session %}
+	{% include 'include/get_location.html' %}
+	{% endif %}
 </body>
 <script src="{% static 'js/main.js' %}"></script>
+{% include 'include/ajax.html' %}
 </html>

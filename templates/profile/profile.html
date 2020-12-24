@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
-{% load static %}
+{% block title %}{{ profile.full_name | title }}{% endblock %}
 {% block body %}
-<title>{{ profile.full_name | title }} - Bukinow </title>
-{% include 'include/_navbar2.html' %}
+{% load static %}
 <div class="user_porfile_main_container">
 	<div class="profile-info-con">
 		<div class="p-name-pic">
@@ -34,6 +33,4 @@
 		{% endfor %}
 	</div>
 </div>
-
-{% include 'include/_footer.html' %}
 {% endblock %}

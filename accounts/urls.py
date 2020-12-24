@@ -4,16 +4,18 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('', views.login, name='login'),
+    path('login/', views.login, name='login'),
+    path('resend_otp/', views.resend_otp, name='resend_otp'),
+    path('email_verify/', views.email_verify, name='email_verify'),
     path('logout/', views.logout, name='logout'),
     path('my-account/', views.my_account, name='my_account'),
     path('register/', views.register, name='register'),
     path('add-car/', views.add_car, name='add_car'),
-    path('profile_setting/', views.profile_settings, name='profile_settings'),
     path('my-account/post-delete/<int:d_id>/', views.post_delete),
     path('my-account/post-edit/<int:p_id>/', views.post_edit, name='post_edit'),
     path('booking/', views.booking, name='booking'),
-
+    path('favorite_post/', views.favorite_post, name='favorite_post'),
+    path('error_404_page/', views.error_404_page, name='error_404_page'),
 
 
 

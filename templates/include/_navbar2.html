@@ -1,32 +1,55 @@
-{% load static %}
-<div class="main-nave-con">
-	<div class="logo-main">
-		<a href="{% url 'home' %}"><img src="{% static 'css/icon/logo-bukinow.png' %}" height="50"></a>
-	</div>
-	<div class="mob-menu">
-		<a href="#" id="open-nav" onclick="OpenMobNav();">&#9776;</a>
-	</div>
-	<div class="mob-logo">
-		<a href="{% url 'home' %}"><img src="{% static 'css/icon/logo-bukinow.png' %}" height="50"
-			></a>
+{% include 'include/_sidebar.html' %} 
+{% load static %} 
+<nav class="navbar" {% if 'accounts/add-car/' in request.path %} style="display: none;" {% endif %}>
+	<div  class="brandname">
+		<a href="#" onclick="OpenNav()"><i class="fa fa-bars fa-lg" aria-hidden="true"></i></a>
+		<a href="{% url 'home' %}">BUKINOW</a>
 	</div>
 	{% include 'include/header-search.html' %}
-	<div class="nav-right-side-1">
-		<div class="nav-side-bar-login">
-			{% if user.is_authenticated %}
-				<a href="{% url 'logout' %}">Logout</a>
-			{% else %}
-				<a href="{% url 'login' %}">Login</a>
+	{% include 'include/popup_search.html' %}
+	<div class="navebar-link">
+		<ul>
+			<li id="search-click"><a href="#" onclick="searchBar();"><i class="fa fa-search" aria-hidden="true"></i></a>
+			</li>
+				{% if request.user.is_authenticated %}
+				<li>
+					<a href="{% url 'booking' %}" class="notification_home">
+	  					<i class="fa fa-bell-o" aria-hidden="true"></i>
+	  					{% if notification_count >= 1 %}
+	  						<span class="badge-box">{{notification_count}}</span>
+	  					{% elif notification_count >= 9 %}
+	  						<span class="home_badge">9+</span>
+	  					{% endif %}
+	  				</a>
+	 	 		</li>
+	 	 		{% endif %}
+			{% if request.user.is_authenticated %}
+				<li><a href="#"><img id="myFunction" src="{% if request.user.userinformationext.user_profile_image %}{{request.user.userinformationext.user_profile_image.url}}{% else %}{% static 'img/profile-img.png' %}{% endif %}"></a>
 			{% endif %}
-		</div>
-		<div class="add-car-btn-2" >
-			<a href="{% url 'add_car' %}">Add Car <i class="fa fa-car" aria-hidden="true"></i></a>
-		</div>
-		<div class="mob-nav">
-			<a href="#" onclick="SearchOpen();"><i class="fa fa-search ser-icon" aria-hidden="true"></i></a>
-		</div>
+			    <div class="profile-links" id="profile-links">
+					<a href="#">{{ request.user.userinformationext.full_name | title }}</a>
+					<a href="#">Profile Setting</a>
+					<a href="{% url 'logout' %}">Logout</a>
+			    </div>
+			</li>
+			{% if not request.user.is_authenticated %}
+				<li><a id="btn-nav" href="{% url 'login' %}?return_url{{ request.get_full_path }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Login</a></li>
+			{% else %}
+				<li><a id="btn-nav" href="{% url 'add_car' %}?return_url{{ request.get_full_path }}">ADD POST</a></li>
+			{% endif %}
+		</ul>
 	</div>
-</div>
-{% include 'include/popup_search.html' %}
-{% include 'include/_mob-nave.html' %}				
+</nav>
+<script>
+	$("#myFunction").click(function(){
+		$("#profile-links").toggle()
+});
+function searchBar(){
+	document.getElementById('search-ox').style.display = "block";
+}
 
+$("#closeNavSearch").click(function(){
+	document.getElementById('search-ox').style.display = "none";
+});
+
+</script>

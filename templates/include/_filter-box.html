@@ -1,0 +1,47 @@
+<div id="FilterBox" class="FilterBox">
+  <div class="filter-modal-content">
+    <span class="filter-close">&times;</span>
+    <h2>Filters</h2>
+	<div class="filter-box-location">
+		<lable for="filter-location">Location 
+			<input type="text" name="filter-location" placeholder="Location">
+		</lable>
+		<lable for="filter-location">Vehicle
+			<input type="text" name="filter-car" placeholder="Vehicle">
+		</lable>
+	</div>
+	<div class="filter-box">
+		<lable>Price
+		<input type="number" name="start-price" placeholder="Min">
+		<input type="number" name="end-price" placeholder="Max"></lable>
+	</div>
+  </div>
+</div>
+
+
+
+<script>
+
+var filterModal = document.getElementById("FilterBox");
+
+var filterBtn = document.getElementById("open-filters");
+
+
+var filterSpan = document.getElementsByClassName("filter-close")[0];
+
+
+filterBtn.onclick = function() {
+  filterModal.style.display = "block";
+}
+
+
+filterSpan.onclick = function() {
+  filterModal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == filterModal) {
+    filterModal.style.display = "none";
+  }
+}
+</script>

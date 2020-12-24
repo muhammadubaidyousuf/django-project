@@ -1,0 +1,28 @@
+{% if search_home_page.has_other_pages %}
+<div class="account-post-card">
+  <div class="card-sub">
+    <div class="pagination">
+      {% if search_home_page.has_previous %}
+        <a href="{{request.get_full_path}}&page={{search_home_page.previous_page_number}}">&laquo;</a>
+        {% else %}
+        <a href="#">&laquo;</a>
+        {% endif %}
+        {% for number in search_home_page.paginator.page_range %}
+          {% if number <= search_home_page.number|add:8 and number >= search_home_page.number|add:-8 %}
+          {% if search_home_page.number == number %}
+          <a href="{{request.get_full_path}}&page={{ number }}" class="active">{{ forloop.counter }}</a>
+        {% else %}
+          <a href="{{request.get_full_path}}&page={{ number }}">{{ forloop.counter }}</a>
+          {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% if search_home_page.has_next %}
+          <a href="{{request.get_full_path}}&page={{search_home_page.next_page_number}}">&raquo;</a>
+        {% else %}
+      <a href="#">&raquo;</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -1,9 +1,13 @@
+  var side_drop = document.getElementById("SideFullWidth");
   const OpenNav = () => {
     document.getElementById('sidenavbarid').style.width = "250px";
+    // $('body').addClass('stop-scrolling')
+    side_drop.style.display = "block";
   }
 
     const closeNave = () => {
     document.getElementById('sidenavbarid').style.width = "0";
+    side_drop.style.display = "none";
   }
 
 
@@ -20,6 +24,8 @@
 
 
 // for geolocations 
+
+window.onload = getLocation;
 
 function getLocation() {
   if (navigator.geolocation) {
@@ -83,6 +89,7 @@ function dataSubmit(){
     var start_date = document.getElementById('start-date').value;
     var end_date = document.getElementById('end-date').value;
     var messages = document.getElementById('messages').value;
+    var post_path = document.getElementById('post_path').value;
     if(full_name == ""){
         document.getElementById('full-name').style.borderColor = "red";
     }else if(post_title==""){
@@ -100,7 +107,7 @@ function dataSubmit(){
     }else{
           document.getElementById("loding-img").style.display = "block";
           var req = new XMLHttpRequest();
-          var url = '/booking_request?full_name='+full_name+'&post_title='+post_title+'&post_id='+post_id+'&post_user_id='+post_user_id+'&phone_no='+phone_no+'&address='+address+'&start_date='+start_date+'&end_date='+end_date+'&messages='+messages+'&let_1='+let_1+'&long_1='+long_1;
+          var url = '/booking_request?full_name='+full_name+'&post_title='+post_title+'&post_id='+post_id+'&post_user_id='+post_user_id+'&phone_no='+phone_no+'&address='+address+'&start_date='+start_date+'&end_date='+end_date+'&messages='+messages+'&let_1='+let_1+'&long_1='+long_1+'&post_path='+post_path;
           req.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
           if(req.responseText == 'empty'){
@@ -110,7 +117,7 @@ function dataSubmit(){
             document.getElementById("loding-img").style.display = "none";
             var msg = "Thanks, we will contact you"
             document.getElementById('show-msg').innerHTML = msg; 
-
+            document.getElementById("model_msg").style.display = "none";
             document.getElementById('full-name').value = "";
             document.getElementById('post-title').value = "";
             document.getElementById('post-id').value = "";
@@ -120,6 +127,7 @@ function dataSubmit(){
             document.getElementById('start-date').value = "";
             document.getElementById('end-date').value = "";
             document.getElementById('messages').value = "";
+            document.getElementById('post_path').value = "";
           }else{
             var msg = "Please fill this form"
             document.getElementById('show-msg2').innerHTML = msg;
@@ -131,4 +139,61 @@ function dataSubmit(){
     }
   }
 }   
+
+
+// Like and sid like btn 
+
+function SaveBtn(x){
+  var btn1 = document.getElementById("btncolor");
+  x.classList.toggle("savebtn");
+}
+
+
+// for get user Location by user
+
+var locationModel = document.getElementById("locationModel");
+function getLocCloseBtn() {
+  locationModel.style.display = "none";
+}
+
+
+function myFunction(){
+  var drop_and_down = document.getElementById("myDropdown");
+
+  if (drop_and_down.style.display === "none") {
+    drop_and_down.style.display = "block";
+  }else{
+    drop_and_down.style.display = "none";
+  }
+}
+
+window.addEventListener("click", function(event) {
+  var drop_and_down = document.getElementById("myDropdown");
+  if (event.target == drop_and_down) {
+  drop_and_down.style.display = "none";
+  }
+});
+
+window.addEventListener("click", function(event) {
+  var side_drop = document.getElementById("SideFullWidth");
+  if (event.target == side_drop) {
+  side_drop.style.display = "none";
+  document.getElementById('sidenavbarid').style.width = "0";
+  }
+});
+
+
+// open option option model
+var optionModel = document.getElementById("yes-or-no");
+var clickBtn = document.getElementById("c-delete-btn");
+clickBtn.onclick = function OpenOptionModel(){
+optionModel.style.display = "block";
+}
+
+function optionClose(){
+optionModel.style.display = "none";
+}
+
+
+// like data sending
 

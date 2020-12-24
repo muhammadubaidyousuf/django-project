@@ -1,31 +1,29 @@
 {% extends '../base.html' %}
+{% block title %}Create New Account{% endblock %}
 {% block body %}
-{% load static %}
-	<title>Create New Account - Bukinow</title>
-{% include 'include/_navbar2.html' %}
-	<div class="buki-all-form">
-		<div class="login-logo"></div>
-		<form action="" method="post">
-			{% csrf_token %}
-			<div class="log-head">
-				<h3>Create New Account</h3>
-			</div>
-			<div class="error-alert">
-				{% if error %}
-				<p>{{ error }}</p>
-				{% endif %}
-			</div>
-			<input type="text" name="user-name" placeholder="Full name" required>
+<div class="buki-all-form">
+	<div class="login-logo"></div>
+	<form action="" method="post">
+		{% csrf_token %}
+		<div class="log-head">
+			<h3>Create New Account</h3>
+		</div>
+		<div class="error-alert">
+			{% if error %}
+			<p>{{ error }}</p>
+			{% endif %}
+		</div>
+		<input type="text" name="user-name" placeholder="Full name" required>
 
-			<input type="email" name="user-email" placeholder="Email" required>
+		<input type="email" name="user-email" placeholder="Email" required>
 
-			<input type="text" maxlength="11" name="user-phone" placeholder="Phone No" required>
+		<input type="text" maxlength="11" name="user-phone" placeholder="Phone No" required>
 
-			<input type="password" name="user-password" placeholder="Password" required>
-			<button id="buki-on-btn" type="submit">SINGUP</button>
-		</form>
-		<a href="{% url 'login' %}"><button id="buki-off-btn" type="submit">LOGIN</button></a>
-		<span class="forget-pass"><a href="{% url 'password_reset' %}">Forgot Password</a></span>
-	</div>
+		<input type="password" name="user-password" placeholder="Password" required>
+		<button id="buki-on-btn" type="submit">SINGUP</button>
+	</form>
+	<a href="{% url 'login' %}"><button id="buki-off-btn" type="submit">LOGIN</button></a>
+	<span class="forget-pass"><a href="{% url 'password_reset' %}">Forgot Password</a></span>
+</div>
 {% endblock %}
 

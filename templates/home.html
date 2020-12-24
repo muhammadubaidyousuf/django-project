@@ -1,23 +1,21 @@
 {% extends 'base.html' %}
+{% block title %}Find Best Price Of Rant A Cars In All Over Pakistan{% endblock %}
 {% block body %}
-
-<title>Find Best Price Of Rant A Cars In All Over Pakistan - Bukinow</title>
-
-{% include 'include/_navbar2.html' %}
-
 {% load static %}
 <div class="home-container">
 	<div class="slide-area">
 		<div class="text-slide-main">
 			<h1>BOOK YOUR DREAM CAR WITH BUKINOW</h1>
-			<a href="{% url 'register' %}"><button id="slide-how-it-work-btn">SINGUP</button></a> 
+			<h3>{{ request.session.name }}</h3>
+			<a href="#"><button id="slide-how-it-work-btn">How it Works</button></a> 
 		</div>
 	</div>
 </div>
-
 <div class="main-body">
-	<h2 style="padding: 12px;">Cars in your city</h2>
-	<hr>
+	<div class="main-page-hedding">
+		<h2>FIND CAR ON YOUR AREA</h2>
+		<p>Best Prices Car Near Your Locations </p>
+	</div>	
 	<div class="home-page-card-body">
 		{% for Home_Post in Home_page_post %}
 		<div class="home-post-card">
@@ -26,22 +24,52 @@
 				<p><i class="fa fa-map-marker" aria-hidden="true"></i> {{Home_Post.c_user_city}}</p>
 			</div>
 				<hr>
-				<a href="post/view/{{ Home_Post.c_id }}"><p>{{ Home_Post.c_title | title }}</p>
+				<a href="{% url 'post' Home_Post.c_id Home_Post.c_slug %}">
 				<img src="{{Home_Post.c_select_image.url}}" height="100" width="100">
-				<h4>Rent Per Day {{ Home_Post.c_par_day_price }}</h4></a>
+				<h4 style="color: #666;">Par day {{ Home_Post.c_par_day_price }}</h4>
+				<p>{{ Home_Post.c_title | title | slice:":50" }}..</p>
+			</a>
 		</div>				
 		{% endfor %}
 	</div>
-</div>
-
-<div class="add-car-home-page">
-	<div class="add-car-text">
-		<div class="btn-and-text">
-			<h1>Make money add your vehicle</h1>
-			<a href="{% url 'add_car' %}"><button>ADD CAR</button></a>
+	<div class="add-car-home-page">
+		<div class="add-car-text">
+			<div class="btn-and-text">
+				<h1>MAKE MONEY WITH YOUR VEHICLE</h1>
+				<p>Sing up With Bukinow, Add Your Car </p>
+				<a href="{% url 'add_car' %}"><button>ADD CAR</button></a>
+			</div>
+			<img src="{% static 'img/houndai.png' %}">
 		</div>
-		<img src="{% static 'img/houndai.png' %}">
 	</div>
 </div>
-{% include 'include/_footer.html' %}
+<div class="how-it-work-hedding">
+	<h2>HOW BUKINOW WORKS</h2>
+	<p>Follow Just Few Steps And Book Your Rant A Car</p>
+</div>
+<div class="how-it-work">
+	<div class="how-it-work-card">
+		<div class="how-it-work-card-box">
+			<i class="fa fa-map-marker" aria-hidden="true" style="font-size: 100px; color: #28a745;"></i>
+			<p>Find your favorite car </p>
+		</div>
+		<div class="how-it-work-card-box">
+			<i class="fa fa-user-plus" aria-hidden="true" style="font-size: 100px; color: #28a745;"></i>
+			<p>Singin Your Account, or Create a new account Account </p>
+		</div>					
+		<div class="how-it-work-card-box">
+	
+			<i class="fa fa-car" aria-hidden="true" style="font-size: 100px; color: #28a745;"></i>
+			<p>Singin Your Account, or Create a new account Account </p>
+		</div>	
+		<div class="how-it-work-card-box">
+
+			<i class="fa fa-smile-o" aria-hidden="true" style="font-size: 100px; color: #28a745;"></i>
+			<p>Sing in Your Account, or Create a new account Account </p>
+		</div>			
+	</div>
+	<div class="how-it-work-btn">
+		<a href="{% url 'register' %}">SINGIN</a>
+	</div>
+</div>
 {% endblock %}

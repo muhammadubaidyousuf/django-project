@@ -1,27 +1,20 @@
 {% extends '../base.html' %}
-
-
+{% block title %}Booking Request{% endblock %}
 {% block body %}
-
-<title>My Account - Bukinow </title>
-
-{% include 'include/_navbar.html' %}
-
-{% include 'include/_sidebar.html' %}   
-<div class="add-car-main-body">
-	{% include 'include/_head-nav-bar.html' %}   
+<div class="account-body">
 	<div class="account-card-body">
-	    <h1>Booking</h1>
-	    {% if bookings|length < 1 %}
-	    <p>No Booking Available!</p>
-	    {% endif %}
+	{% if bookings|length < 1 %}
+	<div class="head-bar">
+		<p>No Booking Available!</p>
+	</div>
+	{% else %}
 	  {% for post in bookings %}
 	    <div class="account-post-card">
 	    	<div class="card-edit-delet">
 	    		<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.date_time.date}}</p>
 	    		<p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.city}}</p>
 	    	</div>
-	      <a href="http://127.0.0.1:8000/post/view/{{post.post_id}}/"><h2>{{post.post_title}}</h2></a>
+	      <a href="{{post.post_path}}"><h2><i class="fa fa-link" aria-hidden="true"></i> {{post.post_title}}</h2></a>
 	      <hr>
 	    	<div class="card-edit-delet">
 		        <h3><i class="fa fa-user" aria-hidden="true"></i> {{post.full_name | title}}</h3>
@@ -39,14 +32,12 @@
 	    <div class="card-edit-delet">
 		    <h4><i class="fa fa-envelope i-blue" aria-hidden="true"></i> Message</h4>
 		</div>    
-		<p>{{post.message}}</p>
-	    <hr>
-	    <p id="cell-no">{{post.phone_no}}</p>
-	    <a href="tel:{{post.phone_no}}"><p id="cell-now">Call Now</p></a>
+			<p id="bk-card-msg">{{post.message}}</p>
+		    <p id="cell-no">{{post.phone_no}}<a href="tel:{{post.phone_no}}"></a></p>
 	    </div>
 	  {% endfor %}
+	  {% endif %}
+
 	  </div>
-</div>
-        
-{% include 'include/_footer.html' %}
+	</div>
 {% endblock %}

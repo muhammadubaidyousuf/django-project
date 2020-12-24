@@ -1,9 +1,18 @@
 <div class="search-heide">
 	<div class="header-search">
 		<form action="/search" method="GET">
-			<input type="text" name="search-location" placeholder="Location">
-			<input type="text" name="search-car-name" placeholder="Toyota">
+			<input type="text" name="query" placeholder="Search Cars" id="searchBar">
 			<button type="submit" title="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
 		</form>
 	</div>
 </div>
+
+
+  <script>
+  $( function() {
+    $( "#searchBar" ).autocomplete({
+      source: "{% url 'search' %}",
+      minLenght: 2,
+    });
+});
+  </script>

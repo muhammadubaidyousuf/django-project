@@ -1,49 +1,56 @@
 {% extends 'base.html' %}
+{% block title %}{{query_shr|title}}{% endblock %}
 {% block body %}
-
-<title>{{query_shr|title}} - {{loc_query}} - Bukinow</title>
-
-{% include 'include/_navbar2.html' %}
-{% load static %}
-
-<div class="search-page-body">
-	{% include 'include/_search_bar.html' %}
-</div>
-
-<div class="search-body-post">
-<div class="account-card-body">
-    <h1>Search Result</h1>
-  {% if search_home_page|length < 1 %}
-    <p>No Search Result Found</p>
-  {% endif %}
-
-  {% for post in search_home_page %}
-    <div class="account-post-card">
-
-      <div class="card-edit-delet">
-        <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
-        <p><i class="fa fa-user" aria-hidden="true"></i>  {{post.c_post_by_user_name|title}}</p>
-      </div>
+<div class="account-body">
+    <div class="account-card-body">
       <hr>
-      <a href="http://127.0.0.1:8000/post/view/{{post.c_id}}">
-      <img src="{{post.c_select_image.url}}" height="200" width="200"></a>
-      
-      <div class="card-title-info">
-        <a href="http://127.0.0.1:8000/post/view/{{post.c_id}}">
-        <h2>{{post.c_title | title}}<h2></a>
+      {% if search_home_page|length < 1 %}
+      <div class="head-bar">
+        <h4>{{query_shr|title}} Not Found</h4>
+        <p>No Post Available</p>      
       </div>
-        <p>{{post.c_car_about|slice:":100"}}</p>
-        <div class="card-date-time">
-          <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
-         <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p></div>
+      {% else %}
+      <div class="account-post-card">
+        <div class="card-sub">
+          <p class="tooltip" style="float: right;"><a href="#" class="a-link-tag" id="open-filters">Filter?</a>
+            <span class="tooltiptext">Search Filters</span>
+            </p>
+          <b><p>Search:</b> {{query_shr}}</p>
+        </div>
+      </div>
+      {% for post in search_home_page %}
+      <div class="account-post-card post-box">
+        <div class="card-edit-delet">
+          <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
+        <div class="like-save">
+          {% if post.c_id in save_post %}
+          <i class="fa fa-heart tooltip" aria-hidden="true" onclick="UnlikeMe(this, {{post.c_id}})">
+            <span class="tooltiptext">liked</span>
+          </i>
+          {% else %} 
+          <i id="unlike-p" class="fa fa-heart-o tooltip" aria-hidden="true" onclick="LikeMe(this, {{post.c_id}})">
+            <span class="tooltiptext">like this</span>
+          </i>
+          {% endif %}
+        </div>
+      </div>
+        <hr>
+      <div class="card-title-info">
+        <img src="{{post.c_select_image.url}}" height="200" width="200">
+        <h1>{{post.c_title | title}}</h1>
+        <p>{{post.c_car_about|slice:":100"}} <a href="{% url 'post' post.c_id post.c_slug %}">Red More...</a></p>
+      </div>
+      <div class="card-date-time">
+        <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
+        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p>
+      </div>
+      </div>
+      {% endfor %}
+      {% endif%}
+      {% include 'include/search-pagination.html' %}
+      </div>
     </div>
-
-  {% endfor %}
-</div>
-
-</div>
-
-{% include 'include/_footer.html' %}
+{% include 'include/_filter-box.html' %}
 {% endblock %}
 
 

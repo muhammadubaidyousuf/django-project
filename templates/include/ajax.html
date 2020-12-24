@@ -1,0 +1,158 @@
+<script>
+	$("#ResendOTP").click(function (){
+
+	let csrf = $("input[name=csrfmiddlewaretoken").val();
+	mydata = {csrfmiddlewaretoken:csrf};
+	$.ajax({
+		url: "{% url 'resend_otp' %}",
+		method: "POST",
+		data: mydata,
+		success:function(data){
+		},
+	})
+
+});
+$(document).ready(function(){
+	
+	$("#locationModel").css("display", "block")
+})
+$("#loc-sbt-btn").click(function(){
+	let city = $("#user_city").val();
+	let csrf = $("input[name=csrfmiddlewaretoken").val();
+	city_data = {city:city, csrfmiddlewaretoken:csrf};
+	$.ajax({
+		url: "{% url 'get_city_location' %}",
+		method: "POST",
+		data: city_data,
+		success:function(city_data){
+			if (city_data == "session_save"){
+				$("#locationModel").css("display", "none")
+				location.reload();
+			}
+		},
+	})
+
+});
+
+function LikeMe(btn, post_id){
+	let idme = post_id
+	LikeData = {post_id:post_id};
+	$.ajax({
+		url: "{% url 'PostSave' %}",
+		method: "POST",
+		data: LikeData,
+		success:function(LikeData){
+			if (LikeData == "not_login"){
+				window.location.href = "{% url 'login' %}?return_url={{ request.get_full_path }}";
+			}if (LikeData == "PostSave"){
+				btn.style.color="green";
+				btn.classList.remove('fa-heart-o');
+				btn.classList.add("fa-heart");
+				$(".tooltiptext").html("Liked");
+				setTimeout(function(){
+				btn.setAttribute('onclick', `UnlikeMe(this, ${idme})`);
+				}, 3000);
+			}
+
+		},
+	});
+};
+
+function UnlikeMe(btn, unlike_id){
+	let idme = unlike_id
+	unlike_data = {unlike_id:unlike_id};
+	$.ajax({
+		url: "{% url 'unlike' %}",
+		method: "POST",
+		data: unlike_data,
+		success:function(unlike_data){
+			if (unlike_data == "Unlike"){
+				btn.classList.remove('fa-heart');
+				btn.classList.add("fa-heart-o");
+				$(".tooltiptext").html("Like this");
+				setTimeout(function(){
+				btn.setAttribute('onclick', `LikeMe(this, ${idme})`);
+				}, 3000);
+				
+			}
+		},
+	});
+};
+
+$("#newsletter").keyup(function () {
+	var email = $("#newsletter").val();
+	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	var email_test = re.test(email);
+	if(email_test){
+		$("#newsletter-btn").prop( "disabled", false );
+	}else{
+		$("#newsletter-btn").prop( "disabled", true );
+	}
+});
+$("#newsletter-btn").click(function(){
+
+	let csrf = $("input[name=csrfmiddlewaretoken").val();
+	let newsletter = $("#newsletter").val();
+
+	subscribe = {newsletter:newsletter, csrfmiddlewaretoken:csrf};
+	$.ajax({
+		url: "{% url 'subscribe' %}",
+		method: "POST",
+		data: subscribe,
+		success:function(subscribe){
+			if(subscribe == "Email save"){
+				$("#newsletter").val('');
+				$("#subsMsg").css("display", "block");
+			}
+			
+		},
+	});
+});
+function BtnOn(){
+	$("#ProfileBtn").removeAttr('disabled');
+}
+
+function previewFile(input){
+    var file = $("#myInput").get(0).files[0];
+    if(file){
+        var reader = new FileReader();
+        reader.onload = function(){
+            $("#previewImg").attr("src", reader.result);
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+{% load static %}
+  $('#UploadImage').on('change', function() {
+  	$("#updateMsg").attr("src", "{% static 'img/loding.gif' %}").show();
+     $("#UploadImage").submit(); 
+  });
+
+$("#UploadImage").on("submit", function(e){
+	e.preventDefault();
+	var data = new FormData(this);
+	console.log(data)
+
+	  	$.ajax({
+  		url: "{% url 'profile_image' %}",
+  		method: 'POST',
+  		data: data,
+  		contentType: false,
+  		processData: false,
+  		success:function(data){
+  			if(data == "true"){
+  				$("#updateMsg").removeAttr("src", "{% static 'img/loding.gif' %}").show();
+  				$("#msgUpdate").html("Image Update SuccessFully")
+  				$("#UploadImage").val('');
+  			}
+  		
+  		},
+	});
+});
+
+$("#load-more").on("click", function(){
+	var _lenght = $(".post-box").length;
+	console.log(_lenght)
+});
+</script>

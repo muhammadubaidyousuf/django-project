@@ -1,0 +1,27 @@
+{% if PageItems.has_other_pages %}
+  <div class="account-post-card">
+    <div class="card-sub">
+      <div class="pagination">
+        {% if PageItems.has_previous %}
+          <a href="?page={{PageItems.previous_page_number}}">&laquo;</a>
+          {% else %}
+          <a href="#">&laquo;</a>
+          {% endif %}
+          {% for number in PageItems.paginator.page_range %}
+            {% if number <= PageItems.number|add:8 and number >= PageItems.number|add:-8 %}
+            {% if PageItems.number == number %}
+            <a href="?page={{ number }}" class="active">{{ forloop.counter }}</a>
+          {% else %}
+            <a href="?page={{ number }}">{{ forloop.counter }}</a>
+            {% endif %}
+            {% endif %}
+          {% endfor %}
+          {% if PageItems.has_next %}
+            <a href="?page={{PageItems.next_page_number}}">&raquo;</a>
+          {% else %}
+        <a href="#">&raquo;</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}

@@ -1,69 +1,48 @@
 {% extends '../base.html' %}
-
-
+{% block title %} My Account {% endblock %}
 {% block body %}
-{% load static %}
-<title>My Account - Bukinow </title>
-
-{% include 'include/_navbar.html' %}
-
-{% include 'include/_sidebar.html' %}   
-
-<div class="add-car-main-body">
-{% include 'include/_head-nav-bar.html' %}   
-<div class="account-card-body">
-    <h1>Posts</h1>
-    {% if Car_post|length < 1 %}
-    <p>No POSTS Available!</p>
-    {% endif %}
-  {% for post in Car_post %}
-    <div class="account-post-card">
-
-      <div class="card-edit-delet">
-        <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
-          <div>
-              <a id="c-edit-btn" href="post-edit/{{post.c_id}}"><i class="fa fa-pencil" aria-hidden="true" title="Edit this post"></i></a> 
-              <a id="c-delete-btn" href="#"><i class="fa fa-trash" aria-hidden="true" title="Delete This post"></i></a> 
-          </div>
+  <div class="account-body">
+      <div class="account-card-body">
+        <hr>
+      {% if not Car_post %}
+      <div class="head-bar">
+        <h2>Make Your First Car Add</h2>
+        <p>No Post Available</p>      
       </div>
-      <hr>
-      <a href="http://127.0.0.1:8000/post/view/{{post.c_id}}">
-      <img src="{{post.c_select_image.url}}" height="200" width="200"></a>
-      
+      {% else %}
+      {% for post in Car_post %}
+      <div class="account-post-card">
+        <div class="card-edit-delet">
+          <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
+        <div>
+          <a id="c-edit-btn" href="post-edit/{{post.c_id}}"><i class="fa fa-pencil" aria-hidden="true" title="Edit this post"></i></a> 
+          <a id="c-delete-btn" href="#"><i class="fa fa-trash" aria-hidden="true" title="Delete This post"></i></a> 
+        </div>
+      </div>
+        <hr>
       <div class="card-title-info">
-        <a href="http://127.0.0.1:8000/post/view/{{post.c_id}}">
-        <h2>{{post.c_title | title}}<h2></a>
+        <img src="{{post.c_select_image.url}}" height="200" width="200">
+        <h1>{{post.c_title | title}}</h1>
+        <p>{{post.c_car_about|slice:":100"}} <a href="{% url 'post' post.c_id post.c_slug %}">Red More...</a></p>
       </div>
-        <p>{{post.c_car_about|slice:":100"}}</p>
-        <div class="card-date-time">
-          <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
-         <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p></div>
+      <div class="card-date-time">
+        <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
+        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p>
+      </div>
+      </div>
+      <div id="yes-or-no" class="option-modal">
+        <div class="option-modal-div">
+          <span onclick="optionClose();" class="option-close">&times;</span>
+          <p>Are You Sure, Delete This Post?</p>
+          <hr>
+          <a href="post-delete/{{post.c_id}}"><button id="yes-btn">Yes</button></a>
+          <button id="no-btn" onclick="optionClose();">No</button>
+         </div>
+      </div>
+      {% endfor %}
+      {% endif%}
+      {% include 'include/_pagination.html'%}
+      </div>
     </div>
-
-  <div id="yes-or-no" class="option-modal">
-  <div class="option-modal-div">
-      <span onclick="optionClose();" class="option-close">&times;</span>
-            <p>Are You Sure, Delete This Post?</p>
-      <hr>
-      <a href="post-delete/{{post.c_id}}"><button id="yes-btn">Yes</button></a>
-      <button id="no-btn" onclick="optionClose();">No</button>
-    </div>
-  </div>
-  {% endfor %}
-  </div>
-</div>
-<script>
-  // open option option model
-var optionModel = document.getElementById("yes-or-no");
-var clickBtn = document.getElementById("c-delete-btn");
-clickBtn.onclick = function OpenOptionModel(){
-    optionModel.style.display = "block";
-}
-
-function optionClose(){
-  optionModel.style.display = "none";
- }
-</script>
-
-{% include 'include/_footer.html' %}
 {% endblock %}
+
