@@ -13,14 +13,13 @@
 </div>
 <div class="main-body">
 	<div class="main-page-hedding">
-		<h2>FIND CAR ON YOUR AREA</h2>
-		<p>Best Prices Car Near Your Locations </p>
+		<h2>News Feed</h2>
 	</div>	
 	<div class="home-page-card-body">
 		{% for Home_Post in Home_page_post %}
 		<div class="home-post-card">
 			<div class="home-card-1">
-				<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{Home_Post.c_date_time.date}}</p>
+				<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{Home_Post.c_date_time.date|timesince}}</p>
 				<p><i class="fa fa-map-marker" aria-hidden="true"></i> {{Home_Post.c_user_city}}</p>
 			</div>
 				<hr>
@@ -32,6 +31,7 @@
 		</div>				
 		{% endfor %}
 	</div>
+
 	<div class="add-car-home-page">
 		<div class="add-car-text">
 			<div class="btn-and-text">
@@ -42,6 +42,7 @@
 			<img src="{% static 'img/houndai.png' %}">
 		</div>
 	</div>
+
 </div>
 <div class="how-it-work-hedding">
 	<h2>HOW BUKINOW WORKS</h2>

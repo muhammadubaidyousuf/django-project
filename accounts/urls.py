@@ -11,11 +11,13 @@ urlpatterns = [
     path('my-account/', views.my_account, name='my_account'),
     path('register/', views.register, name='register'),
     path('add-car/', views.add_car, name='add_car'),
-    path('my-account/post-delete/<int:d_id>/', views.post_delete),
+    path('my-account/post-delete/<int:d_id>/', views.post_delete, name='post_delete'),
     path('my-account/post-edit/<int:p_id>/', views.post_edit, name='post_edit'),
     path('booking/', views.booking, name='booking'),
     path('favorite_post/', views.favorite_post, name='favorite_post'),
     path('error_404_page/', views.error_404_page, name='error_404_page'),
+    path('post_submit/', views.PostSubmit, name='post_submit'),
+    path('get_address/', views.get_address, name='get_address'),
 
 
 

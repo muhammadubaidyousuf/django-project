@@ -29,6 +29,8 @@ urlpatterns = [
     path('subscribe/', views.Subscribe, name='subscribe'),
     path('email_verify/', views.EmailVerify, name='email_verify'),
     path('tags/<slug:slug>/', views.tags, name='tags'),
+    path('autofill/', views.SearchAutoFill, name='autofill'),
+    path('search_filter/', views.SearchFilter, name='search_filter'),
 
 ]
 

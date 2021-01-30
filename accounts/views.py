@@ -2,19 +2,33 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse, 
 from django.core.paginator import Paginator
 from django.utils.text import slugify
 from django.core.files.storage import FileSystemStorage
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .email_sender import OTPEmailSender
 from .middelware import auth_middleware
 from userprofile.models import UserInformationExt
-from .models import UserAddCar,  CarImages, UserBookCar, UserOTP, SavePost, PostsImages
+from .models import UserAddCar,  CarsName, UserBookCar, UserOTP, SavePost, PostsImages, CarsModel
 from django.contrib.auth.models import auth
 import random 
 import re
-# Create your views here.
 import datetime
+import geocoder
 
+
+
+@csrf_exempt
+def get_address(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            g = geocoder.ip('me')
+            city = g.city 
+            state = g.state
+            data = {"city":city, "state":state}
+            return JsonResponse(data)
+        return redirect('home')
+    return redirect('home')
 
 
 def login(request):
@@ -132,7 +146,7 @@ def email_verify(request):
 
 def my_account(request):
     if request.user.is_authenticated:
-        Car_post = UserAddCar.objects.filter(user=request.user)
+        Car_post = UserAddCar.objects.filter(user=request.user, c_admin_approved=True)
         paginator = Paginator(Car_post, 10)
         page_no = request.GET.get('page')
         paje_object = paginator.get_page(page_no)
@@ -144,29 +158,35 @@ def my_account(request):
 
 @auth_middleware
 def add_car(request):
-    get_imgs = CarImages.objects.all()
+    cars_name = CarsName.objects.all()
+    cars_model = CarsModel.objects.all()
     year = datetime.date.today().year
     year1 = range(2000, year+1)
     user = request.user
     if request.method == "POST":
-        title = request.POST['c-title']
-        select_car = request.POST['c-car-name']
+        title = request.POST['title']
+        price = request.POST['price']
+        color = request.POST['color']
+        model_year = request.POST['model-year']
+        make_by = request.POST['make-by']
+        car_name = request.POST['car-name']
+        no_plate = request.POST['no-plate']
+        self_drive = request.POST['self-driver']
+        cover_image = request.FILES['cover-image']
         multiple_image = request.FILES.getlist('files[]')
-        c_color = request.POST['c-color']
-        par_day_price = request.POST['c-par-day-price']
-        car_model = request.POST['c-model']
-        c_address = request.POST['c-address']
-        c_no_plate = request.POST['c-number-plate']
-        c_self_drive = request.POST['c-self-driver']
-        c_dec = request.POST['c-dec']
-        c_let = request.POST['c-let-1']
-        c_log = request.POST['c-log-2']
+        let = request.POST['let']
+        lng = request.POST['lng']
+        state = request.POST['state']
+        city = request.POST['city']
+        address = request.POST['address']        
+        dec = request.POST['dec']
         slug = slugify(title)
         userext = UserInformationExt.objects.get(user=user)
-        add_post = UserAddCar(userext=userext, user=user, c_title=title, c_car_name=select_car, c_car_color=c_color,
-                               c_par_day_price=par_day_price, c_car_model=car_model, c_address=c_address,
-                               c_car_plate=c_no_plate, c_self_driver=c_self_drive, c_car_about=c_dec,
-                               c_let_1=c_let, c_log_2=c_log, c_slug=slug)
+        add_post = UserAddCar(userext=userext, user=user, c_title=title, c_car_name=car_name, c_car_color=color,
+                               c_par_day_price=price, c_car_model=model_year, c_address=address,
+                               c_car_plate=no_plate, c_self_driver=self_drive, c_select_image=cover_image, c_car_about=dec,
+                               c_let_1=let, c_log_2=lng, c_slug=slug, c_user_city=city, 
+                               c_user_state=state, c_make_by=make_by)
         # add_post.save()
         for images in multiple_image:
             fs = FileSystemStorage()
@@ -174,19 +194,23 @@ def add_car(request):
             print(file_path)
             post_image = PostsImages(post_id=add_post, multi_imgs=file_path)
             # post_image.save()
-        messages.success(request, "Car ADD Successfully")
-    return render(request, 'accounts/add_car.html', {"get_imgs":get_imgs, "years":year1})
+        return redirect('post_submit')
+    return render(request, 'accounts/add_car.html', {"cars_name":cars_name, "cars_model":cars_model, "years":year1})
 
+
+
+def PostSubmit(request):
+    return render(request, 'accounts/post-submit.html')
 
 
 def post_edit(request, p_id):
     if request.user.is_authenticated:
-        edit_imgs = CarImages.objects.all()
+        cars_name = CarsName.objects.all()
+        cars_model = CarsModel.objects.all()
         year = datetime.date.today().year
         edit_year = range(2000, year+1)
-
-        info = UserInformationExt.objects.filter(user=request.user)
         edit_post = get_object_or_404(UserAddCar, c_id=p_id)
+        Images = PostsImages.objects.filter(post_id_id=edit_post)
         if request.method == "POST":
             e_title = request.POST['c-title']
             e_select_car = request.POST['c-car-name']
@@ -199,7 +223,6 @@ def post_edit(request, p_id):
             e_c_self_drive = request.POST['c-self-driver']
             e_c_dec = request.POST['c-dec']
 
-            # edit database part
             edit = UserAddCar.objects.get(c_id=p_id)
             edit.c_title = e_title
             edit.c_select_car = e_select_car
@@ -213,7 +236,7 @@ def post_edit(request, p_id):
             edit.c_car_about = e_c_dec
             edit.save()
             messages.error(request, "Post Update successfully.")
-        return render(request, 'accounts/post_edit.html', {'edit_post':edit_post, 'edit_img':edit_imgs, 'edit_year':edit_year})
+        return render(request, 'accounts/post_edit.html', {"cars_name":cars_name, "cars_model":cars_model,'edit_post':edit_post, 'edit_year':edit_year, 'images':Images})
     else:
         return redirect(login)
 
@@ -222,7 +245,6 @@ def post_edit(request, p_id):
 def post_delete(request, d_id):
     if request.user.is_authenticated:
         delete_post = UserAddCar.objects.filter(c_id=d_id)
-        messages.warning(request, "Do You Want To Delete This Post Say Yes Or No")
         delete_post.delete()
         return redirect(my_account)
     else:
@@ -232,9 +254,9 @@ def post_delete(request, d_id):
 def booking(request):
     if request.user.is_authenticated:
         user = request.user
-        status_update = UserBookCar.objects.filter(post_user_id=user.id-1).update(status_check=True)
-        bookings = UserBookCar.objects.filter(post_user_id=user.id-1).order_by('-date_time')
-        for_post = UserBookCar.objects.filter(post_user_id=user.id-1).values_list('post_id', flat=True)
+        status_update = UserBookCar.objects.filter(post_user_id=user.id).update(status_check=True)
+        bookings = UserBookCar.objects.filter(post_user_id=user.id).order_by('-date_time')
+        for_post = UserBookCar.objects.filter(post_user_id=user.id).values_list('post_id', flat=True)
         cars_post = UserAddCar.objects.filter(c_id__in=for_post)
         paginator = Paginator(bookings, 10)
         page_no = request.GET.get('page')

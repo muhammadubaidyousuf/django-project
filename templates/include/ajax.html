@@ -35,7 +35,6 @@ $("#loc-sbt-btn").click(function(){
 });
 
 function LikeMe(btn, post_id){
-	let idme = post_id
 	LikeData = {post_id:post_id};
 	$.ajax({
 		url: "{% url 'PostSave' %}",
@@ -45,13 +44,10 @@ function LikeMe(btn, post_id){
 			if (LikeData == "not_login"){
 				window.location.href = "{% url 'login' %}?return_url={{ request.get_full_path }}";
 			}if (LikeData == "PostSave"){
-				btn.style.color="green";
-				btn.classList.remove('fa-heart-o');
-				btn.classList.add("fa-heart");
-				$(".tooltiptext").html("Liked");
-				setTimeout(function(){
-				btn.setAttribute('onclick', `UnlikeMe(this, ${idme})`);
-				}, 3000);
+				$(btn).children().removeClass("fa-heart-o");
+				$(btn).children().addClass("fa-heart");
+				$(btn).children().css("color", "#28a745");
+				$(btn).attr("onclick", `UnlikeMe(this, ${post_id})`)
 			}
 
 		},
@@ -59,7 +55,6 @@ function LikeMe(btn, post_id){
 };
 
 function UnlikeMe(btn, unlike_id){
-	let idme = unlike_id
 	unlike_data = {unlike_id:unlike_id};
 	$.ajax({
 		url: "{% url 'unlike' %}",
@@ -67,13 +62,10 @@ function UnlikeMe(btn, unlike_id){
 		data: unlike_data,
 		success:function(unlike_data){
 			if (unlike_data == "Unlike"){
-				btn.classList.remove('fa-heart');
-				btn.classList.add("fa-heart-o");
-				$(".tooltiptext").html("Like this");
-				setTimeout(function(){
-				btn.setAttribute('onclick', `LikeMe(this, ${idme})`);
-				}, 3000);
-				
+				$(btn).children().removeClass("fa-heart");
+				$(btn).children().addClass("fa-heart-o");
+				$(btn).children().css("color", "black");
+				$(btn).attr("onclick", `LikeMe(this, ${unlike_id})`)
 			}
 		},
 	});
@@ -154,5 +146,16 @@ $("#UploadImage").on("submit", function(e){
 $("#load-more").on("click", function(){
 	var _lenght = $(".post-box").length;
 	console.log(_lenght)
+});
+
+// search filter
+
+
+
+$("#max-price").on("change keyup", function(){
+	var min = $("#min-price").val();
+	var max = $("#max-price").val();
+	$("#filter-btn").attr('href', `{{request.get_full_path}}&min=${min}&max=${max}`);
+	
 });
 </script>

@@ -1,15 +1,15 @@
 {% include 'include/_sidebar.html' %} 
 {% load static %} 
-<nav class="navbar" {% if 'accounts/add-car/' in request.path %} style="display: none;" {% endif %}>
+<nav class="navbar">
 	<div  class="brandname">
 		<a href="#" onclick="OpenNav()"><i class="fa fa-bars fa-lg" aria-hidden="true"></i></a>
-		<a href="{% url 'home' %}">BUKINOW</a>
+		<a href="{% url 'home' %}"><span class="logo"></span></a>
 	</div>
 	{% include 'include/header-search.html' %}
 	{% include 'include/popup_search.html' %}
 	<div class="navebar-link">
 		<ul>
-			<li id="search-click"><a href="#" onclick="searchBar();"><i class="fa fa-search" aria-hidden="true"></i></a>
+			<li id="search-click"><a href="javascript:void(0);" onclick="searchBar();"><i class="fa fa-search" aria-hidden="true"></i></a>
 			</li>
 				{% if request.user.is_authenticated %}
 				<li>
@@ -23,33 +23,32 @@
 	  				</a>
 	 	 		</li>
 	 	 		{% endif %}
-			{% if request.user.is_authenticated %}
-				<li><a href="#"><img id="myFunction" src="{% if request.user.userinformationext.user_profile_image %}{{request.user.userinformationext.user_profile_image.url}}{% else %}{% static 'img/profile-img.png' %}{% endif %}"></a>
+			{% if not request.user.is_authenticated %}
+				<li><a id="btn-nav" href="{% url 'login' %}?return_url{{ request.get_full_path }}">Login</a></li>
+			{% else %}
+				{% if request.user.is_authenticated %}
+				<li><a href="javascript:void(0);"><img id="myFunction" src="{% if request.user.userinformationext.user_profile_image %}{{request.user.userinformationext.user_profile_image.url}}{% else %}{% static 'img/profile-img.png' %}{% endif %}"></a>
 			{% endif %}
 			    <div class="profile-links" id="profile-links">
-					<a href="#">{{ request.user.userinformationext.full_name | title }}</a>
-					<a href="#">Profile Setting</a>
+					<a href="{% url 'my_account' %}">{{request.user.userinformationext.full_name|title}}</a>
+					<a href="{% url 'profile_settings' %}">Profile Setting</a>
 					<a href="{% url 'logout' %}">Logout</a>
 			    </div>
 			</li>
-			{% if not request.user.is_authenticated %}
-				<li><a id="btn-nav" href="{% url 'login' %}?return_url{{ request.get_full_path }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Login</a></li>
-			{% else %}
-				<li><a id="btn-nav" href="{% url 'add_car' %}?return_url{{ request.get_full_path }}">ADD POST</a></li>
 			{% endif %}
 		</ul>
 	</div>
 </nav>
 <script>
-	$("#myFunction").click(function(){
-		$("#profile-links").toggle()
+$("#myFunction").click(function(){
+	$("#profile-links").toggle()
 });
 function searchBar(){
-	document.getElementById('search-ox').style.display = "block";
+	document.getElementById('search-ox').style.width = "100%";
 }
 
 $("#closeNavSearch").click(function(){
-	document.getElementById('search-ox').style.display = "none";
+	document.getElementById('search-ox').style.width = "0";
 });
 
 </script>

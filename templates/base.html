@@ -16,17 +16,15 @@
 
 	<link rel="stylesheet" href="{% static 'js/jquery-ui.css' %}">
 	<script src="{% static 'js/jquery.js' %}"></script>
-	<script src="{% static 'js/jquery-ui.js' %}"></script>/
+	<script src="{% static 'js/jquery-ui.js' %}"></script>
 </head>
 <title>{% block title %} {% endblock %} - BukiNow</title>
 <body>
 	{% include 'include/_navbar2.html' %}
 	{% block body %}
+	{% load humanize %}
 	{% endblock %}
-	{% include 'include/_footer.html' %}
-	{% if not session %}
-	{% include 'include/get_location.html' %}
-	{% endif %}
+<footer>{% include 'include/_footer.html' %}</footer>
 </body>
 <script src="{% static 'js/main.js' %}"></script>
 {% include 'include/ajax.html' %}

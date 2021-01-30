@@ -2,7 +2,6 @@
 {% block title %}{{ home_post_by_id.c_title | title }}{% endblock%}
 {% block body %}
 {% load static %}
-{% include 'include/_navbar2.html' %}
 <div class="post-page-main-body">
 	<div class="post_page_main">
 		<div class="post_page_row">
@@ -23,18 +22,16 @@
 				</div>
 				<div class="col-70-tabel">
 					<div class="col-title-tab change-id">
-						<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{ home_post_by_id.c_date_time.date }}
-							{% csrf_token %}
-							<input type="hidden" name="user_id" id="Post_Id" value="{{ home_post_by_id.c_id }}">
-							{% if likepost %}
-								<i id="UnlikeBtn" class="fa fa-heart like-btn tooltip" onclick="UnlikeMe(this, {{home_post_by_id.c_id}})">
-									<span class="tooltiptext">Liked</span>
-								</i>
-							{% else %}
-								<i id="SaveBtn" class="fa fa-heart-o unlike-btn tooltip"  onclick="LikeMe(this, {{home_post_by_id.c_id}})">
-									<span class="tooltiptext">Like this</span>
-								</i>
-							{% endif %}
+						<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{ home_post_by_id.c_date_time|timesince }}
+						{% if likepost %}
+				          <a href="javascript:void(0);" onclick="UnlikeMe(this, {{home_post_by_id.c_id}})">
+				            <i id="UnlikeBtn" class="fa fa-heart like-btn"></i>
+				          </a>
+						{% else %}
+				          <a href="javascript:void(0);" onclick="LikeMe(this, {{home_post_by_id.c_id}})">
+				            <i id="SaveBtn" class="fa fa-heart-o unlike-btn"></i>
+				          </a>
+						{% endif %}
 						</p>
 						<h1> {{ home_post_by_id.c_title | title }}</h1>
 					</div>

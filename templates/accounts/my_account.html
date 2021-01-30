@@ -16,7 +16,7 @@
           <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
         <div>
           <a id="c-edit-btn" href="post-edit/{{post.c_id}}"><i class="fa fa-pencil" aria-hidden="true" title="Edit this post"></i></a> 
-          <a id="c-delete-btn" href="#"><i class="fa fa-trash" aria-hidden="true" title="Delete This post"></i></a> 
+          <a id="c-delete-btn" href="javascript:void(0)" onclick="PostsDelete(this, {{post.c_id}})"><i class="fa fa-trash" aria-hidden="true" title="Delete This post"></i></a> 
         </div>
       </div>
         <hr>
@@ -34,8 +34,7 @@
         <div class="option-modal-div">
           <span onclick="optionClose();" class="option-close">&times;</span>
           <p>Are You Sure, Delete This Post?</p>
-          <hr>
-          <a href="post-delete/{{post.c_id}}"><button id="yes-btn">Yes</button></a>
+          <a id="DelBtn" href="#"><button id="yes-btn">Yes</button></a>
           <button id="no-btn" onclick="optionClose();">No</button>
          </div>
       </div>

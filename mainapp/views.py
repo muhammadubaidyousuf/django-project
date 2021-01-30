@@ -22,10 +22,28 @@ def get_city_location(request):
 
 
 def home(request):
-
-    city = request.session.get('user-city', default=False)
-    home_page_post = UserAddCar.objects.filter(c_user_city=city)[:6]
+    home_page_post = UserAddCar.objects.filter(c_admin_approved=True).all().order_by('-c_id')[:6]
     return render(request, 'home.html', {'Home_page_post':home_page_post})
+
+
+
+def SearchAutoFill(request):
+    if 'term' in request.GET:
+        get_term = request.GET.get('term').lower()
+        tag_obj = Tag.objects.filter(Q(name__icontains=get_term))
+        qs = UserAddCar.objects.filter(Q(c_title__icontains=get_term))
+        if qs:
+            titles = list()
+            for post_title in qs:
+                titles.append(post_title.c_title)
+            return JsonResponse(titles, safe=False)
+        elif tag_obj:
+            tags = list()
+            for tag in tag_obj:
+                tags.append(tag.name)
+            return JsonResponse(tags, safe=False)
+        else:
+            return JsonResponse({'foo':'Search not found'}, safe=False)
 
 
 
@@ -33,11 +51,11 @@ def post_views(request, p_id, slug):
     if request.user.is_authenticated:
         user = request.user
         LikePost = SavePost.objects.filter(user=user, post_id=p_id).exists()
-        home_post_by_id = get_object_or_404(UserAddCar, pk=p_id, c_slug=slug)
+        home_post_by_id = get_object_or_404(UserAddCar, pk=p_id, c_slug=slug, c_admin_approved=True)
         images = PostsImages.objects.filter(post_id_id=home_post_by_id)
         return render(request, 'post.html', {'home_post_by_id':home_post_by_id, 'likepost':LikePost, 'images':images})  
     else:
-        home_post_by_id = get_object_or_404(UserAddCar, pk=p_id, c_slug=slug)
+        home_post_by_id = get_object_or_404(UserAddCar, pk=p_id, c_slug=slug, c_admin_approved=True)
         images = PostsImages.objects.filter(post_id_id=home_post_by_id)
         return render(request, 'post.html', {'home_post_by_id':home_post_by_id, 'images':images})  
 
@@ -47,6 +65,7 @@ def tags(request, slug):
     post = UserAddCar.objects.filter(tags=tag)
     return render(request, 'tags.html', {'post':post}) 
 
+
 def tag_view(request, slug):
     slug = slug
     if "-" in slug:
@@ -54,9 +73,9 @@ def tag_view(request, slug):
     save_post = None
     if request.user.is_authenticated:
         user = request.user
-        ids = UserAddCar.objects.filter(Q(c_title__icontains=slug)|Q(c_car_about__icontains=slug)|Q(c_car_model__icontains=slug)|Q(c_make_by__icontains=slug)).values_list('c_id', flat=True)
+        ids = UserAddCar.objects.filter(Q(c_title__icontains=slug)|Q(c_car_about__icontains=slug)|Q(c_car_model__icontains=slug)|Q(c_make_by__icontains=slug), c_admin_approved=True).values_list('c_id', flat=True)
         save_post = SavePost.objects.filter(user=user, post_id__in=ids).values_list('post_id', flat=True)
-    Posts = UserAddCar.objects.filter(Q(c_title__icontains=slug)|Q(c_car_about__icontains=slug)|Q(c_car_model__icontains=slug)|Q(c_make_by__icontains=slug))    
+    Posts = UserAddCar.objects.filter(Q(c_title__icontains=slug)|Q(c_car_about__icontains=slug)|Q(c_car_model__icontains=slug)|Q(c_make_by__icontains=slug), c_admin_approved=True)    
     paginator = Paginator(Posts, 10)
     page_no = request.GET.get('page')
     paje_object = paginator.get_page(page_no)
@@ -76,8 +95,7 @@ def Unlike(request):
         unlike = SavePost.objects.get(user=user, post_id__in=unlike_id)
         unlike.delete()
         return HttpResponse("Unlike")
-    else:
-        return HttpResponse("error")
+    return redirect("home")
 
 
 @csrf_exempt
@@ -94,32 +112,37 @@ def PostSave(request):
             return HttpResponse("PostSave")
         else:
             return HttpResponse("PostExists")
+    return redirect("home")
 
 
 def home_search(request):
-    search_car_by_name = request.GET.get('query')
-    search_location = request.session.get('user-city')
-    save_post = None
-    if request.user.is_authenticated:
-        user = request.user
-        ids = UserAddCar.objects.filter(c_title__icontains=search_car_by_name, c_user_city__icontains=search_location).order_by('c_id').values_list('c_id', flat=True)
-        save_post = SavePost.objects.filter(user=user, post_id__in=ids).values_list('post_id', flat=True)
-    if 'term' in request.GET:
-        get_term = request.GET.get('term').lower()
-        qs = UserAddCar.objects.filter(Q(c_title__icontains=get_term)|Q(c_make_by__icontains=get_term)|Q(c_car_about__icontains=get_term)|Q(c_car_model__icontains=get_term)|Q(c_car_name__icontains=get_term))
-        titles = list()
-        for post_title in qs:
-            titles.append(post_title.c_title)
-        return JsonResponse(titles, safe=False)
-    else:    
-        if search_location == "" and search_car_by_name == "":
-            search_home_page = []
-        else:
-            search_home_page = UserAddCar.objects.filter(c_title__icontains=search_car_by_name, c_user_city__icontains=search_location).order_by('c_id')
+    if 'query' in request.GET or 'min' in request.GET or 'max' in request.GET:
+        query_set = request.GET.get('query')
+        min_price = request.GET.get('min')
+        max_price = request.GET.get('max')
+        save_post = ""
+        paje_object = ""
+        if request.user.is_authenticated:
+            user = request.user
+            ids = UserAddCar.objects.filter(Q(tags__name__icontains=query_set)|Q(c_title__icontains=query_set)|Q(c_user_city__icontains=query_set), c_admin_approved=True).order_by('c_id').values_list('c_id', flat=True)
+            save_post = SavePost.objects.filter(user=user, post_id__in=ids).values_list('post_id', flat=True)
+        if query_set == "":
+            search_home_page = UserAddCar.objects.filter(c_user_city=geo.city, c_admin_approved=True).order_by('c_id')
             paginator = Paginator(search_home_page, 10)
             page_no = request.GET.get('page')
             paje_object = paginator.get_page(page_no)
-    return render(request, 'home_search.html', {'search_home_page':paje_object, 'loc_query': search_location, 'query_shr':search_car_by_name, 'save_post':save_post})
+        elif min_price is not None and max_price is not None:
+            search_home_page = UserAddCar.objects.filter(Q(tags__name__icontains=query_set)|Q(c_title__icontains=query_set)|Q(c_user_city__icontains=query_set), c_par_day_price__range=[min_price, max_price], c_admin_approved=True).order_by('c_id')
+            paginator = Paginator(search_home_page, 10)
+            page_no = request.GET.get('page')
+            paje_object = paginator.get_page(page_no)
+        else:
+            search_home_page = UserAddCar.objects.filter(Q(tags__name__icontains=query_set)|Q(c_title__icontains=query_set)|Q(c_user_city__icontains=query_set), c_admin_approved=True).order_by('c_id')
+            paginator = Paginator(search_home_page, 10)
+            page_no = request.GET.get('page')
+            paje_object = paginator.get_page(page_no)
+        return render(request, 'home_search.html', {'search_home_page':paje_object, 'save_post':save_post, 'query_set':query_set})
+    return redirect("home")
 
 
 
@@ -211,6 +234,7 @@ def EmailVerify(request):
     return redirect("home")
 
 
-
-
-
+def SearchFilter(request):
+    r = request.path
+    print(r)
+    return HttpResponse("hello")

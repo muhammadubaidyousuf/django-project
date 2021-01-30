@@ -1,12 +1,11 @@
-{% for tags in alltags %}
 
-<a href="{{HTTP_HOST}}/tags/{{ tags.slug }}"><p>{{ tags.name }}</p></a>
 
-{% endfor %}
+
 
 
 {% for poo in post %}
-
+{% for tags in poo.tags.all() %}
+<a href="{{HTTP_HOST}}/tags/{{ tags.slug }}"><p>{{ tags.name }}{{tags.id}}</p></a>
 <a href="{% url 'post' poo.c_id poo.c_slug %}"><h2>{{poo.c_title}}</h2></a>
-
+{% endfor %}
 {% endfor %}

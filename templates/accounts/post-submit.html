@@ -1,0 +1,15 @@
+{% extends '../base.html' %}
+{% block title %}Post Submit{% endblock %}
+{% block body %}
+<div class="add-car-main-body">
+	<div class="res-form-card">
+		<div class="rps-label-div">
+			<div class="post-submit">
+				<i class="fa fa-check-circle"></i>
+				<h3>Post Submit Successfully</h3>
+			</div>
+			<a href="{% url 'my_account' %}"><button class="submit-btn" ><i class="fa fa-arrow-left"></i> My Account</button>
+		</div>	
+	</div>
+</div>
+{% endblock %}

@@ -26,7 +26,7 @@
 					<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
 					<p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p>
 				</div>
-				<a href="http://127.0.0.1:8000/post/view/{{ post.c_id }}"><p>{{ post.c_title | title }}</p>
+				<a href="{% url 'post' post.c_id post.c_slug %}"><p>{{ post.c_title | title }}</p>
 				<img src="{{ post.c_select_image.url }}" height="150" width="150">
 				<h4>Rent Par Day {{ post.c_par_day_price }}</h4></a>
 			</div>

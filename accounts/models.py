@@ -14,9 +14,17 @@ class UserOTP(models.Model):
     otp = models.SmallIntegerField()
 
 
-class CarImages(models.Model):
-    name_img = models.CharField(max_length=30)
-    car_img = models.ImageField(upload_to='cars/img', null=True)
+class CarsName(models.Model):
+    make_by = models.CharField(max_length=30)
+    def __str__(self):
+        return self.make_by
+
+class CarsModel(models.Model):
+    make_by_id = models.ForeignKey(CarsName, on_delete = models.CASCADE)
+    model_name = models.CharField(max_length=30)
+    def __str__(self):
+        return self.model_name
+
 
 class EmailSubscribe(models.Model):
     sbc_email = models.CharField(max_length=70)
@@ -70,19 +78,23 @@ class UserBookCar(models.Model):
 
 class UserAddCar(models.Model):
     c_id = models.AutoField(primary_key=True, null=False)
-    c_title = models.CharField(max_length=100)
+    c_title = models.CharField(max_length=70)
+    c_select_image = models.ImageField(upload_to='posts/img', null=True, blank=True)
     c_car_model = models.CharField(max_length=8)
-    c_self_driver = models.CharField(max_length=20)
+    c_self_driver = models.CharField(max_length=5)
     c_make_by = models.CharField(max_length=20, null=True, blank=True)
     c_car_name = models.CharField(max_length=30)
-    c_user_city = models.CharField(default=g.city, max_length=15)
+    c_user_city = models.CharField(max_length=15, null=True, blank=True)
+    c_user_state = models.CharField(max_length=15, null=True, blank=True)
     c_car_color = models.CharField(max_length=15)
-    c_car_about = models.TextField()
-    c_par_day_price = models.CharField(max_length=20)
+    c_car_about = models.TextField(max_length=400)
+    c_par_day_price = models.IntegerField()
     c_car_plate = models.CharField(max_length=20)
     c_address = models.CharField(max_length=200)
     c_log_2 = models.CharField(max_length=30)
     c_let_1 = models.CharField(max_length=30)
+    c_admin_approved = models.BooleanField(default=False)
+    c_view_counter = models.IntegerField(blank=True, null=True)
     c_date_time = models.DateTimeField(default=timezone.now)
     c_slug = models.SlugField(max_length=40, null=True, blank=True)
     tags = TaggableManager()
@@ -93,7 +105,7 @@ class UserAddCar(models.Model):
         return self.c_title
 
     def get_absolute_url(self):
-    	return reverse('post', args=[str(self.c_id)])
+    	return reverse('post', args=[str(self.c_id), str(self.c_slug)])
 
 
 

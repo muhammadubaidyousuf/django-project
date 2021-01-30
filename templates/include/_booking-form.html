@@ -43,11 +43,15 @@
 	  </div>
 </div>
 <script>
-	$( function() {
-	$( "#start-date" ).datepicker();
-	} );
+		var dateToday = new Date();
+	$( "#start-date" ).datepicker({
+        minDate: dateToday,
+         showOtherMonths: true,
+	});
 
-	$( function() {
-	$( "#end-date" ).datepicker();
-	} );
+		$( "#end-date" ).datepicker({
+         showOtherMonths: true,
+         maxDate: "+1Y",
+         changeMonth: true,
+	});
 </script>

@@ -1,6 +1,7 @@
 {% extends '../base.html' %}
 {% block title %}Post Your Car For Rent{% endblock %}
 {% block body %}
+{% load static %}
 <div class="add-car-main-body">
 	<div class="rps-img-div">
 	{% if messages %}
@@ -14,20 +15,22 @@
 			{% csrf_token %}
 			<h2>Title and price</h2>
 			<div class="rps-label-div">
-				<label class="rps-label" for="c-title">Post Title</label>
-				<input class="responsiv-input" type="text" name="c-title" placeholder="Title" required>
+				<label class="rps-label" for="Title">Post Title</label>
+				<input id="Title" class="responsiv-input" type="text" name="title" placeholder="Title" required maxlength="70">
+				<p>Your title word limit is (70) <span id="sub_msg"></span></p>
 			</div>
 
 			<div class="rps-label-div">
-				<label class="rps-label" for="c-par-day-price">Per Day Rent</label>
-				<input class="responsiv-input" type="text" name="c-par-day-price" placeholder="Price" required>
+				<label class="rps-label" for="price">Per Day Rent</label>
+				<input class="responsiv-input" id="price" type="number" name="price" placeholder="1000-100000" required maxlength="20">
 			</div>	
 		</div>
 		<div class="res-form-card">
 			<h2>Car information</h2>
 			<div class="rps-label-div">
-				<label class="rps-label" for="c-color">Car Color</label>
-				<select name="c-color" id="browser" class="responsiv-input" placeholder="Car Color">
+				<label class="rps-label" for="browser">Car Color</label>
+				<select name="color" id="browser" class="responsiv-input" placeholder="Car Color">
+					<option selected disabled>Color</option>
 					<option value="Red">Red</option>
 					<option value="Blue">Blue</option>
 					<option value="Black">Black</option>
@@ -37,28 +40,53 @@
 			</div>
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-model">Car Model Year</label>
-				<select class="responsiv-input" name="c-model" required placeholder="Model Year">
+				<select class="responsiv-input" name="model-year" required placeholder="Model Year">
+					<option selected disabled>Model Year</option>
 					{% for year in years %}
 					<option value="{{ year }}">{{ year }}</option>
 					{% endfor %}
 				</select>
 			</div>	
 			<div class="rps-label-div">
-				<label class="rps-label" for="c-car-name">Chose A Car</label>
-				<select type="text" name="c-car-name" class="responsiv-input">
-					{% for car in get_imgs %}
-						<option value="{{ car.name_img }}">{{ car.name_img }}</option>
+				<label class="rps-label" for="select1">Make By</label>
+				<select id="select1" type="text" name="make-by" class="responsiv-input">
+					<option selected disabled>Make By</option>
+					{% for car in cars_name %}
+						<option value="{{ car.make_by }}">{{ car.make_by }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="rps-label-div" id="m-show" style="display: none;">
+				<label class="rps-label" for="c-car-name">Car Model</label>
+				<select id="select2" type="text" name="car-name" class="responsiv-input">
+					{% for car in cars_model %}
+						<option model="{{ car.make_by_id }}" value="{{car.model_name}}">{{ car.model_name }}</option>
 					{% endfor %}
 				</select>
 			</div>
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-number-plate">License No Plate</label>
-				<input class="responsiv-input" type="text" name="c-number-plate" placeholder="License Plate" required>
+				<input class="responsiv-input" type="text" name="no-plate" placeholder="License Plate" required maxlength="20">
+				<p>Car license plate not be show on publicly</p>
 			</div>	
+
+			<div class="rps-label-div">
+				<label class="rps-label">Self Dirver</label>
+				<label class="label-radio" for="yes">Yes
+					<input type="radio" id="yes" name="self-driver" value="yes">
+					<span></span>
+				</label>
+				<label class="label-radio" for="no">No
+					<input type="radio" id="no" name="self-driver" value="no" checked="checked">
+					<span></span>
+				</label>
+			</div>
+
 		</div>
 
 		<div class="res-form-card">
 			<h2 id="afterImg">Upload multiple image files</h2>
+			<input type="file" name="cover-image">
 			<div class="upload-cars-imgs" id="after">
 				<label for="files">
 					<input type="file" id="files" name="files[]" onchange="FF(this)" multiple>
@@ -69,33 +97,33 @@
 		<div class="res-form-card">
 			<h2>Address</h2>
 			<div class="rps-label-div">
-				<input type="hidden" id="c-let" name="c-let-1">
-				<input type="hidden" id="c-log" name="c-log-2">
+				<input type="hidden" id="let" name="let">
+				<input type="hidden" id="lng" name="lng">
 			</div>	
-
-			<div class="rps-label-div">	
-				<label class="rps-label" for="c-model">City</label>
-				<input class="responsiv-input" value="Karachi" type="text" name="c-user-city" placeholder="City" required>
+				<a href="javascript:void(0)" id="get-loc-btn">
+					<i class="fa fa-map-marker"></i>
+				Carrant Location <img src="{% static 'css/icon/c-lod.gif' %}" height="15" width="15" style="display: none;" id="c-lod">
+			</a>
+			<div class="fl-adrs">
+				<div class="rps-label-div">	
+					<label class="rps-label" for="inp-state">State</label>
+					<input class="responsiv-input" id="inp-state" type="text" name="state" placeholder="State" required maxlength="15">
+				</div>
+				<div class="rps-label-div">	
+					<label class="rps-label" for="inp-city">City</label>
+					<input class="responsiv-input" id="inp-city" type="text" name="city" placeholder="City" required maxlength="15">
+				</div>
+				<div class="rps-label-div">	
+					<label class="rps-label" for="inp-addr">Address</label>
+					<input class="responsiv-input" id="inp-addr" type="text" name="address" placeholder="Address" required maxlength="200">
+				</div>
 			</div>
-			<div class="rps-label-div">	
-				<label class="rps-label" for="c-model">Address</label>
-				<input class="responsiv-input" type="text" name="c-address" placeholder="Address" required>
 			</div>
-
-			<div class="rps-label-div">
-				<p class="rps-label">Self Driver</p>
-				<label class="label-radio" for="yes">Yes
-					<input type="radio" id="yes" name="c-self-driver" value="yes">
-					<span></span>
-				</label>
-				<label class="label-radio" for="no">No
-					<input type="radio" id="no" name="c-self-driver" value="no" checked="checked">
-					<span></span>
-				</label>
-			</div>	
+			<div class="res-form-card">	
 			<div class="rps-label-div textarea-inp">
-				<label class="rps-label" for="c-dec">Type Some Details </label>
-				<textarea class="responsiv-input" name="c-dec" placeholder="Write Some About" required="Fill this fild"></textarea>
+				<label class="rps-label" for="C_dec">Type Some Details </label>
+				<textarea id="C_dec" class="responsiv-input" name="dec" placeholder="Write Some About" required="Fill this fild" maxlength="400"></textarea>
+				<p>Your title word limit is (0-400) <span id="sub_dec">0</span></p>
 			</div>
 			<div class="rps-label-div">
 				<button class="submit-btn" id="add-car-submit" type="submit" name="add-post">Submit</button>
@@ -105,31 +133,105 @@
 	</div>
 </div>
 
+	
+	
+<script> 
 
-<script>
+$("#files").on("change", function(){
+	const pip = document.querySelectorAll('.pip');
+	console.log(pip.length);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	var $select1=$('#select1'),
+    $select2=$('#select2'),
+    $options=$select2.find('option');
+    $select1.on("change", function(){
+      $select2.html($options.filter('[model="'+this.value+'"]'));
+  }).trigger('change');
+$("#select1").on("change", function(){
+  $("#m-show").css("display", "block")
+})
+
+$('#Title').on('keyup keydown change', function () {
+  $("#sub_msg").html($(this).val().length);
+    if($(this).val().length > 70){
+
+        val=$(this).val().substr(0,$(this).val().length-1);
+        $(this).val(val);
+    };
+});
+$('#C_dec').on('keyup keydown change', function () {
+  $("#sub_dec").html($(this).val().length);
+    if($(this).val().length > 300){
+
+        val=$(this).val().substr(0,$(this).val().length-1);
+        $(this).val(val);
+    };
+});
+
+
+$("#get-loc-btn").on("click", function(){
+	$("#c-lod").show();
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+	$.ajax({
+		url: "{% url 'get_address' %}",
+		method: "POST",
+		success:function(data){
+			$("#inp-city").val(data.city);
+			$("#inp-state").val(data.state);
+			$("#c-lod").hide();
+		},
+	})
+
+  function showPosition(position) {
+    var let = position.coords.latitude; 
+    var lng = position.coords.longitude;
+    $("#let").val(let);
+    $("#lng").val(lng);
+  }
+});
+
+
+
+$("#enter-add-show").click(function(){
+  $(".fl-adrs").css("display", "block");
+  $(".loc-data").css("display", "none");
+});
 function FF(ee){
-	for (var i = 0; i < $(".pip").length; i++) {
-		alert(i)
-	}
-	var name = document.getElementById('files');
-	var isValid = /\.(jpe?g|png|gif|bmp|jpeg)$/i.test(name.value)
-	var FileSize = name.files[0].size / 1024 / 1024;
-	if(!isValid){
-		document.getElementById('files').value = "";
-		alert("Please Upload Image File")
-	}else if($("#files")[0].files.length > 2){
-		alert("Only 2 files")
-	}else if (FileSize > 1){
-		alert("Max File Size (1 MB)")
-		document.getElementById('files').value = "";
-	}else if($(".pip").length > 5){
-		alert("Only 5 Images")
-	} 
+  var name = document.getElementById('files');
+  var isValid = /\.(jpe?g|png|gif|bmp|jpeg)$/i.test(name.value)
+  var FileSize = name.files[0].size / 1024 / 1024;
+  if(!isValid){
+    document.getElementById('files').value = "";
+    alert("Please Upload Image File")
+  }else if($("#files")[0].files.length > 6){
+    alert("6 images are allow")
+    document.getElementById('files').value = "";
+  }else if (FileSize > 1){
+    alert("Max File Size (1 MB)")
+    document.getElementById('files').value = "";
+  }else if($(".pip").length > 5){
+    alert("Only 5 Images")
+  } 
 }
-
-
-
-	$(document).ready(function() {
+  $(document).ready(function() {
   if (window.File && window.FileList && window.FileReader) {
     $("#files").on("change", function(e) {
       var files = e.target.files,
@@ -141,7 +243,7 @@ function FF(ee){
           var file = e.target;
           $("<span class=\"pip\">" +
             "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-            "<br/><span class=\"remove\">Remove image</span>" +
+            "<br/><span class=\"remove\"><i class='fa fa-times-circle'></i></span>" +
             "</span>").insertAfter("#after");
           $(".remove").click(function(){
             $(this).parent(".pip").remove();
@@ -157,5 +259,5 @@ function FF(ee){
 });
 
 </script>
-	
+
 {% endblock %}

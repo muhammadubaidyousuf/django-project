@@ -1,4 +1,4 @@
-from .models import UserBookCar, SavePost
+from .models import UserBookCar, SavePost, UserAddCar
 from userprofile.models import UserInformationExt
 from taggit.models import Tag
 from django.http import Http404
@@ -21,7 +21,7 @@ def Notifications(request):
 	notification_count = 0
 	if request.user.is_authenticated:	
 		user = request.user
-		notification_count = UserBookCar.objects.filter(post_user_id=user.id-1, status_check=False).count()
+		notification_count = UserBookCar.objects.filter(post_user_id=user.id, status_check=False).count()
 	return {'notification_count':notification_count}
 
 

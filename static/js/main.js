@@ -74,7 +74,8 @@ function dataSubmit(){
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";}
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
 
   function showPosition(position) {
    var let_1 = position.coords.latitude;
@@ -185,15 +186,19 @@ window.addEventListener("click", function(event) {
 
 // open option option model
 var optionModel = document.getElementById("yes-or-no");
-var clickBtn = document.getElementById("c-delete-btn");
-clickBtn.onclick = function OpenOptionModel(){
-optionModel.style.display = "block";
+
+function PostsDelete(x, id){
+  optionModel.style.display = "block";
+  document.getElementById("DelBtn").setAttribute("href", "post-delete/"+id+"/");
 }
 
 function optionClose(){
 optionModel.style.display = "none";
 }
-
-
 // like data sending
 
+
+// Add car script---
+
+
+// Add car script end---

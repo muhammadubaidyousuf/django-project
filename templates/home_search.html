@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
-{% block title %}{{query_shr|title}}{% endblock %}
+{% block title %}{{query_set|title}}{% endblock %}
 {% block body %}
 <div class="account-body">
     <div class="account-card-body">
       <hr>
       {% if search_home_page|length < 1 %}
       <div class="head-bar">
-        <h4>{{query_shr|title}} Not Found</h4>
+        <h4>{{query_set|title}}: Not Found</h4>
         <p>No Post Available</p>      
       </div>
       {% else %}
       <div class="account-post-card">
         <div class="card-sub">
-          <p class="tooltip" style="float: right;"><a href="#" class="a-link-tag" id="open-filters">Filter?</a>
+          <p class="tooltip" style="float: right;"><a href="javascript:void(0);" class="a-link-tag" id="open-filters">Filter?</a>
             <span class="tooltiptext">Search Filters</span>
             </p>
-          <b><p>Search:</b> {{query_shr}}</p>
+          <b><p>Search:</b> {{query_set}}</p>
         </div>
       </div>
       {% for post in search_home_page %}
@@ -24,24 +24,25 @@
           <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
         <div class="like-save">
           {% if post.c_id in save_post %}
-          <i class="fa fa-heart tooltip" aria-hidden="true" onclick="UnlikeMe(this, {{post.c_id}})">
-            <span class="tooltiptext">liked</span>
-          </i>
-          {% else %} 
-          <i id="unlike-p" class="fa fa-heart-o tooltip" aria-hidden="true" onclick="LikeMe(this, {{post.c_id}})">
-            <span class="tooltiptext">like this</span>
-          </i>
+          <a href="javascript:void(0);" onclick="UnlikeMe(this, {{post.c_id}})">
+            <i class="fa fa-heart"></i>
+          </a>
+          {% else %}
+          <a href="javascript:void(0);" onclick="LikeMe(this, {{post.c_id}})">
+            <i id="unlike-p" class="fa fa-heart-o"></i>
+          </a>
           {% endif %}
         </div>
       </div>
         <hr>
       <div class="card-title-info">
+        <a href="{% url 'post' post.c_id post.c_slug %}">
         <img src="{{post.c_select_image.url}}" height="200" width="200">
         <h1>{{post.c_title | title}}</h1>
-        <p>{{post.c_car_about|slice:":100"}} <a href="{% url 'post' post.c_id post.c_slug %}">Red More...</a></p>
+        <p>{{post.c_car_about|slice:":100"}}</p></a>
       </div>
       <div class="card-date-time">
-        <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time.date}}</p>
+        <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.c_date_time|timesince}}</p>
         <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{post.c_user_city}}</p>
       </div>
       </div>

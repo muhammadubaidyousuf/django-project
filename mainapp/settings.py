@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
     'taggit',
+    'django.contrib.humanize',
 
 ]
 
@@ -84,8 +85,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mainapp.wsgi.application'
-
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -178,7 +177,7 @@ SITE_ID = 1
 #
 
 #
-# LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/"
 #
 #
 # SOCIALACCOUNT_PROVIDERS = {
@@ -189,6 +188,3 @@ SITE_ID = 1
 #         }
 #     }
 # }
-
-
-

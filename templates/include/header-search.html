@@ -11,7 +11,7 @@
   <script>
   $( function() {
     $( "#searchBar" ).autocomplete({
-      source: "{% url 'search' %}",
+      source: "{% url 'autofill' %}",
       minLenght: 2,
     });
 });

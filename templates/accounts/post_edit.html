@@ -1,90 +1,140 @@
 {% extends '../base.html' %}
-{% block title %}{{edit_post.c_title | title }}{% endblock %}
+{% block title %}Post Your Car For Rent{% endblock %}
 {% block body %}
 {% load static %}
 <div class="add-car-main-body">
 	<div class="rps-img-div">
+	{% if messages %}
+		{% for message in messages %}
+			{{message}}
+		{% endfor %}
+	{% endif %}
 	</div>
-	<div class="res-form-card">
-		<a href="{% url 'my_account' %}" style="flex: left;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
-			<h1 style="padding: 20px;">Edit Post</h1>
-			{% if messages %}
-				{% for message in messages %}
-					{{message}}
-				{% endfor %}
-			{% endif %}
+		<div class="res-form-card">
 		<form action="" method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
+			<h2>Title and price</h2>
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-title">Post Title</label>
-				<input value="{{edit_post.c_title}}" class="responsiv-input" type="text" name="c-title" placeholder="Title" required>
+				<input value="{{edit_post.c_title}}" id="Title" class="responsiv-input" type="text" name="c-title" placeholder="Title" required>
+				<p>Your title word limit is (70) <span id="sub_msg"></span></p>
 			</div>
-			<div class="rps-label-div">
-				<label class="rps-label" for="c-car-name">Chose A Car</label>
-				<select class="responsiv-input" id="showimage" name="c-car-name" required>
-					<option value="{{edit_post.c_car_name}}">{{edit_post.c_car_name|title}}</option>
-					{% for car in edit_img %}
-					<option value="{{ car.name_img }}">{{ car.name_img | title}}</option>
-					{% endfor %}
-				</select>
-			</div>
-			<div class="rps-label-div upload-cars-imgs"> 
-				<label class="rps-label" for="c-select-image">Upload Cars Images</label><br>
-			    <input name="c-select-image" id="file-input" type="file">
-			</div>
-			<div class="preview-car-img" id="preview"></div>
-			<div class="rps-label-div">
-				<input type="hidden" id="c-let" name="c-let-1">
-				<input type="hidden" id="c-log" name="c-log-2">
-			</div>	
-			<div class="rps-label-div">
-				<label class="rps-label" for="c-color">Car Color</label>
-				<select class="responsiv-input" name="c-color" required>
-					<option value="{{edit_post.c_car_color}}">{{edit_post.c_car_color}}</option>
-					<option value="red">Red</option>
-					<option value="blue">Blue</option>
-					<option value="black">Black</option>
-					<option value="gray">Gray</option>
-					<option value="white">White</option>
-				</select>
-			</div>
+
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-par-day-price">Per Day Rent</label>
-				<input value="{{edit_post.c_par_day_price}}" class="responsiv-input" type="text" name="c-par-day-price" placeholder="Price" required>
+				<input value="{{edit_post.c_par_day_price}}" class="responsiv-input" type="number" name="c-par-day-price" placeholder="1000-100000" required>
 			</div>	
+		</div>
+		<div class="res-form-card">
+			<h2>Car information</h2>
+			<div class="rps-label-div">
+				<label class="rps-label" for="c-color">Car Color</label>
+				<select name="c-color" id="browser" class="responsiv-input" placeholder="Car Color">
+					<option value="{{edit_post.c_car_color|title}}">{{edit_post.c_car_color|title}}</option>
+					<option value="Red">Red</option>
+					<option value="Blue">Blue</option>
+					<option value="Black">Black</option>
+					<option value="Gray">Gray</option>
+					<option value="White">White</option>
+				</select>
+			</div>
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-model">Car Model Year</label>
-				<select class="responsiv-input" name="c-model" required>
-					<option value="{{edit_post.c_car_model}}">{{edit_post.c_car_model}}</option>
+				<select class="responsiv-input" name="c-model" required placeholder="Model Year">
+					<option >{{edit_post.c_car_model}}</option>
 					{% for year in edit_year %}
 					<option value="{{ year }}">{{ year }}</option>
 					{% endfor %}
 				</select>
 			</div>	
-			<div class="rps-label-div">	
-				<label class="rps-label" for="c-model">Address</label>
-				<input value="{{edit_post.c_address}}" class="responsiv-input" type="text" name="c-address" placeholder="Address" required>
+			<div class="rps-label-div">
+				<label class="rps-label" for="c-car-name">Make By</label>
+				<select id="select1" type="text" name="c-car-name" class="responsiv-input">
+					<option value="{{edit_post.c_make_by}}">{{edit_post.c_make_by}}</option>
+					{% for car in cars_name %}
+						<option value="{{ car.make_by }}">{{car.make_by}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="rps-label-div" id="m-show">
+				<label class="rps-label" for="c-car-name">Car Model</label>
+				<select id="select2" type="text" name="c-car-name" class="responsiv-input">
+					<option value="{{edit_post.c_car_name}}">{{edit_post.c_car_name}}</option>
+					{% for car in cars_model %}
+						<option model="{{car.make_by_id}}" value="{{edit_post.c_car_name}}">{{edit_post.c_car_name}}</option>
+					{% endfor %}
+				</select>
 			</div>
 			<div class="rps-label-div">
 				<label class="rps-label" for="c-number-plate">License No Plate</label>
 				<input value="{{edit_post.c_car_plate}}" class="responsiv-input" type="text" name="c-number-plate" placeholder="License Plate" required>
+				<p>Car license plate not be show on publicly</p>
 			</div>	
+
 			<div class="rps-label-div">
-				<label class="rps-label" for="c-self-driver">You Giving Driver</label>
-				<select class="responsiv-input" name="c-self-driver" required>
-					<option value="{{edit_post.c_self_driver}}">{{edit_post.c_self_driver}}</option>
-					<option value="yes">Yes</option>
-					<option value="no">No</option>
-				</select>
+				<label class="rps-label">Self Dirver</label>
+				<label class="label-radio" for="yes">Yes
+					<input type="radio" id="yes" name="c-self-driver" value="yes">
+					<span></span>
+				</label>
+				<label class="label-radio" for="no">No
+					<input type="radio" id="no" name="c-self-driver" value="no" checked="checked">
+					<span></span>
+				</label>
+			</div>
+
+		</div>
+
+		<div class="res-form-card">
+			<h2 id="afterImg">Upload multiple image files</h2>
+			<div class="upload-cars-imgs" id="after">
+				<label for="files">
+					<input type="file" id="files" name="files[]" onchange="FF(this)" multiple>
+					<i class="fa fa-camera"></i>
+				</label>
+			</div>
+			{% for image in images %}
+			<span class="pip">
+				<img class="imageThumb" src="{{image.multi_imgs.url}}">
+				<br/><span class="remov"><i class='fa fa-times-circle'></i></span>
+			</span>
+			{% endfor %}
+		</div>
+		<div class="res-form-card">
+			<h2>Address</h2>
+			<div class="rps-label-div">
+				<input type="hidden" id="let" name="c-let-1">
+				<input type="hidden" id="lng" name="c-log-2">
 			</div>	
+			<a href="javascript:void(0)" id="get-loc-btn">
+				<i class="fa fa-map-marker"></i>
+			Carrant Location</a>
+			<div class="fl-adrs">
+				<div class="rps-label-div">	
+					<label class="rps-label" for="c-model">State</label>
+					<input class="responsiv-input" id="inp-state" type="text" name="state" placeholder="State" required maxlength="15">
+				</div>
+				<div class="rps-label-div">	
+					<label class="rps-label" for="c-model">City</label>
+					<input value="{{edit_post.c_user_city}}" class="responsiv-input" id="inp-city" type="text" name="city" placeholder="City" required maxlength="15">
+				</div>
+				<div class="rps-label-div">	
+					<label class="rps-label" for="c-model">Address</label>
+					<input value="{{edit_post.c_address}}" class="responsiv-input" id="inp-addr" type="text" name="c-address" placeholder="Address" required maxlength="200">
+				</div>
+			</div>
+			</div>
+			<div class="res-form-card">	
 			<div class="rps-label-div textarea-inp">
 				<label class="rps-label" for="c-dec">Type Some Details </label>
-				<textarea class="responsiv-input" name="c-dec" placeholder="Write Some About" required="Fill this fild">{{edit_post.c_car_about}}</textarea>
+				<textarea id="C_dec" class="responsiv-input" name="c-dec" placeholder="Write Some About" required="Fill this fild">{{edit_post.c_car_about}}</textarea>
+				<p>Your title word limit is (300) <span id="sub_dec"></span></p>
 			</div>
 			<div class="rps-label-div">
 				<button class="submit-btn" id="add-car-submit" type="submit" name="add-post">Submit</button>
 			</div>	
 		</form>
 	</div>
-</div>
+	</div>
+</div>	
 {% endblock %}

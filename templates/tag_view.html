@@ -17,13 +17,13 @@
           <h3>Per Day Rent : <span>{{post.c_par_day_price}}</span></h3>
         <div class="like-save">
           {% if post.c_id in save_post %}
-          <i class="fa fa-heart tooltip" aria-hidden="true" onclick="UnlikeMe(this, {{post.c_id}})">
-            <span class="tooltiptext">liked</span>
-          </i>
-          {% else %} 
-          <i id="unlike-p" class="fa fa-heart-o tooltip" aria-hidden="true" onclick="LikeMe(this, {{post.c_id}})">
-            <span class="tooltiptext">like this</span>
-          </i>
+          <a href="javascript:void(0);" onclick="UnlikeMe(this, {{post.c_id}})">
+            <i class="fa fa-heart"></i>
+          </a>
+          {% else %}
+          <a href="javascript:void(0);" onclick="LikeMe(this, {{post.c_id}})">
+            <i id="unlike-p" class="fa fa-heart-o"></i>
+          </a>
           {% endif %}
         </div>
       </div>
